@@ -14,6 +14,12 @@ public class Effects : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+
+        var physicsMotion = GetComponentInChildren<RFX4_PhysicsMotion>(true);
+        if (physicsMotion != null) physicsMotion.CollisionEnter += CollisionEnter;
+
+	    var raycastCollision = GetComponentInChildren<RFX4_RaycastCollision>(true);
+        if(raycastCollision != null) raycastCollision.CollisionEnter += CollisionEnter;
     }
 
     // Update is called once per frame
@@ -44,4 +50,12 @@ public class Effects : MonoBehaviour
     {
         Instantiate(effect[skillNumber], effectTransform[skillNumber].position, effectTransform[skillNumber].rotation);
     }
+
+    private void CollisionEnter(object sender, RFX4_PhysicsMotion.RFX4_CollisionInfo e)
+    {
+        Debug.Log(e.HitPoint); //a collision coordinates in world space
+        Debug.Log(e.HitGameObject.name); //a collided gameobject
+        Debug.Log(e.HitCollider.name); //a collided collider :)
+    }
+
 }
