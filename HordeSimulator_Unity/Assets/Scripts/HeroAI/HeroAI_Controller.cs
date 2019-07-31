@@ -5,9 +5,7 @@ using UnityEngine.AI;
 
 public class HeroAI_Controller : MonoBehaviour
 {
-    /* To Do
-    *   Fire, run, Reload, Heal, Suicide
-    */
+    /* To Do: Fire, run, Reload, Heal, Suicide */
     [Header("Testing only")]
     public Vector3 destination;     
             
@@ -34,4 +32,29 @@ public class HeroAI_Controller : MonoBehaviour
     {
         agent.SetDestination(destination);
     }
-}
+
+    /* AI Action Methodes */
+    // Move to target
+    void MoveTo(Vector3 destination)
+    {
+
+    }
+
+    // attack target
+    void Attack(GameObject target)
+    {
+        targetObject = target;
+    }
+
+    // collect Item
+    void CollectItem()
+    {
+        // mini inventory system? or just walk over it 
+    }
+
+    //use Item
+    void UseItem(GameObject item)
+    {
+        //if hp low use healthpotion
+    }
+}   
