@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,9 +10,10 @@ public class HeroAI_Controller : MonoBehaviour
     [Header("Decision Related")]
     public Vector3 destination;                                     // if flee or anything, walk to destination   
             
-    [Header("Objects")] // have to be changed autamtic in Range of AI bzw. nearest to 
-    public Enemy targetEnemy;                                       // Enemyto Target 
+    [Header("Objects")]                                             // have to be changed autamtic in Range of AI bzw. nearest to 
+    public Transform targetEnemy;                                   // Enemyto Target 
     public GameObject targetItem;                                   // Item to get
+    public Transform idleObject;                                    // start Object. DELETE ME LATER
 
     [Header("Scoring System")]
     [Range(0,1)][SerializeField]    private float score;            // score calculated to choose action
@@ -19,18 +21,30 @@ public class HeroAI_Controller : MonoBehaviour
 
     private NavMeshAgent agent;
 
+    [Header("Sense")]
+    public float checkRadius = 5.0f;
+    public LayerMask checkLayers;
+    
+
     // ---------------------------------------------
 
-    // Start is called before the first frame update
     void Start()
     {
+        targetEnemy = idleObject;
         agent = GetComponent<NavMeshAgent>();
         destination = targetEnemy.transform.position;
     }
 
-    // Update is called once per frame
     void Update()
     {
+        SearchEnemyTarget();
+        
+        // save for Idle
+        if(targetEnemy == null)
+        {
+            targetEnemy = idleObject;
+        }
+
         float distanceToTarget = Vector3.Distance(this.transform.position , targetEnemy.transform.position); // calculate distance to target need ifstatement for range
         this.LookAt(this.transform, targetEnemy.transform);
 
@@ -38,6 +52,8 @@ public class HeroAI_Controller : MonoBehaviour
         {
             //ENEMY ATTACK PLAYER OR/AND PLAYER CAN CAST AT ENEMY
         }
+
+        
     }
 
     //Rotate HeroAI to Target
@@ -49,6 +65,22 @@ public class HeroAI_Controller : MonoBehaviour
         heroAI.rotation = Quaternion.Slerp(heroAI.rotation, lookRotation, Time.deltaTime * speed);
     }
 
+    // Search for new Target
+    public void SearchEnemyTarget()
+    {
+        Collider[] colliders = Physics.OverlapSphere(this.transform.position, checkRadius, checkLayers);
+        Array.Sort(colliders,new DistanceComparer(transform));
+        targetEnemy = colliders[0].transform;
+    }
+
+    // Draw CheckRadius of Hero Sense for Debugging
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(this.transform.position, checkRadius);
+    }
+
+
+    // --------------------------------------------
     /* AI Action Methodes */
     // Move to target
     void MoveTo(Vector3 destination)
@@ -57,7 +89,7 @@ public class HeroAI_Controller : MonoBehaviour
     }
 
     // attack target
-    void Attack(Enemy target)
+    void Attack(Transform target)
     {
         targetEnemy = target;
     }
