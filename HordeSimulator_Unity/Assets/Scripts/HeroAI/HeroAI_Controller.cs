@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
@@ -25,13 +25,14 @@ public class HeroAI_Controller : MonoBehaviour
     public float checkRadius = 5.0f;
     public LayerMask checkLayers;
     
-
+    private Animator animator;
     // ---------------------------------------------
 
     void Start()
     {
         targetEnemy = idleObject;
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
         destination = targetEnemy.transform.position;
     }
 
@@ -53,6 +54,11 @@ public class HeroAI_Controller : MonoBehaviour
             //ENEMY ATTACK PLAYER OR/AND PLAYER CAN CAST AT ENEMY
         }
 
+        if(Input.GetButtonDown("1"))
+        {
+            animator.SetTrigger("UseSkill");
+            animator.SetInteger("SkillNumber",0);
+        }
         
     }
 
