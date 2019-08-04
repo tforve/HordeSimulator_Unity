@@ -24,11 +24,6 @@ public class HeroAI_Controller : MonoBehaviour
     [Header("Sense")]
     public float checkRadius = 5.0f;
     public LayerMask checkLayers;
-
-    [Header("Skills")]
-    [SerializeField] private GameObject skill0;
-    [SerializeField] private GameObject hand;
-    private Animator animator;
     
 
     // ---------------------------------------------
@@ -37,7 +32,6 @@ public class HeroAI_Controller : MonoBehaviour
     {
         targetEnemy = idleObject;
         agent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
         destination = targetEnemy.transform.position;
     }
 
@@ -59,11 +53,6 @@ public class HeroAI_Controller : MonoBehaviour
             //ENEMY ATTACK PLAYER OR/AND PLAYER CAN CAST AT ENEMY
         }
 
-        if(Input.GetButtonDown("1"))
-        {
-            animator.SetInteger("SkillNumber", 0);
-            animator.SetTrigger("UseSkill");
-        }
         
     }
 
