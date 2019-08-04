@@ -109,7 +109,7 @@ public class ItemSpawner : MonoBehaviour
         state = SpawnState.WAITING;
         yield break;
     }
-
+    
     void SpawnItem(Transform _item)
     {
         Transform _spawnPoints = spawnPoints[Random.Range(0, spawnPoints.Length)];

@@ -52,7 +52,7 @@ public class AI_SeekMana : MonoBehaviour
         else
         {
             Vector3 dir = closest.transform.position - this.transform.position;
-			WeightedDirection wd = new WeightedDirection( dir, weight ); //1 is the weight
+			WeightedDirection wd = new WeightedDirection( dir, weight );
 			MyCharacter.desiredDirections.Add( wd );
         }
     }
