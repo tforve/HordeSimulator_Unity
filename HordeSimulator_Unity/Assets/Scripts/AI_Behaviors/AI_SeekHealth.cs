@@ -46,7 +46,7 @@ public class AI_SeekHealth : MonoBehaviour
 
         if(dist < collectingRange)
         {
-            MyCharacter.RestoreHeal(potionSize);
+            MyCharacter.RestoreHealth(potionSize);
             Destroy(closest.gameObject);
         }
         else
@@ -54,6 +54,7 @@ public class AI_SeekHealth : MonoBehaviour
             Vector3 dir = closest.transform.position - this.transform.position;
 			WeightedDirection wd = new WeightedDirection( dir, weight );
 			MyCharacter.desiredDirections.Add( wd );
+            // call MoveTo();
         }
     }
 }

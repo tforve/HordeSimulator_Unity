@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CharacterType {ENEMY, HERO, HEALTHPOTION, MANAPOTION }
 
 public class Character : MonoBehaviour
 {
+    [Header("Character Resources")]
     public float health = 100.0f;
     public float maxHealth = 100.0f;
     public float mana = 50.0f;
     public float maxMana = 100.0f;
+    [Space]
 
     public float runSpeed = 3.0f;
     private Vector3 velocity;       // for moving calculation
@@ -43,17 +44,14 @@ public class Character : MonoBehaviour
 
     void Update()
     {
-        //save
-        if(health <= 0.0f) {Destroy(gameObject); return;}
-        if(health > maxHealth) {health = maxHealth;}
-        if(mana > maxMana) {mana = maxMana;}
+        //Save checkers
+        if(mana <= 0.0f) { mana = 0.0f; }
 
-        
         //Ask all ot our AI Scripts to tell us what to do
         desiredDirections = new List<WeightedDirection>();
         BroadcastMessage("DoAIBehaviour", SendMessageOptions.DontRequireReceiver);
 
-        MoveTo();
+       // MoveTo();
         
     }
 
@@ -63,7 +61,6 @@ public class Character : MonoBehaviour
 		Vector3 dir = Vector3.zero;
 		foreach(WeightedDirection wd in desiredDirections) 
         {
-		// NOTE: If you are implementing EXCLUSIVE/FALLBACK blend modes, check here.
             if(importanceLevel == ImportanceLevel.ALLWAYS)
             {
                 // DO THIS OVER ALL
@@ -86,19 +83,22 @@ public class Character : MonoBehaviour
 
 
     // Methodes to call from AI_Behaviours
-    public void Hit(float dmg)
+    public void Hit(Character target, float dmg)
     {
+        Debug.Log("Char:" + this.name + " got hit for: " + dmg);
         health -= dmg;
-        if(health <= 0.0f){health = 0.0f;}
+        if(health <= 0.0f)  { Destroy(gameObject); return; }
     }
 
-    public void RestoreHeal(float amount)
+    public void RestoreHealth(float amount)
     {   
         health += amount;
+        if(health > maxHealth) { health = maxHealth; }
     }
 
     public void RestoreMana(float amount)
     {
         mana += amount;
+        if(mana > maxMana) { mana = maxMana; }
     }
 }

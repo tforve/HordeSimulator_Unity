@@ -6399,11 +6399,12 @@ GameObject:
   - component: {fileID: 2050265914}
   - component: {fileID: 2050265913}
   - component: {fileID: 2050265917}
-  - component: {fileID: 8794785029333860961}
   - component: {fileID: 55221723}
   - component: {fileID: 4748050804417371964}
   - component: {fileID: 1459271026}
   - component: {fileID: 1459271027}
+  - component: {fileID: 1459271018}
+  - component: {fileID: 1459271019}
   m_Layer: 0
   m_Name: HeroAI
   m_TagString: Hero
@@ -6511,33 +6512,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79f06f4ead28b424394e077a89c588b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {x: 0, y: 0, z: 0}
-  targetEnemy: {fileID: 0}
-  targetItem: {fileID: 0}
+  targetLookAt: {fileID: 0}
+  targetMoveTo: {fileID: 0}
   idleObject: {fileID: 158104245}
   score: 0
   veto: 0
   checkRadius: 25
+  fearDistance: 5
   checkLayers:
     serializedVersion: 2
     m_Bits: 512
---- !u!114 &8794785029333860961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2050265912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81541cc918bf7ab46a40da6cbc925ece, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
-  ammo: 60
-  magazineCapacity: 20
-  fear: 0
-  isDead: 0
+  animator: {fileID: 0}
 --- !u!114 &55221723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6599,7 +6584,7 @@ MonoBehaviour:
   importanceLevel: 0
   potionSize: 20
   collectingRange: 2
-  weight: 0
+  weight: 1
 --- !u!114 &1459271027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6616,7 +6601,39 @@ MonoBehaviour:
   importanceLevel: 0
   potionSize: 20
   collectingRange: 2
+  weight: 0.5
+--- !u!114 &1459271018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050265912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e56da2c0b18f9a943844a0fd26732dcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charType: 0
+  rangeOfCare: 3
   weight: 0
+--- !u!114 &1459271019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050265912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8d9099edda244d41b553aa8aabc029a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charType: 0
+  damage: 10
+  manaCost: 5
+  attackCooldown: 2.15
+  weight: 5
 --- !u!1 &2081212938
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,6 +4,8 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum CharacterType {ENEMY, HERO, HEALTHPOTION, MANAPOTION }
+
 public class HeroAI_Controller : MonoBehaviour
 {
     private static HeroAI_Controller _instance;
@@ -25,6 +27,8 @@ public class HeroAI_Controller : MonoBehaviour
     public Transform targetMoveTo;                                  // Changed by AI_MoveTo
     public Transform idleObject;                                    // start Object. DELETE ME LATER
 
+    private Character targetEnemy;
+
     [Header("Scoring System")]
     [SerializeField] private float score;                           // score calculated to choose action
     [SerializeField] private bool veto = false;                     // if true action can not be executed, if true utility = 0
@@ -36,7 +40,7 @@ public class HeroAI_Controller : MonoBehaviour
     
     // others
     private NavMeshAgent agent;
-    private Animator animator;
+    public Animator animator;
 
     // Get and Set Target etc
     public float MyScore
@@ -48,6 +52,10 @@ public class HeroAI_Controller : MonoBehaviour
     {
         get { return veto;}
         set { veto = value;}
+    }
+    public Character MyTargetEnemy
+    {
+        get{return targetEnemy;}
     }
     
     // ---------------------------------------------
@@ -81,14 +89,14 @@ public class HeroAI_Controller : MonoBehaviour
 
         float distanceToTarget = Vector3.Distance(this.transform.position , targetLookAt.transform.position);
 
-        if(Input.GetButtonDown("1"))
-        {
-            animator.SetTrigger("UseSkill");
-            animator.SetInteger("SkillNumber",0);
-        }
+        // if(Input.GetButtonDown("1"))
+        // {
+        //     animator.SetTrigger("UseSkill");
+        //     animator.SetInteger("SkillNumber",0);
+        // }
         
     }
-
+    
     // LEAVE IT IN BECAUSE IS DONE ALL THE TIME
     // Search for new Target to LookAt
     public void SearchEnemyTarget()
@@ -98,6 +106,7 @@ public class HeroAI_Controller : MonoBehaviour
         if(colliders.Length != 0)
         {
             targetLookAt = colliders[0].transform; 
+            targetEnemy = colliders[0].GetComponent<Character>();
             LookAt(targetLookAt.transform);
         }
     }

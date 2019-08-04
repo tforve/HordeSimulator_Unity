@@ -5,7 +5,7 @@ using UnityEngine;
 public class AI_EvadeEnemy : MonoBehaviour
 {
     public CharacterType charType = CharacterType.ENEMY;
-    public ImportanceLevel importanceLevel = ImportanceLevel.ALLWAYS;
+    // public ImportanceLevel importanceLevel = ImportanceLevel.ALLWAYS;
     public float rangeOfCare = 3.0f;
     public float weight = 2.0f;
 
@@ -38,14 +38,14 @@ public class AI_EvadeEnemy : MonoBehaviour
             }
 
         }
-        // no Potion existing
+        // no Enemy existing
         if(closestChar == null){ return;}
         Vector3 dir = closestChar.transform.position - this.transform.position;
-        dir *= -1;
+       // dir *= -1;
         
         // Do weight Calculation HERE 
         // 10/dist^2
-        weight = 10 / (dist*dist);        
+       // weight = 10 / (dist*dist);        
         
         WeightedDirection wd = new WeightedDirection( dir, weight ); //1 is the weight
 		MyCharacter.desiredDirections.Add( wd );

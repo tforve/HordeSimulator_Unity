@@ -53,7 +53,7 @@ public class AI_SeekHero : MonoBehaviour
             if(attackCooldown <= 0.0f)
             {
                 attackCooldown = attackSpeed;
-                closestChar.Hit(damage);
+                closestChar.Hit(closestChar,damage);
             }
         }
         else
@@ -61,6 +61,7 @@ public class AI_SeekHero : MonoBehaviour
             Vector3 dir = closestChar.transform.position - this.transform.position;
             WeightedDirection wd = new WeightedDirection( dir, weight ); //1 is the weight
             MyCharacter.desiredDirections.Add( wd );
+            MyCharacter.MoveTo();
         }
         
     }
