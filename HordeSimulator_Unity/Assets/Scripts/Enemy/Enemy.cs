@@ -16,7 +16,19 @@ public class Enemy : MonoBehaviour
     {
         if(healthPoints <= 0.0f)
         {
-            Destroy(this);
+            Debug.Log("Enemy killed: " + gameObject.name);
+            Destroy(gameObject);
         }
+
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            Hit(20.0f);
+        }
+
+    }
+
+    public void Hit(float dmg)
+    {
+        healthPoints -= dmg;
     }
 }

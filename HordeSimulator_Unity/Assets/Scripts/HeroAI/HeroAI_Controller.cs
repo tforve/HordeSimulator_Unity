@@ -70,7 +70,8 @@ public class HeroAI_Controller : MonoBehaviour
     {
         Collider[] colliders = Physics.OverlapSphere(this.transform.position, checkRadius, checkLayers);
         Array.Sort(colliders,new DistanceComparer(transform));
-        targetEnemy = colliders[0].transform;
+        if(colliders.Length != 0){targetEnemy = colliders[0].transform; }
+        
     }
 
     // Draw CheckRadius of Hero Sense for Debugging
