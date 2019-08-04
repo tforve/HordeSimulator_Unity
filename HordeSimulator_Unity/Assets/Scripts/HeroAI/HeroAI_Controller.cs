@@ -6,35 +6,67 @@ using UnityEngine.AI;
 
 public class HeroAI_Controller : MonoBehaviour
 {
-    /* To Do: Fire, run, Reload, Heal, Suicide */
-    [Header("Decision Related")]
-    public Vector3 destination;                                     // if flee or anything, walk to destination   
-            
+    private static HeroAI_Controller _instance;
+    public static HeroAI_Controller MyInstance
+    {
+        get
+        {
+            if(_instance == null)
+            {
+                _instance = GameObject.FindObjectOfType<HeroAI_Controller>();
+            }
+            return _instance;
+        }
+    }
+
+
     [Header("Objects")]                                             // have to be changed autamtic in Range of AI bzw. nearest to 
-    public Transform targetEnemy;                                   // Enemyto Target 
-    public GameObject targetItem;                                   // Item to get
+    public Transform targetLookAt;                                  // Enemyto Target
+    public Transform targetMoveTo;                                  // Changed by AI_MoveTo
     public Transform idleObject;                                    // start Object. DELETE ME LATER
 
     [Header("Scoring System")]
-    [Range(0,1)][SerializeField]    private float score;            // score calculated to choose action
-    [SerializeField]                private bool veto = false;      // if true action can not be executed, if true utility = 0
-
-    private NavMeshAgent agent;
+    [SerializeField] private float score;                           // score calculated to choose action
+    [SerializeField] private bool veto = false;                     // if true action can not be executed, if true utility = 0
 
     [Header("Sense")]
-    public float checkRadius = 5.0f;
-    public float fearDistance = 3.0f;
+    public float checkRadius = 25.0f;
+    public float fearDistance = 5.0f;
     public LayerMask checkLayers;
     
+    // others
+    private NavMeshAgent agent;
     private Animator animator;
+
+    // Get and Set Target etc
+    public float MyScore
+    {
+        get { return score;}
+        set { score = value;}
+    }
+    public bool MyVeto
+    {
+        get { return veto;}
+        set { veto = value;}
+    }
+    
     // ---------------------------------------------
 
+    void Awake()
+    {
+        if(_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }else
+        {
+            _instance = this;
+        }
+    }
     void Start()
     {
-        targetEnemy = idleObject;
+        targetLookAt = idleObject;
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-        destination = targetEnemy.transform.position;
     }
 
     void Update()
@@ -42,18 +74,12 @@ public class HeroAI_Controller : MonoBehaviour
         SearchEnemyTarget();
         
         // save for Idle
-        if(targetEnemy == null)
+        if(targetLookAt == null)
         {
-            targetEnemy = idleObject;
+            targetLookAt = idleObject;
         }
 
-        float distanceToTarget = Vector3.Distance(this.transform.position , targetEnemy.transform.position); // calculate distance to target need ifstatement for range
-        this.LookAt(this.transform, targetEnemy.transform);
-
-        if(distanceToTarget < 3.0f)
-        {
-            //ENEMY ATTACK PLAYER OR/AND PLAYER CAN CAST AT ENEMY
-        }
+        float distanceToTarget = Vector3.Distance(this.transform.position , targetLookAt.transform.position);
 
         if(Input.GetButtonDown("1"))
         {
@@ -63,31 +89,26 @@ public class HeroAI_Controller : MonoBehaviour
         
     }
 
-    //Rotate HeroAI to Target
-    public void LookAt(Transform heroAI, Transform tar)
-    {
-        float speed = 2.5f;
-        Vector3 direction = (heroAI.position - tar.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(-direction); // minus direction... maybe model is turned wrong 
-        heroAI.rotation = Quaternion.Slerp(heroAI.rotation, lookRotation, Time.deltaTime * speed);
-    }
-
-    // Search for new Target
+    // LEAVE IT IN BECAUSE IS DONE ALL THE TIME
+    // Search for new Target to LookAt
     public void SearchEnemyTarget()
     {
         Collider[] colliders = Physics.OverlapSphere(this.transform.position, checkRadius, checkLayers);
         Array.Sort(colliders,new DistanceComparer(transform));
         if(colliders.Length != 0)
         {
-            targetEnemy = colliders[0].transform; 
-
-            float distToTarget = Vector3.Distance(this.transform.position,targetEnemy.transform.position);
-            if(fearDistance <= distToTarget)
-            {
-                //get in Evade State
-            }
+            targetLookAt = colliders[0].transform; 
+            LookAt(targetLookAt.transform);
         }
-        
+    }
+    
+    //Rotate HeroAI to Target
+    void LookAt(Transform target)
+    {
+        float speed = 2.5f;
+        Vector3 direction = target.position.normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        this.transform.rotation = Quaternion.Slerp(this.transform.rotation , lookRotation, Time.deltaTime * speed);
     }
 
     // Draw CheckRadius of Hero Sense for Debugging
@@ -95,26 +116,4 @@ public class HeroAI_Controller : MonoBehaviour
     {
         Gizmos.DrawWireSphere(this.transform.position, checkRadius);
     }
-
-
-    // --------------------------------------------
-    /* AI Action Methodes */
-    // Move to target
-    void MoveTo(Vector3 destination)
-    {
-
-    }
-
-    // attack target
-    void Attack(Transform target)
-    {
-        targetEnemy = target;
-    }
-
-    // collect Item
-    void CollectItem()
-    {
-        // mini inventory system? or just walk over it 
-    }
-
 }   

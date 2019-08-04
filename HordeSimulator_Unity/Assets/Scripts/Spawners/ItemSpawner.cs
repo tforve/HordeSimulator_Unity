@@ -2,27 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaveSpawner : MonoBehaviour
+public class ItemSpawner : MonoBehaviour
 {
-    public enum SpawnState{SPAWNING, WAITING, COUNTING};
 
     [System.Serializable]
-    public class Wave
+    public class ItemWave
     {
         public string name;
-        public Transform enemy;
-        public int count;           // enemy count
+        public Transform [] item;
+        public int count;                               // item count
         public float spawnRate;
     }
     // -----------------------------------
 
-    public Wave[] wave;                                 // array of EnemyWaves to spawn
+    public ItemWave[] itemWave;                         // array of ItemWaves to spawn
     private int nextWave = 0;                           // index to choose which wave to spawn
 
     public Transform[] spawnPoints;                     // array of Spawnpoints
 
     [Header("Wave Parameters")]
-    public float timeBetweenWaves = 5.0f;
+    public float timeBetweenWaves = 15.0f;
     public float waveCountdown;
 
     private float searchCountdown = 1.0f;
@@ -36,11 +35,10 @@ public class WaveSpawner : MonoBehaviour
 
     void Update()
     {
-        // check if still enemies alive
+        // check if still items on Map
         if(state == SpawnState.WAITING)
         {
-            Debug.Log(EnemyIsAlive());
-            if(!EnemyIsAlive()) // start new Wave etc
+            if(!ItemOnMap()) // start new Wave etc
             {
                 WaveCompleted();
             }
@@ -54,7 +52,7 @@ public class WaveSpawner : MonoBehaviour
         {
             if(state != SpawnState.SPAWNING)
             {
-                StartCoroutine(SpawnWave(wave[nextWave]));
+                StartCoroutine(SpawnWave(itemWave[nextWave]));
             }
         }
         else
@@ -70,7 +68,7 @@ public class WaveSpawner : MonoBehaviour
         waveCountdown = timeBetweenWaves;
 
         //looping if wave Array finised, Completed all waves
-        if(nextWave +1 > wave.Length -1)
+        if(nextWave +1 > itemWave.Length -1)
         {
             nextWave = 0;
             // If Game completed DO IT HERE! Or Multiplier to Enemy States etc.
@@ -82,13 +80,13 @@ public class WaveSpawner : MonoBehaviour
 
     }
 
-    bool EnemyIsAlive()
+    bool ItemOnMap()
     {
         searchCountdown -= Time.deltaTime;
         if(searchCountdown <= 0.0f)
         {
             searchCountdown = 1.0f; // reset countdown
-            if(GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+            if(GameObject.FindGameObjectsWithTag("Item").Length == 0)
             {
                 return false;
             }
@@ -97,13 +95,14 @@ public class WaveSpawner : MonoBehaviour
         return true;
     }
 
-    IEnumerator SpawnWave(Wave _wave)
+    IEnumerator SpawnWave(ItemWave _wave)
     {
         state = SpawnState.SPAWNING;
         
         for (int i = 0; i < _wave.count; i++)
         {
-            SpawnEnemy(_wave.enemy);
+            int tmpRndNn = Random.Range(0,2);
+            SpawnItem(_wave.item[tmpRndNn]);
             yield return new WaitForSeconds(1.0f / _wave.spawnRate);
         }
 
@@ -111,9 +110,9 @@ public class WaveSpawner : MonoBehaviour
         yield break;
     }
 
-    void SpawnEnemy(Transform _enemy)
+    void SpawnItem(Transform _item)
     {
         Transform _spawnPoints = spawnPoints[Random.Range(0, spawnPoints.Length)];
-        Instantiate(_enemy, _spawnPoints.transform.position, _spawnPoints.transform.rotation);
+        Instantiate(_item, _spawnPoints.transform.position, _spawnPoints.transform.rotation);
     }
 }

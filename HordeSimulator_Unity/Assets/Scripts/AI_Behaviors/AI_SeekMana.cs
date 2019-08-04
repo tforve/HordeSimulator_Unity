@@ -28,29 +28,30 @@ public class AI_SeekMana : MonoBehaviour
         }
 
         // calculate nearest
-        Character closestChar = null;
+        Character closest = null;
         float dist = Mathf.Infinity;
 
         foreach (Character c in Character.characterByType[charType])
         {
             float d = Vector3.Distance(this.transform.position, c.transform.position);
-            if(closestChar == null || d<dist)
+            if(closest == null || d<dist)
             {
-                closestChar = c;
+                closest = c;
                 dist = d;
             }
 
         }
         // no Potion existing
-        if(closestChar == null){ return;}
+        if(closest == null){ return;}
 
         if(dist < collectingRange)
         {
-            MyCharacter.health += potionSize;
+            MyCharacter.RestoreMana(potionSize);
+            Destroy(closest.gameObject);
         }
         else
         {
-            Vector3 dir = closestChar.transform.position - this.transform.position;
+            Vector3 dir = closest.transform.position - this.transform.position;
 			WeightedDirection wd = new WeightedDirection( dir, weight ); //1 is the weight
 			MyCharacter.desiredDirections.Add( wd );
         }

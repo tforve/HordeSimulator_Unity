@@ -41,12 +41,12 @@ public class Character : MonoBehaviour
         characterByType[characterType].Remove(this);
     }
 
-    void FixedUpdate()
+    void Update()
     {
         //save
         if(health <= 0.0f) {Destroy(gameObject); return;}
-        if(health >= maxHealth) {health = maxHealth;}
-        if(mana >= maxMana) {mana = maxMana;}
+        if(health > maxHealth) {health = maxHealth;}
+        if(mana > maxMana) {mana = maxMana;}
 
         
         //Ask all ot our AI Scripts to tell us what to do
@@ -84,8 +84,21 @@ public class Character : MonoBehaviour
 		transform.Translate( velocity * Time.deltaTime );
     }
 
+
+    // Methodes to call from AI_Behaviours
     public void Hit(float dmg)
     {
         health -= dmg;
+        if(health <= 0.0f){health = 0.0f;}
+    }
+
+    public void RestoreHeal(float amount)
+    {   
+        health += amount;
+    }
+
+    public void RestoreMana(float amount)
+    {
+        mana += amount;
     }
 }
