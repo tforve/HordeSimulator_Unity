@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3510877383010246387}
   - component: {fileID: 3510877383010246386}
   - component: {fileID: 3510877383010246381}
-  - component: {fileID: 3510877383010246385}
+  - component: {fileID: 4747344504719093666}
   m_Layer: 9
   m_Name: DummyEnemy
   m_TagString: Enemy
@@ -93,7 +93,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3510877383010246385
+--- !u!114 &4747344504719093666
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,6 +102,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3510877383010246380}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cfc0d3f876ac9f44933e31ae241c8a9, type: 3}
+  m_Script: {fileID: 11500000, guid: fb62fc7392a7fbb4b929087761609cba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 20
+  runSpeed: 1.5
+  characterType: 0

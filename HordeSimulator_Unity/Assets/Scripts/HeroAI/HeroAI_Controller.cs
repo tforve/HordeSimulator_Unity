@@ -23,6 +23,7 @@ public class HeroAI_Controller : MonoBehaviour
 
     [Header("Sense")]
     public float checkRadius = 5.0f;
+    public float fearDistance = 3.0f;
     public LayerMask checkLayers;
     
     private Animator animator;
@@ -67,7 +68,7 @@ public class HeroAI_Controller : MonoBehaviour
     {
         float speed = 2.5f;
         Vector3 direction = (heroAI.position - tar.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(-direction); // minus direction... maybe modle is turend wrong 
+        Quaternion lookRotation = Quaternion.LookRotation(-direction); // minus direction... maybe model is turned wrong 
         heroAI.rotation = Quaternion.Slerp(heroAI.rotation, lookRotation, Time.deltaTime * speed);
     }
 
@@ -76,7 +77,16 @@ public class HeroAI_Controller : MonoBehaviour
     {
         Collider[] colliders = Physics.OverlapSphere(this.transform.position, checkRadius, checkLayers);
         Array.Sort(colliders,new DistanceComparer(transform));
-        if(colliders.Length != 0){targetEnemy = colliders[0].transform; }
+        if(colliders.Length != 0)
+        {
+            targetEnemy = colliders[0].transform; 
+
+            float distToTarget = Vector3.Distance(this.transform.position,targetEnemy.transform.position);
+            if(fearDistance <= distToTarget)
+            {
+                //get in Evade State
+            }
+        }
         
     }
 
@@ -107,9 +117,4 @@ public class HeroAI_Controller : MonoBehaviour
         // mini inventory system? or just walk over it 
     }
 
-    //use Item
-    void UseItem(GameObject item)
-    {
-        //if hp low use healthpotion
-    }
 }   
