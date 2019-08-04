@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public float healthPoints = 20.0f;
+    [SerializeField] private float damage;
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if(healthPoints <= 0.0f)
+        {
+            Debug.Log("Enemy killed: " + gameObject.name);
+            Destroy(gameObject);
+        }
+
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            Hit(20.0f);
+        }
+
+    }
+
+    public void Hit(float dmg)
+    {
+        healthPoints -= dmg;
     }
 }

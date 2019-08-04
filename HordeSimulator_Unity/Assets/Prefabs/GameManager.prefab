@@ -99,6 +99,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySpawnPoint (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1999119447989120885, guid: ebb3009c8a784504ba7c01d51b8d563f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 1999119447989120886, guid: ebb3009c8a784504ba7c01d51b8d563f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -107,7 +112,7 @@ PrefabInstance:
     - target: {fileID: 1999119447989120886, guid: ebb3009c8a784504ba7c01d51b8d563f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.4321501
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1999119447989120886, guid: ebb3009c8a784504ba7c01d51b8d563f,
         type: 3}
@@ -174,6 +179,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySpawnPoint (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 1999119447989120885, guid: ebb3009c8a784504ba7c01d51b8d563f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 1999119447989120886, guid: ebb3009c8a784504ba7c01d51b8d563f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -182,7 +192,7 @@ PrefabInstance:
     - target: {fileID: 1999119447989120886, guid: ebb3009c8a784504ba7c01d51b8d563f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.4321501
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1999119447989120886, guid: ebb3009c8a784504ba7c01d51b8d563f,
         type: 3}
@@ -249,6 +259,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySpawnPoint (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1999119447989120885, guid: ebb3009c8a784504ba7c01d51b8d563f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 1999119447989120886, guid: ebb3009c8a784504ba7c01d51b8d563f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -257,7 +272,7 @@ PrefabInstance:
     - target: {fileID: 1999119447989120886, guid: ebb3009c8a784504ba7c01d51b8d563f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.4321501
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1999119447989120886, guid: ebb3009c8a784504ba7c01d51b8d563f,
         type: 3}
@@ -324,6 +339,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySpawnPoint (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1999119447989120885, guid: ebb3009c8a784504ba7c01d51b8d563f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 1999119447989120886, guid: ebb3009c8a784504ba7c01d51b8d563f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -332,7 +352,7 @@ PrefabInstance:
     - target: {fileID: 1999119447989120886, guid: ebb3009c8a784504ba7c01d51b8d563f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.4321501
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1999119447989120886, guid: ebb3009c8a784504ba7c01d51b8d563f,
         type: 3}
@@ -399,6 +419,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySpawnPoint
       objectReference: {fileID: 0}
+    - target: {fileID: 1999119447989120885, guid: ebb3009c8a784504ba7c01d51b8d563f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 1999119447989120886, guid: ebb3009c8a784504ba7c01d51b8d563f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -407,7 +432,7 @@ PrefabInstance:
     - target: {fileID: 1999119447989120886, guid: ebb3009c8a784504ba7c01d51b8d563f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.4321501
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1999119447989120886, guid: ebb3009c8a784504ba7c01d51b8d563f,
         type: 3}
