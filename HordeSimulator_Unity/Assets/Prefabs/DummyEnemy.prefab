@@ -110,7 +110,7 @@ MonoBehaviour:
   maxHealth: 50
   mana: 0
   maxMana: 0
-  runSpeed: 1.5
+  runSpeed: 2
   characterType: 0
   importanceLevel: 0
 --- !u!114 &1384121417899212742
@@ -129,5 +129,5 @@ MonoBehaviour:
   importanceLevel: 0
   attackRange: 2
   attackSpeed: 1.5
-  damage: 0
+  damage: 15
   weight: 1
