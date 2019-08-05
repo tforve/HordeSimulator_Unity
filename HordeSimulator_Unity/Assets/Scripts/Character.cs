@@ -1,19 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 
 public class Character : MonoBehaviour
 {
     [Header("Character Resources")]
-    public float health = 100.0f;
+    public float health;
     public float maxHealth = 100.0f;
-    public float mana = 50.0f;
+    public float mana;
     public float maxMana = 100.0f;
     [Space]
 
     public float runSpeed = 3.0f;
     private Vector3 velocity;       // for moving calculation
+
+    // for resource calculations
+    public event Action<float> OnHealthChanged = delegate{};
+    public event Action<float> OnManaChanged = delegate{};
+
 
     public CharacterType characterType;
     
@@ -35,6 +41,9 @@ public class Character : MonoBehaviour
             characterByType[characterType] = new List<Character>();
         }
         characterByType[characterType].Add(this);
+
+        health = maxHealth;
+        mana = maxMana;
     }
 
     void OnDestroy()
@@ -87,6 +96,10 @@ public class Character : MonoBehaviour
     {
         Debug.Log("Char:" + this.name + " got hit for: " + dmg);
         health -= dmg;
+
+        float currentHealthPct = health / maxHealth;
+        OnHealthChanged(currentHealthPct);
+
         if(health <= 0.0f)  { Destroy(gameObject); return; }
     }
 
@@ -99,6 +112,8 @@ public class Character : MonoBehaviour
     public void RestoreMana(float amount)
     {
         mana += amount;
+        float currentManaPct = mana / maxMana;
+        OnManaChanged(currentManaPct);
         if(mana > maxMana) { mana = maxMana; }
     }
 }

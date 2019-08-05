@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum CharacterType {ENEMY, HERO, HEALTHPOTION, MANAPOTION }
+public enum CharacterType { ENEMY, HERO, HEALTHPOTION, MANAPOTION }
 
 public class HeroAI_Controller : MonoBehaviour
 {
@@ -13,7 +13,7 @@ public class HeroAI_Controller : MonoBehaviour
     {
         get
         {
-            if(_instance == null)
+            if (_instance == null)
             {
                 _instance = GameObject.FindObjectOfType<HeroAI_Controller>();
             }
@@ -36,36 +36,38 @@ public class HeroAI_Controller : MonoBehaviour
     [Header("Sense")]
     public float checkRadius = 25.0f;
     public float fearDistance = 5.0f;
+    public float turnSpeed = 5.5f;
     public LayerMask checkLayers;
-    
+
     // others
     private NavMeshAgent agent;
-    public Animator animator;
+    [HideInInspector] public Animator animator;
 
     // Get and Set Target etc
     public float MyScore
     {
-        get { return score;}
-        set { score = value;}
+        get { return score; }
+        set { score = value; }
     }
     public bool MyVeto
     {
-        get { return veto;}
-        set { veto = value;}
+        get { return veto; }
+        set { veto = value; }
     }
     public Character MyTargetEnemy
     {
-        get{return targetEnemy;}
+        get { return targetEnemy; }
     }
-    
+
     // ---------------------------------------------
 
     void Awake()
     {
-        if(_instance != null && _instance != this)
+        if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
-        }else
+        }
+        else
         {
             _instance = this;
         }
@@ -80,44 +82,35 @@ public class HeroAI_Controller : MonoBehaviour
     void Update()
     {
         SearchEnemyTarget();
-        
+
         // save for Idle
-        if(targetLookAt == null)
+        if (targetLookAt == null)
         {
             targetLookAt = idleObject;
         }
 
-        float distanceToTarget = Vector3.Distance(this.transform.position , targetLookAt.transform.position);
-
-        // if(Input.GetButtonDown("1"))
-        // {
-        //     animator.SetTrigger("UseSkill");
-        //     animator.SetInteger("SkillNumber",0);
-        // }
-        
+        float distanceToTarget = Vector3.Distance(this.transform.position, targetLookAt.transform.position);
     }
-    
+
     // LEAVE IT IN BECAUSE IS DONE ALL THE TIME
     // Search for new Target to LookAt
     public void SearchEnemyTarget()
     {
         Collider[] colliders = Physics.OverlapSphere(this.transform.position, checkRadius, checkLayers);
-        Array.Sort(colliders,new DistanceComparer(transform));
-        if(colliders.Length != 0)
+        Array.Sort(colliders, new DistanceComparer(transform));
+        if (colliders.Length != 0)
         {
-            targetLookAt = colliders[0].transform; 
+            targetLookAt = colliders[0].transform;
             targetEnemy = colliders[0].GetComponent<Character>();
             LookAt(targetLookAt.transform);
         }
     }
-    
     //Rotate HeroAI to Target
     void LookAt(Transform target)
     {
-        float speed = 2.5f;
         Vector3 direction = target.position.normalized;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
-        this.transform.rotation = Quaternion.Slerp(this.transform.rotation , lookRotation, Time.deltaTime * speed);
+        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, lookRotation, Time.deltaTime * turnSpeed);
     }
 
     // Draw CheckRadius of Hero Sense for Debugging
@@ -125,4 +118,4 @@ public class HeroAI_Controller : MonoBehaviour
     {
         Gizmos.DrawWireSphere(this.transform.position, checkRadius);
     }
-}   
+}
