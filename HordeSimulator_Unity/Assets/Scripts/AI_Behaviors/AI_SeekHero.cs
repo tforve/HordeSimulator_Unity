@@ -5,7 +5,6 @@ using UnityEngine;
 public class AI_SeekHero : MonoBehaviour
 {
     public CharacterType charType = CharacterType.HERO;
-    public ImportanceLevel importanceLevel = ImportanceLevel.NORMAL;
 
     [SerializeField] private float attackRange = 2.0f;
     [SerializeField] private float attackSpeed = 1.5f;
@@ -47,6 +46,8 @@ public class AI_SeekHero : MonoBehaviour
         // no Potion existing
         if(closestChar == null){ return;}
 
+        CalculateWeight();
+
         if(dist <= attackRange)
         {
             attackCooldown -= Time.deltaTime;
@@ -59,10 +60,14 @@ public class AI_SeekHero : MonoBehaviour
         else
         {
             Vector3 dir = closestChar.transform.position - this.transform.position;
-            WeightedDirection wd = new WeightedDirection( dir, weight ); //1 is the weight
+            WeightedDirection wd = new WeightedDirection( dir, weight );
             MyCharacter.desiredDirections.Add( wd );
-            MyCharacter.MoveTo();
+            //MyCharacter.MoveTo();
         }
-        
+    }
+
+    private float CalculateWeight()
+    {
+        return weight;
     }
 }

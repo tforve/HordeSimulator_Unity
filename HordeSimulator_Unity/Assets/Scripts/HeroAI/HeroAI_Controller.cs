@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
+
 
 public enum CharacterType { ENEMY, HERO, HEALTHPOTION, MANAPOTION }
 
@@ -32,10 +34,11 @@ public class HeroAI_Controller : MonoBehaviour
     [Header("Scoring System")]
     [SerializeField] private float score;                           // score calculated to choose action
     [SerializeField] private bool veto = false;                     // if true action can not be executed, if true utility = 0
+    private Text weightText;                                        // for debuging purpose
+    private Character MyCharacter;
 
-    [Header("Sense")]
+    [Header("Sense for lookAt Only")]
     public float checkRadius = 25.0f;
-    public float fearDistance = 5.0f;
     public float turnSpeed = 5.5f;
     public LayerMask checkLayers;
 
@@ -77,6 +80,8 @@ public class HeroAI_Controller : MonoBehaviour
         targetLookAt = idleObject;
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        weightText = GetComponentInChildren<Text>();
+        MyCharacter = GetComponent<Character>();
     }
 
     void Update()
@@ -90,6 +95,19 @@ public class HeroAI_Controller : MonoBehaviour
         }
 
         float distanceToTarget = Vector3.Distance(this.transform.position, targetLookAt.transform.position);
+
+        foreach (WeightedDirection wd in MyCharacter.desiredDirections)
+        {
+            float tmp = wd.weight;
+            Debug.Log(tmp);
+        }
+        weightText.text = "Evade: ";
+    }
+
+    void OnDestroy()
+    {
+        Debug.Log("Game OVER");
+        // Show EndScreen
     }
 
     // LEAVE IT IN BECAUSE IS DONE ALL THE TIME

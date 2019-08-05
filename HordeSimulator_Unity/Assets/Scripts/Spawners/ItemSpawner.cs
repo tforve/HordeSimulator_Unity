@@ -101,7 +101,7 @@ public class ItemSpawner : MonoBehaviour
 
         for (int i = 0; i < _wave.count; i++)
         {
-            int tmpRndNn = Random.Range(0, 2);
+            int tmpRndNn = Random.Range(0, _wave.item.Length);
             SpawnItem(_wave.item[tmpRndNn]);
             yield return new WaitForSeconds(1.0f / _wave.spawnRate);
         }

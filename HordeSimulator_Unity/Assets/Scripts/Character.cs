@@ -12,11 +12,10 @@ public class Character : MonoBehaviour
     public float mana;
     public float maxMana = 100.0f;
     [Space]
-
     public float runSpeed = 3.0f;
     private Vector3 velocity;       // for moving calculation
 
-    // for resource calculations
+    // UI related 
     public event Action<float> OnHealthChanged = delegate { };
     public event Action<float> OnManaChanged = delegate { };
 
@@ -25,8 +24,6 @@ public class Character : MonoBehaviour
 
     static public Dictionary<CharacterType, List<Character>> characterByType;   // Dictionary to select CharTypes
     public List<WeightedDirection> desiredDirections;                           // direction character wants to move to
-
-    public ImportanceLevel importanceLevel = ImportanceLevel.NORMAL;            // to order the Behaviours by more importend to less
 
 
     // Start is called before the first frame update
@@ -60,7 +57,7 @@ public class Character : MonoBehaviour
         desiredDirections = new List<WeightedDirection>();
         BroadcastMessage("DoAIBehaviour", SendMessageOptions.DontRequireReceiver);
 
-        // MoveTo();
+        MoveTo();
 
     }
 
@@ -70,22 +67,10 @@ public class Character : MonoBehaviour
         Vector3 dir = Vector3.zero;
         foreach (WeightedDirection wd in desiredDirections)
         {
-            if (importanceLevel == ImportanceLevel.ALLWAYS)
-            {
-                // DO THIS OVER ALL
-            }
-            else if (importanceLevel == ImportanceLevel.ATLAST)
-            {
-                // do this only if nothing else is going on
-            }
-            else
-            {
-                dir += wd.direction * wd.weight;
-            }
+            dir += wd.direction * wd.weight;        
         }
         // smooth out movement
         velocity = Vector3.Lerp(velocity, dir.normalized * runSpeed, Time.deltaTime * 5f);
-
         // Move in the desired direction at our top speed.
         transform.Translate(velocity * Time.deltaTime);
     }
@@ -100,7 +85,11 @@ public class Character : MonoBehaviour
         float currentHealthPct = health / maxHealth;
         OnHealthChanged(currentHealthPct);
 
-        if (health <= 0.0f) { Destroy(gameObject); return; }
+        if (health <= 0.0f) 
+        { 
+            Destroy(gameObject);
+            return; 
+        }
     }
 
     public void RestoreHealth(float amount)

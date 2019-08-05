@@ -5,7 +5,6 @@ using UnityEngine;
 public class AI_ShootEnemy : MonoBehaviour
 {
     public CharacterType charType = CharacterType.ENEMY;
-    // public ImportanceLevel importanceLevel = ImportanceLevel.ALLWAYS;
 
     [SerializeField] private float damage = 10.0f; //  projectile later
     [SerializeField] private float manaCost = 5.0f;
@@ -33,13 +32,11 @@ public class AI_ShootEnemy : MonoBehaviour
         if (target == null) { return; }
 
         // calculate weight
-
+        CalculateWeight();
 
         // Attack target
-        if (canAttack)
+        if (canAttack && MyCharacter.mana >= manaCost)
         {
-
-
             // play Animations
             HeroAI.animator.SetTrigger("UseSkill");
             HeroAI.animator.SetInteger("SkillNumber", 0);
@@ -51,6 +48,15 @@ public class AI_ShootEnemy : MonoBehaviour
             StartCoroutine(StartCooldown());
             MyCharacter.RestoreMana(-manaCost);
         }
+        
+        Vector3 dir = Vector3.zero;
+        WeightedDirection wd = new WeightedDirection( dir, weight );
+		MyCharacter.desiredDirections.Add( wd );
+    }
+
+    private float CalculateWeight()
+    {
+        return weight;
     }
 
     IEnumerator StartCooldown()

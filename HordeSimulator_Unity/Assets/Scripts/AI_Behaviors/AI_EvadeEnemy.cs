@@ -5,7 +5,6 @@ using UnityEngine;
 public class AI_EvadeEnemy : MonoBehaviour
 {
     public CharacterType charType = CharacterType.ENEMY;
-    // public ImportanceLevel importanceLevel = ImportanceLevel.ALLWAYS;
     public float rangeOfCare = 5.0f;
     public float weight = 2.0f;
 
@@ -35,6 +34,8 @@ public class AI_EvadeEnemy : MonoBehaviour
         }
         // no Enemy existing
         if (closest == null) { return; }
+
+        
         // evade if
         if( dist > rangeOfCare)
         {
@@ -42,12 +43,16 @@ public class AI_EvadeEnemy : MonoBehaviour
         }
         else // if in care Range
         {
+            CalculateWeight();
             Vector3 dir = closest.transform.position - this.transform.position;
             WeightedDirection wd = new WeightedDirection(-dir, weight);
             MyCharacter.desiredDirections.Add(wd);
-            MyCharacter.MoveTo();
+           // MyCharacter.MoveTo();
         }
+    }
 
-
+    private float CalculateWeight()
+    {
+        return weight;
     }
 }

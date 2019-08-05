@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ImportanceLevel { NORMAL, ALLWAYS, ATLAST };
 
 public class WeightedDirection 
 {
@@ -15,5 +14,4 @@ public class WeightedDirection
 		weight = wgt;
 	}
 
-	public ImportanceLevel blending = ImportanceLevel.NORMAL;	// UNUSED right now
 }

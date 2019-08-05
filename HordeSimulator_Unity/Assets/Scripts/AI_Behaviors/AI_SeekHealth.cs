@@ -5,7 +5,6 @@ using UnityEngine;
 public class AI_SeekHealth : MonoBehaviour
 {
     public CharacterType charType = CharacterType.HEALTHPOTION;
-    public ImportanceLevel importanceLevel = ImportanceLevel.NORMAL;
 
     public float potionSize = 20;
     public float collectingRange = 1.0f;
@@ -41,6 +40,8 @@ public class AI_SeekHealth : MonoBehaviour
         // no Potion existing
         if (closest == null) { return; }
 
+        CalculateWeight();
+
         if (dist < collectingRange)
         {
             MyCharacter.RestoreHealth(potionSize);
@@ -51,7 +52,12 @@ public class AI_SeekHealth : MonoBehaviour
             Vector3 dir = closest.transform.position - this.transform.position;
             WeightedDirection wd = new WeightedDirection(dir, weight);
             MyCharacter.desiredDirections.Add(wd);
-            MyCharacter.MoveTo();
+           // MyCharacter.MoveTo();
         }
+    }
+
+    private float CalculateWeight()
+    {
+        return weight;
     }
 }
