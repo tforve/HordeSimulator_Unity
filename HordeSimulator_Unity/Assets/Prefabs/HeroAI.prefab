@@ -5084,7 +5084,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Evade:'
+  m_Text: Evade
 --- !u!1 &1624205776
 GameObject:
   m_ObjectHideFlags: 0
@@ -7281,7 +7281,7 @@ MonoBehaviour:
   targetLookAt: {fileID: 0}
   targetMoveTo: {fileID: 0}
   idleObject: {fileID: 158104245}
-  score: 0
+  weight: 0
   veto: 0
   heighestTxt: {fileID: 748592290}
   evadeTxt: {fileID: 1610634351}

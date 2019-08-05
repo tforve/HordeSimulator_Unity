@@ -54,7 +54,6 @@ public class AI_ShootEnemy : MonoBehaviour
             MyCharacter.RestoreMana(-manaCost);
         }
 
-        Vector3 dir = Vector3.zero;
         WeightedDirection wd = new WeightedDirection(weight);
         MyCharacter.desiredDirections.Add(wd);
     }

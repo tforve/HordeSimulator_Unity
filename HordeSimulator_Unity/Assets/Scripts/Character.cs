@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-
 public class Character : MonoBehaviour
 {
     [Header("Character Resources")]
@@ -59,9 +58,10 @@ public class Character : MonoBehaviour
 
         //MoveTo();
         //CalculateScore();
-
     }
 
+
+    // ------------- METHODES FOR AI -----------------
     public void MoveTo(Vector3 dir)
     {
         // Add up all the desired directions by weight
@@ -76,7 +76,6 @@ public class Character : MonoBehaviour
         transform.Translate(velocity * Time.deltaTime);
     }
 
-    // Methodes to call from AI_Behaviours
     public void Hit(Character target, float dmg)
     {
         Debug.Log("Char:" + this.name + " got hit for: " + dmg);

@@ -16,8 +16,7 @@ public class AI_SeekHealth : MonoBehaviour
         get {return weight;}
     }
 
-    Character MyCharacter;
-    
+    Character MyCharacter;    
 
     void Start()
     {
