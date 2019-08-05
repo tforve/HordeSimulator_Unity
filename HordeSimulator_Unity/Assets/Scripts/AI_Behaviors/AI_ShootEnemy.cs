@@ -48,7 +48,7 @@ public class AI_ShootEnemy : MonoBehaviour
             canAttack = false;
             // start cooldown
             StartCoroutine(StartCooldown());
-
+            MyCharacter.RestoreMana(-manaCost);
             MyCharacter.mana -= manaCost;
 
         }
