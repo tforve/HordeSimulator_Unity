@@ -21,7 +21,7 @@ public class AI_SeekHealth : MonoBehaviour
 
     void DoAIBehaviour()
     {
-        if(Character.characterByType.ContainsKey(charType) == false)
+        if (Character.characterByType.ContainsKey(charType) == false)
         {
             //nothing to do
             return;
@@ -34,7 +34,7 @@ public class AI_SeekHealth : MonoBehaviour
         foreach (Character c in Character.characterByType[charType])
         {
             float d = Vector3.Distance(this.transform.position, c.transform.position);
-            if(closest == null || d<dist)
+            if (closest == null || d < dist)
             {
                 closest = c;
                 dist = d;
@@ -42,9 +42,9 @@ public class AI_SeekHealth : MonoBehaviour
 
         }
         // no Potion existing
-        if(closest == null){ return;}
+        if (closest == null) { return; }
 
-        if(dist < collectingRange)
+        if (dist < collectingRange)
         {
             MyCharacter.RestoreHealth(potionSize);
             Destroy(closest.gameObject);
@@ -52,8 +52,8 @@ public class AI_SeekHealth : MonoBehaviour
         else
         {
             Vector3 dir = closest.transform.position - this.transform.position;
-			WeightedDirection wd = new WeightedDirection( dir, weight );
-			MyCharacter.desiredDirections.Add( wd );
+            WeightedDirection wd = new WeightedDirection(dir, weight);
+            MyCharacter.desiredDirections.Add(wd);
             // call MoveTo();
         }
     }

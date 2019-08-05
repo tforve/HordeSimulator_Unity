@@ -29,7 +29,7 @@ public class HealthBar : MonoBehaviour
     {
         float preChangePct = healBarImg.fillAmount;
         float elapse = 0.0f;
-        while(elapse < updateSpeedSeconds)
+        while (elapse < updateSpeedSeconds)
         {
             elapse += Time.deltaTime;
             healBarImg.fillAmount = Mathf.Lerp(preChangePct, pct, elapse / updateSpeedSeconds);
@@ -42,7 +42,7 @@ public class HealthBar : MonoBehaviour
     {
         float preChangePct = manaBarImg.fillAmount;
         float elapse = 0.0f;
-        while(elapse < updateSpeedSeconds)
+        while (elapse < updateSpeedSeconds)
         {
             elapse += Time.deltaTime;
             manaBarImg.fillAmount = Mathf.Lerp(preChangePct, pct, elapse / updateSpeedSeconds);
@@ -54,7 +54,7 @@ public class HealthBar : MonoBehaviour
     private void LateUpdate()
     {
         transform.LookAt(Camera.main.transform);
-        transform.Rotate(0,180,0);
+        transform.Rotate(0, 180, 0);
     }
 
 
