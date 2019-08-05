@@ -57,24 +57,24 @@ public class Character : MonoBehaviour
         desiredDirections = new List<WeightedDirection>();
         BroadcastMessage("DoAIBehaviour", SendMessageOptions.DontRequireReceiver);
 
-        MoveTo();
+        //MoveTo();
+        //CalculateScore();
 
     }
 
-    public void MoveTo()
+    public void MoveTo(Vector3 dir)
     {
         // Add up all the desired directions by weight
-        Vector3 dir = Vector3.zero;
+        //Vector3 dir = Vector3.zero;
         foreach (WeightedDirection wd in desiredDirections)
         {
-            dir += wd.direction * wd.weight;        
+            dir *= wd.weight;
         }
         // smooth out movement
         velocity = Vector3.Lerp(velocity, dir.normalized * runSpeed, Time.deltaTime * 5f);
         // Move in the desired direction at our top speed.
         transform.Translate(velocity * Time.deltaTime);
     }
-
 
     // Methodes to call from AI_Behaviours
     public void Hit(Character target, float dmg)

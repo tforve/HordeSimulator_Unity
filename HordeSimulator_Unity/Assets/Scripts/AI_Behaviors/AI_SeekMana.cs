@@ -13,7 +13,7 @@ public class AI_SeekMana : MonoBehaviour
 
     public float MyWeight
     {
-        get {return weight;}
+        get { return weight; }
     }
 
     Character MyCharacter;
@@ -25,7 +25,7 @@ public class AI_SeekMana : MonoBehaviour
 
     void DoAIBehaviour()
     {
-        if(Character.characterByType.ContainsKey(charType) == false)
+        if (Character.characterByType.ContainsKey(charType) == false)
         {
             //nothing to do
             return;
@@ -38,7 +38,7 @@ public class AI_SeekMana : MonoBehaviour
         foreach (Character c in Character.characterByType[charType])
         {
             float d = Vector3.Distance(this.transform.position, c.transform.position);
-            if(closest == null || d<dist)
+            if (closest == null || d < dist)
             {
                 closest = c;
                 dist = d;
@@ -46,11 +46,11 @@ public class AI_SeekMana : MonoBehaviour
 
         }
         // no Potion existing
-        if(closest == null){ return;}
+        if (closest == null) { return; }
 
         CalculateWeight();
 
-        if(dist < collectingRange)
+        if (dist < collectingRange)
         {
             MyCharacter.RestoreMana(potionSize);
             Destroy(closest.gameObject);
@@ -58,9 +58,9 @@ public class AI_SeekMana : MonoBehaviour
         else
         {
             Vector3 dir = closest.transform.position - this.transform.position;
-			WeightedDirection wd = new WeightedDirection( dir, weight );
-			MyCharacter.desiredDirections.Add( wd );
-           // MyCharacter.MoveTo();
+            WeightedDirection wd = new WeightedDirection(weight);
+            MyCharacter.desiredDirections.Add(wd);
+            MyCharacter.MoveTo(dir);
         }
     }
 

@@ -10,7 +10,7 @@ public class AI_EvadeEnemy : MonoBehaviour
 
     public float MyWeight
     {
-        get {return weight;}
+        get { return weight; }
     }
 
     Character MyCharacter;
@@ -40,9 +40,9 @@ public class AI_EvadeEnemy : MonoBehaviour
         // no Enemy existing
         if (closest == null) { return; }
 
-        
+
         // evade if
-        if( dist > rangeOfCare)
+        if (dist > rangeOfCare)
         {
             return;
         }
@@ -50,9 +50,9 @@ public class AI_EvadeEnemy : MonoBehaviour
         {
             CalculateWeight();
             Vector3 dir = closest.transform.position - this.transform.position;
-            WeightedDirection wd = new WeightedDirection(-dir, weight);
+            WeightedDirection wd = new WeightedDirection(weight);
             MyCharacter.desiredDirections.Add(wd);
-           // MyCharacter.MoveTo();
+            MyCharacter.MoveTo(-dir);
         }
     }
 

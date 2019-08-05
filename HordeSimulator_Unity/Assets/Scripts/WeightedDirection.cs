@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class WeightedDirection 
 {
-	public readonly Vector3 direction;
+	//public readonly Vector3 direction;
 	public readonly float weight;
 
-	public WeightedDirection(Vector3 dir, float wgt) 
+	public WeightedDirection(float wgt) 
     {
-		direction = dir.normalized;
+		//direction = dir.normalized;
 		weight = wgt;
 	}
 

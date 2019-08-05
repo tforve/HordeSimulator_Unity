@@ -15,7 +15,7 @@ public class AI_ShootEnemy : MonoBehaviour
 
     public float MyWeight
     {
-        get {return weight;}
+        get { return weight; }
     }
 
     Character MyCharacter;
@@ -55,8 +55,8 @@ public class AI_ShootEnemy : MonoBehaviour
         }
 
         Vector3 dir = Vector3.zero;
-        WeightedDirection wd = new WeightedDirection( dir, weight );
-		MyCharacter.desiredDirections.Add( wd );
+        WeightedDirection wd = new WeightedDirection(weight);
+        MyCharacter.desiredDirections.Add(wd);
     }
 
     private float CalculateWeight()

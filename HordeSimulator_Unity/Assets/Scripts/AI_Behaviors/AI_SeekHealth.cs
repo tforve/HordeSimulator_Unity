@@ -55,9 +55,9 @@ public class AI_SeekHealth : MonoBehaviour
         else
         {
             Vector3 dir = closest.transform.position - this.transform.position;
-            WeightedDirection wd = new WeightedDirection(dir, weight);
+            WeightedDirection wd = new WeightedDirection(weight);
             MyCharacter.desiredDirections.Add(wd);
-           // MyCharacter.MoveTo();
+            MyCharacter.MoveTo(dir);
         }
     }
 

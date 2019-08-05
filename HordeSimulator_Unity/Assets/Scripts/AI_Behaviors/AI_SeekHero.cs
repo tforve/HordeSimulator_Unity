@@ -15,7 +15,7 @@ public class AI_SeekHero : MonoBehaviour
 
     public float MyWeight
     {
-        get {return weight;}
+        get { return weight; }
     }
 
     Character MyCharacter;
@@ -28,7 +28,7 @@ public class AI_SeekHero : MonoBehaviour
 
     void DoAIBehaviour()
     {
-        if(Character.characterByType.ContainsKey(charType) == false)
+        if (Character.characterByType.ContainsKey(charType) == false)
         {
             //nothing to do
             return;
@@ -41,33 +41,33 @@ public class AI_SeekHero : MonoBehaviour
         foreach (Character c in Character.characterByType[charType])
         {
             float d = Vector3.Distance(this.transform.position, c.transform.position);
-            if(closestChar == null || d<dist)
+            if (closestChar == null || d < dist)
             {
                 closestChar = c;
                 dist = d;
             }
 
         }
-        // no Potion existing
-        if(closestChar == null){ return;}
+        // no Hero existing
+        if (closestChar == null) { return; }
 
         CalculateWeight();
 
-        if(dist <= attackRange)
+        if (dist <= attackRange)
         {
             attackCooldown -= Time.deltaTime;
-            if(attackCooldown <= 0.0f)
+            if (attackCooldown <= 0.0f)
             {
                 attackCooldown = attackSpeed;
-                closestChar.Hit(closestChar,damage);
+                closestChar.Hit(closestChar, damage);
             }
         }
         else
         {
             Vector3 dir = closestChar.transform.position - this.transform.position;
-            WeightedDirection wd = new WeightedDirection( dir, weight );
-            MyCharacter.desiredDirections.Add( wd );
-            //MyCharacter.MoveTo();
+            WeightedDirection wd = new WeightedDirection(weight);
+            MyCharacter.desiredDirections.Add(wd);
+            MyCharacter.MoveTo(dir);
         }
     }
 
