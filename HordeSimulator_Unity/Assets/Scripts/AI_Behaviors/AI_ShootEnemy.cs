@@ -29,28 +29,27 @@ public class AI_ShootEnemy : MonoBehaviour
         // get Target from HeroAI_Controller LookAt()
         target = HeroAI.MyTargetEnemy;
 
-        if(Character.characterByType.ContainsKey(charType) == false){ return;}
-        if(target == null){ return;}
+        if (Character.characterByType.ContainsKey(charType) == false) { return; }
+        if (target == null) { return; }
 
         // calculate weight
 
 
         // Attack target
-        if(canAttack)
+        if (canAttack)
         {
-            
+
 
             // play Animations
             HeroAI.animator.SetTrigger("UseSkill");
-            HeroAI.animator.SetInteger("SkillNumber",0);
+            HeroAI.animator.SetInteger("SkillNumber", 0);
+
             // deal damage. has to be changed to hit collider
             target.Hit(target, damage);
             canAttack = false;
             // start cooldown
             StartCoroutine(StartCooldown());
             MyCharacter.RestoreMana(-manaCost);
-            MyCharacter.mana -= manaCost;
-
         }
     }
 

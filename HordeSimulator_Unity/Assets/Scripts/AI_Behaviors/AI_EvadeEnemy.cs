@@ -6,7 +6,7 @@ public class AI_EvadeEnemy : MonoBehaviour
 {
     public CharacterType charType = CharacterType.ENEMY;
     // public ImportanceLevel importanceLevel = ImportanceLevel.ALLWAYS;
-    public float rangeOfCare = 3.0f;
+    public float rangeOfCare = 5.0f;
     public float weight = 2.0f;
 
     Character MyCharacter;
@@ -18,37 +18,36 @@ public class AI_EvadeEnemy : MonoBehaviour
 
     void DoAIBehaviour()
     {
-        if(Character.characterByType.ContainsKey(charType) == false)
-        {
-            //nothing to do
-            return;
-        }
+        if (Character.characterByType.ContainsKey(charType) == false) { return; }
 
         // calculate nearest
-        Character closestChar = null;
+        Character closest = null;
         float dist = Mathf.Infinity;
 
         foreach (Character c in Character.characterByType[charType])
         {
             float d = Vector3.Distance(this.transform.position, c.transform.position);
-            if(closestChar == null || d<dist)
+            if (closest == null || d < dist)
             {
-                closestChar = c;
+                closest = c;
                 dist = d;
             }
-
         }
         // no Enemy existing
-        if(closestChar == null){ return;}
-        Vector3 dir = closestChar.transform.position - this.transform.position;
-       // dir *= -1;
-        
-        // Do weight Calculation HERE 
-        // 10/dist^2
-       // weight = 10 / (dist*dist);        
-        
-        WeightedDirection wd = new WeightedDirection( dir, weight ); //1 is the weight
-		MyCharacter.desiredDirections.Add( wd );
-        
+        if (closest == null) { return; }
+        // evade if
+        if( dist > rangeOfCare)
+        {
+            return;
+        }
+        else // if in care Range
+        {
+            Vector3 dir = closest.transform.position - this.transform.position;
+            WeightedDirection wd = new WeightedDirection(-dir, weight);
+            MyCharacter.desiredDirections.Add(wd);
+            MyCharacter.MoveTo();
+        }
+
+
     }
 }

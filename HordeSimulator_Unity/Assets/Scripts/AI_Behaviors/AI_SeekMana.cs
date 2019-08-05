@@ -54,6 +54,7 @@ public class AI_SeekMana : MonoBehaviour
             Vector3 dir = closest.transform.position - this.transform.position;
 			WeightedDirection wd = new WeightedDirection( dir, weight );
 			MyCharacter.desiredDirections.Add( wd );
+            MyCharacter.MoveTo();
         }
     }
 }

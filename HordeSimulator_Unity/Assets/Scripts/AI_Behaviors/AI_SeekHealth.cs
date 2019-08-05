@@ -13,6 +13,7 @@ public class AI_SeekHealth : MonoBehaviour
     public float weight = 1.0f;
 
     Character MyCharacter;
+    
 
     void Start()
     {
@@ -21,11 +22,7 @@ public class AI_SeekHealth : MonoBehaviour
 
     void DoAIBehaviour()
     {
-        if (Character.characterByType.ContainsKey(charType) == false)
-        {
-            //nothing to do
-            return;
-        }
+        if (Character.characterByType.ContainsKey(charType) == false) { return; }
 
         // calculate nearest
         Character closest = null;
@@ -54,7 +51,7 @@ public class AI_SeekHealth : MonoBehaviour
             Vector3 dir = closest.transform.position - this.transform.position;
             WeightedDirection wd = new WeightedDirection(dir, weight);
             MyCharacter.desiredDirections.Add(wd);
-            // call MoveTo();
+            MyCharacter.MoveTo();
         }
     }
 }
