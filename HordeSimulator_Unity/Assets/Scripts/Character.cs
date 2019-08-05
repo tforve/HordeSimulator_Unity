@@ -18,8 +18,8 @@ public class Character : MonoBehaviour
     public event Action<float> OnHealthChanged = delegate { };
     public event Action<float> OnManaChanged = delegate { };
 
-
     public CharacterType characterType;
+    public Transform moveTransform;                                             // Transform just for Walking so Rotation dont mess up dir of Behaviours
 
     static public Dictionary<CharacterType, List<Character>> characterByType;   // Dictionary to select CharTypes
     public List<WeightedDirection> desiredDirections;                           // direction character wants to move to
@@ -38,6 +38,7 @@ public class Character : MonoBehaviour
         }
         characterByType[characterType].Add(this);
 
+        // StartValues
         health = maxHealth;
         mana = maxMana;
     }
@@ -55,9 +56,6 @@ public class Character : MonoBehaviour
         //Ask all ot our AI Scripts to tell us what to do
         desiredDirections = new List<WeightedDirection>();
         BroadcastMessage("DoAIBehaviour", SendMessageOptions.DontRequireReceiver);
-
-        //MoveTo();
-        //CalculateScore();
     }
 
 
@@ -73,7 +71,7 @@ public class Character : MonoBehaviour
         // smooth out movement
         velocity = Vector3.Lerp(velocity, dir.normalized * runSpeed, Time.deltaTime * 5f);
         // Move in the desired direction at our top speed.
-        transform.Translate(velocity * Time.deltaTime);
+        moveTransform.transform.Translate(velocity * Time.deltaTime);
     }
 
     public void Hit(Character target, float dmg)
@@ -86,7 +84,7 @@ public class Character : MonoBehaviour
 
         if (health <= 0.0f) 
         { 
-            Destroy(gameObject);
+            Destroy(transform.parent.gameObject);
             return; 
         }
     }

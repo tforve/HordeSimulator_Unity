@@ -37,8 +37,8 @@ public class HeroAI_Controller : MonoBehaviour
 
     //UI Debug Stuff
     [SerializeField] private Text heighestTxt, evadeTxt, healthTxt, manaTxt, shootTxt;                         // for debuging purpose
-    private AI_EvadeEnemy MyAi_Evade;
-    private AI_SeekHealth MyAi_SeekHeal;
+    // private AI_EvadeEnemy MyAi_Evade;
+    // private AI_SeekHealth MyAi_SeekHeal;
     private AI_SeekMana MyAi_SeekMana;
     private AI_ShootEnemy MyAi_Shoot;
 
@@ -90,8 +90,8 @@ public class HeroAI_Controller : MonoBehaviour
         MyCharacter = GetComponent<Character>();
 
         //Debug
-        MyAi_Evade = GetComponent<AI_EvadeEnemy>();
-        MyAi_SeekHeal = GetComponent<AI_SeekHealth>();
+        // MyAi_Evade = GetComponent<AI_EvadeEnemy>();
+        // MyAi_SeekHeal = GetComponent<AI_SeekHealth>();
         MyAi_SeekMana = GetComponent<AI_SeekMana>();
         MyAi_Shoot = GetComponent<AI_ShootEnemy>();
 
@@ -117,8 +117,8 @@ public class HeroAI_Controller : MonoBehaviour
             weight = tmp;
         }
         heighestTxt.text = "Decision: " + weight;
-        evadeTxt.text = "Evade: " + MyAi_Evade.MyWeight;
-        healthTxt.text = "Heal: " + MyAi_SeekHeal.MyWeight;
+        // evadeTxt.text = "Evade: " + MyAi_Evade.MyWeight;
+        // healthTxt.text = "Heal: " + MyAi_SeekHeal.MyWeight;
         manaTxt.text = "Mana: " + MyAi_SeekMana.MyWeight;
         shootTxt.text = "Fight: " + MyAi_Shoot.MyWeight;
 

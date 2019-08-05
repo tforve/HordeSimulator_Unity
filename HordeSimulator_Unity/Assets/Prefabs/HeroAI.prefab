@@ -7165,9 +7165,7 @@ GameObject:
   - component: {fileID: 2050265917}
   - component: {fileID: 55221723}
   - component: {fileID: 4748050804417371964}
-  - component: {fileID: 1459271026}
-  - component: {fileID: 1459271027}
-  - component: {fileID: 1459271018}
+  - component: {fileID: 6450036940481246454}
   - component: {fileID: 1459271019}
   m_Layer: 0
   m_Name: HeroAI
@@ -7338,23 +7336,7 @@ MonoBehaviour:
   maxMana: 100
   runSpeed: 3
   characterType: 1
---- !u!114 &1459271026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2050265912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35c83bc5a423f214cb79c1d401785d73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  charType: 2
-  potionSize: 25
-  collectingRange: 2
-  weight: 1
---- !u!114 &1459271027
+--- !u!114 &6450036940481246454
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7367,24 +7349,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charType: 3
-  potionSize: 100
+  potionSize: 20
   collectingRange: 2
   weight: 2
---- !u!114 &1459271018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2050265912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e56da2c0b18f9a943844a0fd26732dcf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  charType: 0
-  rangeOfCare: 10
-  weight: 3
 --- !u!114 &1459271019
 MonoBehaviour:
   m_ObjectHideFlags: 0

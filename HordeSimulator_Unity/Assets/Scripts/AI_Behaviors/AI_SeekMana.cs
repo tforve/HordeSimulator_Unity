@@ -61,6 +61,8 @@ public class AI_SeekMana : MonoBehaviour
             WeightedDirection wd = new WeightedDirection(weight);
             MyCharacter.desiredDirections.Add(wd);
             MyCharacter.MoveTo(dir);
+            Debug.Log("AI_SeekMana Triggered");
+
         }
     }
 

@@ -303,7 +303,7 @@ MonoBehaviour:
   maxMana: 0
   runSpeed: 2
   characterType: 0
-  importanceLevel: 0
+  moveTransform: {fileID: 0}
 --- !u!114 &1384121417899212742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,7 +317,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charType: 1
-  importanceLevel: 0
   attackRange: 2
   attackSpeed: 2
   damage: 15
