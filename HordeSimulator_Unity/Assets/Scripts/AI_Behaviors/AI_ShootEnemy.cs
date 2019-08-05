@@ -13,6 +13,11 @@ public class AI_ShootEnemy : MonoBehaviour
 
     public float weight = 2.0f;
 
+    public float MyWeight
+    {
+        get {return weight;}
+    }
+
     Character MyCharacter;
     HeroAI_Controller HeroAI;
     Character target;
@@ -48,7 +53,7 @@ public class AI_ShootEnemy : MonoBehaviour
             StartCoroutine(StartCooldown());
             MyCharacter.RestoreMana(-manaCost);
         }
-        
+
         Vector3 dir = Vector3.zero;
         WeightedDirection wd = new WeightedDirection( dir, weight );
 		MyCharacter.desiredDirections.Add( wd );

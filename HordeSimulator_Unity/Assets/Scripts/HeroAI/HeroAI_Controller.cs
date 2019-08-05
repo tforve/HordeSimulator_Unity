@@ -32,9 +32,16 @@ public class HeroAI_Controller : MonoBehaviour
     private Character targetEnemy;
 
     [Header("Scoring System")]
-    [SerializeField] private float score;                           // score calculated to choose action
+    [SerializeField] private float weight;                           // score calculated to choose action
     [SerializeField] private bool veto = false;                     // if true action can not be executed, if true utility = 0
-    private Text weightText;                                        // for debuging purpose
+
+    //UI Debug Stuff
+    [SerializeField] private Text heighestTxt, evadeTxt, healthTxt, manaTxt, shootTxt;                         // for debuging purpose
+    private AI_EvadeEnemy MyAi_Evade;
+    private AI_SeekHealth MyAi_SeekHeal;
+    private AI_SeekMana MyAi_SeekMana;
+    private AI_ShootEnemy MyAi_Shoot;
+
     private Character MyCharacter;
 
     [Header("Sense for lookAt Only")]
@@ -47,10 +54,10 @@ public class HeroAI_Controller : MonoBehaviour
     [HideInInspector] public Animator animator;
 
     // Get and Set Target etc
-    public float MyScore
+    public float MyWeight
     {
-        get { return score; }
-        set { score = value; }
+        get { return weight; }
+        set { weight = value; }
     }
     public bool MyVeto
     {
@@ -80,8 +87,14 @@ public class HeroAI_Controller : MonoBehaviour
         targetLookAt = idleObject;
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-        weightText = GetComponentInChildren<Text>();
         MyCharacter = GetComponent<Character>();
+
+        //Debug
+        MyAi_Evade = GetComponent<AI_EvadeEnemy>();
+        MyAi_SeekHeal = GetComponent<AI_SeekHealth>();
+        MyAi_SeekMana = GetComponent<AI_SeekMana>();
+        MyAi_Shoot = GetComponent<AI_ShootEnemy>();
+
     }
 
     void Update()
@@ -96,12 +109,19 @@ public class HeroAI_Controller : MonoBehaviour
 
         float distanceToTarget = Vector3.Distance(this.transform.position, targetLookAt.transform.position);
 
+
+        // Debuggin to get highest Weight/ Score and update Text
         foreach (WeightedDirection wd in MyCharacter.desiredDirections)
         {
             float tmp = wd.weight;
-            Debug.Log(tmp);
+            weight = tmp;
         }
-        weightText.text = "Evade: ";
+        heighestTxt.text = "Decision: " + weight;
+        evadeTxt.text = "Evade: " + MyAi_Evade.MyWeight;
+        healthTxt.text = "Heal: " + MyAi_SeekHeal.MyWeight;
+        manaTxt.text = "Mana: " + MyAi_SeekMana.MyWeight;
+        shootTxt.text = "Fight: " + MyAi_Shoot.MyWeight;
+
     }
 
     void OnDestroy()

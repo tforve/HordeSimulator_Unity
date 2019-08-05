@@ -8,6 +8,11 @@ public class AI_EvadeEnemy : MonoBehaviour
     public float rangeOfCare = 5.0f;
     public float weight = 2.0f;
 
+    public float MyWeight
+    {
+        get {return weight;}
+    }
+
     Character MyCharacter;
 
     void Start()

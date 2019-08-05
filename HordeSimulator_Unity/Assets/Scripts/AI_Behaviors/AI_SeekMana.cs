@@ -11,6 +11,11 @@ public class AI_SeekMana : MonoBehaviour
 
     public float weight = 2.0f;
 
+    public float MyWeight
+    {
+        get {return weight;}
+    }
+
     Character MyCharacter;
 
     void Start()

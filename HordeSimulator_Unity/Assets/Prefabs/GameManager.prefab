@@ -56,9 +56,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eba74a7dccf7954b8106ad21afa5af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthBar: {fileID: 0}
-  Ammo: {fileID: 0}
-  FearLevel: {fileID: 0}
   WaveStrength: {fileID: 0}
   ActualAiState: {fileID: 0}
 --- !u!114 &1052104382
@@ -92,7 +89,7 @@ MonoBehaviour:
   - {fileID: 8235827267555815967}
   - {fileID: 8235827268542398516}
   - {fileID: 8235827267666601410}
-  timeBetweenWaves: 5
+  timeBetweenWaves: 10
   waveCountdown: 0
 --- !u!114 &7464734145951246691
 MonoBehaviour:
@@ -132,7 +129,7 @@ MonoBehaviour:
   - {fileID: 8235827268391843976}
   - {fileID: 8235827268199548446}
   - {fileID: 8235827268512744617}
-  timeBetweenWaves: 15
+  timeBetweenWaves: 3
   waveCountdown: 0
 --- !u!1001 &7635226206130029140
 PrefabInstance:

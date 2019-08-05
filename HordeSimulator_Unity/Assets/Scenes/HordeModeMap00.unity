@@ -463,49 +463,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1459271027, guid: 155e59fadb032994db5a53b2c680e3e4, type: 3}
-      propertyPath: weight
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4748050804417371964, guid: 155e59fadb032994db5a53b2c680e3e4,
-        type: 3}
-      propertyPath: mana
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 1459271018, guid: 155e59fadb032994db5a53b2c680e3e4, type: 3}
-      propertyPath: weight
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1459271019, guid: 155e59fadb032994db5a53b2c680e3e4, type: 3}
-      propertyPath: weight
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1459271019, guid: 155e59fadb032994db5a53b2c680e3e4, type: 3}
-      propertyPath: manaCost
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1977966667, guid: 155e59fadb032994db5a53b2c680e3e4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1610634350, guid: 155e59fadb032994db5a53b2c680e3e4, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 430.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1610634350, guid: 155e59fadb032994db5a53b2c680e3e4, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 159.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1610634351, guid: 155e59fadb032994db5a53b2c680e3e4, type: 3}
-      propertyPath: m_Text
-      value: 'Evade: <evade></evade>
-
-        S_Health:
-
-        S_Mana:
-
-        ShootEnemy:'
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 155e59fadb032994db5a53b2c680e3e4, type: 3}
 --- !u!1001 &3322491168454535695
@@ -683,6 +640,10 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1052104382, guid: 9b28c2ea3289d5943ad21abeb0906cca, type: 3}
+      propertyPath: timeBetweenWaves
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7464734145951246691, guid: 9b28c2ea3289d5943ad21abeb0906cca,
         type: 3}

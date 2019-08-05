@@ -13,6 +13,11 @@ public class AI_SeekHero : MonoBehaviour
 
     public float weight = 1.0f;
 
+    public float MyWeight
+    {
+        get {return weight;}
+    }
+
     Character MyCharacter;
 
     void Start()
