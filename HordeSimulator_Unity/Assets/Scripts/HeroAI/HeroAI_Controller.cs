@@ -26,10 +26,9 @@ public class HeroAI_Controller : MonoBehaviour
 
     [Header("Objects")]                                             // have to be changed autamtic in Range of AI bzw. nearest to 
     public Transform targetLookAt;                                  // Enemyto Target
-    public Transform targetMoveTo;                                  // Changed by AI_MoveTo
     public Transform idleObject;                                    // start Object. DELETE ME LATER
 
-    private Character targetEnemy;
+    [SerializeField] private Character targetEnemy;
 
     [Header("Scoring System")]
     [SerializeField] private float weight;                           // score calculated to choose action
@@ -38,7 +37,7 @@ public class HeroAI_Controller : MonoBehaviour
     //UI Debug Stuff
     [SerializeField] private Text heighestTxt, evadeTxt, healthTxt, manaTxt, shootTxt;                         // for debuging purpose
     // private AI_EvadeEnemy MyAi_Evade;
-    // private AI_SeekHealth MyAi_SeekHeal;
+    private AI_SeekHealth MyAi_SeekHeal;
     private AI_SeekMana MyAi_SeekMana;
     private AI_ShootEnemy MyAi_Shoot;
 
@@ -91,7 +90,7 @@ public class HeroAI_Controller : MonoBehaviour
 
         //Debug
         // MyAi_Evade = GetComponent<AI_EvadeEnemy>();
-        // MyAi_SeekHeal = GetComponent<AI_SeekHealth>();
+        MyAi_SeekHeal = GetComponent<AI_SeekHealth>();
         MyAi_SeekMana = GetComponent<AI_SeekMana>();
         MyAi_Shoot = GetComponent<AI_ShootEnemy>();
 
@@ -118,7 +117,7 @@ public class HeroAI_Controller : MonoBehaviour
         }
         heighestTxt.text = "Decision: " + weight;
         // evadeTxt.text = "Evade: " + MyAi_Evade.MyWeight;
-        // healthTxt.text = "Heal: " + MyAi_SeekHeal.MyWeight;
+        healthTxt.text = "Heal: " + MyAi_SeekHeal.MyWeight;
         manaTxt.text = "Mana: " + MyAi_SeekMana.MyWeight;
         shootTxt.text = "Fight: " + MyAi_Shoot.MyWeight;
 

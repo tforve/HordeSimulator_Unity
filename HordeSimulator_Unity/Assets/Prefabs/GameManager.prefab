@@ -72,15 +72,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wave:
   - name: Round 1
-    enemy: {fileID: 3510877383010246384, guid: 3731a58b202bd4f41954f36246f96f35, type: 3}
+    enemy: {fileID: 2471515041333138616, guid: 86416bd6d2bff474f84649d7ff16f310, type: 3}
     count: 3
     spawnRate: 2
   - name: Round 2
-    enemy: {fileID: 3510877383010246384, guid: 3731a58b202bd4f41954f36246f96f35, type: 3}
+    enemy: {fileID: 2471515041333138616, guid: 86416bd6d2bff474f84649d7ff16f310, type: 3}
     count: 4
     spawnRate: 1.5
   - name: Round 3
-    enemy: {fileID: 3510877383010246384, guid: 3731a58b202bd4f41954f36246f96f35, type: 3}
+    enemy: {fileID: 2471515041333138616, guid: 86416bd6d2bff474f84649d7ff16f310, type: 3}
     count: 6
     spawnRate: 1
   spawnPoints:
@@ -106,14 +106,14 @@ MonoBehaviour:
   itemWave:
   - name: Item00
     item:
-    - {fileID: 4140304394511255697, guid: a8e37cc2c84d20847853977c7b6e3a6b, type: 3}
     - {fileID: 4140304394511255697, guid: cd3566264e96389438c55bdbfea5d44f, type: 3}
+    - {fileID: 4140304394511255697, guid: a8e37cc2c84d20847853977c7b6e3a6b, type: 3}
     count: 2
     spawnRate: 2
   - name: Item01
     item:
-    - {fileID: 4140304394511255697, guid: a8e37cc2c84d20847853977c7b6e3a6b, type: 3}
     - {fileID: 4140304394511255697, guid: cd3566264e96389438c55bdbfea5d44f, type: 3}
+    - {fileID: 4140304394511255697, guid: a8e37cc2c84d20847853977c7b6e3a6b, type: 3}
     count: 2
     spawnRate: 3
   - name: Item02

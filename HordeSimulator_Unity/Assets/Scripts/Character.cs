@@ -76,9 +76,7 @@ public class Character : MonoBehaviour
 
     public void Hit(Character target, float dmg)
     {
-        Debug.Log("Char:" + this.name + " got hit for: " + dmg);
         health -= dmg;
-
         float currentHealthPct = health / maxHealth;
         OnHealthChanged(currentHealthPct);
 
