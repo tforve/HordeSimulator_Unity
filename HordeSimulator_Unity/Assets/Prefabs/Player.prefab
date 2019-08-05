@@ -2763,8 +2763,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetLookAt: {fileID: 0}
-  targetMoveTo: {fileID: 0}
   idleObject: {fileID: 3127033702925769981}
+  targetEnemy: {fileID: 0}
   weight: 0
   veto: 0
   heighestTxt: {fileID: 3127033703375731434}
@@ -2836,9 +2836,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charType: 2
-  potionSize: 20
-  collectingRange: 1
-  weight: 1
+  potionSize: 25
+  collectingRange: 2
+  weightCalculated: 1
+  veto: 0
 --- !u!114 &8279400595626185406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2852,9 +2853,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charType: 3
-  potionSize: 20
+  potionSize: 100
   collectingRange: 2
-  weight: 2
+  weightCalculated: 2
+  veto: 0
 --- !u!114 &3127033702128177955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2871,7 +2873,8 @@ MonoBehaviour:
   damage: 20
   manaCost: 10
   attackCooldown: 2.15
-  weight: 1
+  weightCalculated: 2
+  veto: 0
 --- !u!1 &3127033702612061677
 GameObject:
   m_ObjectHideFlags: 0

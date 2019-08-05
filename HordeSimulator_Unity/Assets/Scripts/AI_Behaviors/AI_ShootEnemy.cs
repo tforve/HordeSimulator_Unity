@@ -6,12 +6,14 @@ public class AI_ShootEnemy : MonoBehaviour
 {
     public CharacterType charType = CharacterType.ENEMY;
 
-    [SerializeField] private float damage = 10.0f; //  projectile later
+    [SerializeField] private float damage = 10.0f;          //  projectile later
     [SerializeField] private float manaCost = 5.0f;
     [SerializeField] private float attackCooldown = 2.15f;
-    private bool canAttack = true;
+    private bool canAttack = true;                          // for coolDown
 
-    public float weight = 2.0f;
+    private float weight;                                   // weight given to Character for Decision making, different to calculated because of Veto
+    public float weightCalculated = 2.0f;                   // weight to calculate
+    public bool veto = false;                               // if true AI Action not executed
 
     public float MyWeight
     {
@@ -30,6 +32,17 @@ public class AI_ShootEnemy : MonoBehaviour
 
     void DoAIBehaviour()
     {
+        // Check Veto to not execute.... MAYBE RETURN IS OK, to not calc everything
+        if (veto)
+        {
+            weight = 0.0f;
+        }
+        // Go on and execute AI_Behavior
+        else
+        {
+            weight = weightCalculated;
+        }
+
         // get Target from HeroAI_Controller LookAt()
         target = HeroAI.MyTargetEnemy;
 
@@ -57,6 +70,7 @@ public class AI_ShootEnemy : MonoBehaviour
         WeightedDirection wd = new WeightedDirection(weight);
         MyCharacter.desiredDirections.Add(wd);
         Debug.Log("AI_ShootEnemy Triggered");
+
     }
 
     private float CalculateWeight()

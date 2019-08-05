@@ -6,7 +6,9 @@ public class AI_EvadeEnemy : MonoBehaviour
 {
     public CharacterType charType = CharacterType.ENEMY;
     public float rangeOfCare = 5.0f;
-    public float weight = 2.0f;
+    public float weight;                                    // weight given to Character for Decision making, different to calculated because of Veto
+    public float weightCalculated = 2.0f;                   // weight to calculate
+    public bool veto = false;                               // if true AI Action not executed
 
     public float MyWeight
     {
@@ -22,6 +24,17 @@ public class AI_EvadeEnemy : MonoBehaviour
 
     void DoAIBehaviour()
     {
+        // Check Veto to not execute 
+        if (veto)
+        {
+            weight = 0.0f;
+        }
+        // Go on and execute AI_Behavior
+        else
+        {
+            weight = weightCalculated;
+        }
+
         if (Character.characterByType.ContainsKey(charType) == false) { return; }
 
         // calculate nearest
@@ -54,6 +67,7 @@ public class AI_EvadeEnemy : MonoBehaviour
             MyCharacter.desiredDirections.Add(wd);
             MyCharacter.MoveTo(dir);
         }
+
     }
 
     private float CalculateWeight()

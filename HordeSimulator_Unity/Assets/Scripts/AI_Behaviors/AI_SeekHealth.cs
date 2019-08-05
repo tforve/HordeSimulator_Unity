@@ -9,14 +9,17 @@ public class AI_SeekHealth : MonoBehaviour
     public float potionSize = 20;
     public float collectingRange = 1.0f;
 
-    public float weight = 1.0f;
+    private float weight;                                           // weight given to Character for Decision making, different to calculated because of Veto
+    public float weightCalculated = 1.0f;                           // weight to calculate
+
+    public bool veto = false;                                       // if true AI Action not executed
 
     public float MyWeight
     {
-        get {return weight;}
+        get { return weight; }
     }
 
-    Character MyCharacter;    
+    Character MyCharacter;
 
     void Start()
     {
@@ -25,6 +28,18 @@ public class AI_SeekHealth : MonoBehaviour
 
     void DoAIBehaviour()
     {
+        // Check Veto to not execute 
+        if (veto)
+        {
+            weight = 0.0f;     
+        }
+        // Go on and execute AI_Behavior
+        else
+        {
+            CalculateWeight();
+            weight = weightCalculated;
+        }
+
         if (Character.characterByType.ContainsKey(charType) == false) { return; }
 
         // calculate nearest
@@ -44,7 +59,7 @@ public class AI_SeekHealth : MonoBehaviour
         // no Potion existing
         if (closest == null) { return; }
 
-        CalculateWeight();
+        
 
         if (dist < collectingRange)
         {
@@ -60,6 +75,7 @@ public class AI_SeekHealth : MonoBehaviour
             Debug.Log("AI_SeekHealth Triggered");
 
         }
+
     }
 
     private float CalculateWeight()

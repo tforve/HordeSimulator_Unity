@@ -60,10 +60,10 @@ public class Character : MonoBehaviour
 
 
     // ------------- METHODES FOR AI -----------------
+    // have to check to not get to fast
     public void MoveTo(Vector3 dir)
     {
         // Add up all the desired directions by weight
-        //Vector3 dir = Vector3.zero;
         foreach (WeightedDirection wd in desiredDirections)
         {
             dir *= wd.weight;
@@ -90,6 +90,8 @@ public class Character : MonoBehaviour
     public void RestoreHealth(float amount)
     {
         health += amount;
+        float currentHealthPct = health / maxHealth;
+        OnHealthChanged(currentHealthPct);
         if (health > maxHealth) { health = maxHealth; }
     }
 

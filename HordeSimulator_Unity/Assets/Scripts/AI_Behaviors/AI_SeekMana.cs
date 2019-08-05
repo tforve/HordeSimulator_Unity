@@ -6,11 +6,14 @@ public class AI_SeekMana : MonoBehaviour
 {
     public CharacterType charType = CharacterType.MANAPOTION;
 
-    public float potionSize = 20;
+    public float potionSize = 100.0f;
     public float collectingRange = 1.0f;
 
-    public float weight = 2.0f;
+    private float weight;                                // weight given to Character for Decision making, different to calculated because of Veto
+    public float weightCalculated = 2.0f;                       // weight to calculate
+    public bool veto = false;                                   // if true AI Action not executed
 
+    // just for Debug purpose right now
     public float MyWeight
     {
         get { return weight; }
@@ -25,6 +28,18 @@ public class AI_SeekMana : MonoBehaviour
 
     void DoAIBehaviour()
     {
+        // Check Veto to not execute 
+        if (veto)
+        {
+            weight = 0.0f;            
+        }
+        // Go on and execute AI_Behavior
+        else
+        {
+            weight = weightCalculated;
+        }
+
+
         if (Character.characterByType.ContainsKey(charType) == false)
         {
             //nothing to do
@@ -64,10 +79,11 @@ public class AI_SeekMana : MonoBehaviour
             Debug.Log("AI_SeekMana Triggered");
 
         }
+
     }
 
     private float CalculateWeight()
     {
-        return weight;
+        return weightCalculated;
     }
 }
