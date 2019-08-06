@@ -59,10 +59,12 @@ public class Character : MonoBehaviour
         //Save checkers
         if (mana <= 0.0f) { mana = 0.0f; }
 
-        //Ask all ot our AI Scripts to tell us what to do
-
         desiredWeights = new List<float>();
+
+        //Ask all ot our AI Scripts to tell us what to do
         BroadcastMessage("DoAIBehaviour", SendMessageOptions.DontRequireReceiver);
+
+        // Move to direction set by Behaviors 
         MoveTo();
         dir = Vector3.zero;
     }
@@ -72,12 +74,6 @@ public class Character : MonoBehaviour
     // have to check to not get to fast
     public void MoveTo()
     {
-        // Add up all the desired directions by weight
-        foreach (float wd in desiredWeights)
-        {
-            Debug.Log("DesiredWeights.count in Character: "+desiredWeights.Count);
-            dir *= wd;
-        }
         // smooth out movement
         velocity = Vector3.Lerp(velocity, dir.normalized * runSpeed, Time.deltaTime * 5f);
         moveTransform.transform.Translate(velocity * Time.deltaTime);
