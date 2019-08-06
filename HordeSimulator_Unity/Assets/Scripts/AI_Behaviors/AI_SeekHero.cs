@@ -64,12 +64,18 @@ public class AI_SeekHero : MonoBehaviour
         }
         else
         {
+
             Vector3 dir = closestChar.transform.position - this.transform.position;
+			WeightedDirection wd = new WeightedDirection( dir, weight );
+			MyCharacter.desiredWeights.Add( wd );
+
+
+            // Vector3 dir = closestChar.transform.position - this.transform.position;
             
-            float wd = weight;
+            // float wd = weight;
            
-            MyCharacter.desiredWeights.Add(wd);
-            MyCharacter.MyDirection = dir;
+            // MyCharacter.desiredWeights.Add(wd);
+            // MyCharacter.MyDirection = dir;
         }
     }
 

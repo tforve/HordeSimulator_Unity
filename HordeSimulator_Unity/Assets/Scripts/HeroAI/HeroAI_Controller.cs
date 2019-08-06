@@ -99,7 +99,7 @@ public class HeroAI_Controller : MonoBehaviour
     void Update()
     {
         SearchEnemyTarget();
-        SortList(MyCharacter.desiredWeights);
+       // SortList(MyCharacter.desiredWeights.weight);
 
         // save for Idle
         if (targetLookAt == null)
@@ -119,9 +119,9 @@ public class HeroAI_Controller : MonoBehaviour
     }
 
     // save biggest Value of desiredWeights List in weight
-    void SortList(List<float> list)
+    void SortList(List<WeightedDirection> list)
     {
-        weight = Mathf.Max(MyCharacter.desiredWeights.ToArray());
+        //weight = Mathf.Max(MyCharacter.desiredWeights.weight.ToArray());
         // maxweight decides which behavior to trigger
     }
 

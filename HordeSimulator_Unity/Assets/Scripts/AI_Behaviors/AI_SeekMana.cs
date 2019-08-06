@@ -73,11 +73,14 @@ public class AI_SeekMana : MonoBehaviour
         else
         {
             Vector3 dir = closest.transform.position - this.transform.position;
-            MyCharacter.MyDirection = dir;
+			WeightedDirection wd = new WeightedDirection( dir, weight );
+			MyCharacter.desiredWeights.Add( wd );
+            // Vector3 dir = closest.transform.position - this.transform.position;
+            // MyCharacter.MyDirection = dir;
 
-            float wd = weight;
-            MyCharacter.desiredWeights.Add(wd);
-            Debug.Log("AI_SeekMana Triggered");
+            // float wd = weight;
+            // MyCharacter.desiredWeights.Add(wd);
+            // Debug.Log("AI_SeekMana Triggered");
 
         }
 

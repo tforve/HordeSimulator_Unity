@@ -21,15 +21,16 @@ public class Character : MonoBehaviour
     // For AI and Movement
     public CharacterType characterType;
     public Transform moveTransform;                                             // Transform just for Walking so Rotation dont mess up dir of Behaviours
-    public Vector3 dir;                                                        // overall direction set with setter 
+   // public Vector3 dir;                                                        // overall direction set with setter 
 
     static public Dictionary<CharacterType, List<Character>> characterByType;   // Dictionary to select CharTypes only
-    public List<float> desiredWeights;                                          // list of weights to calculate highest Weight
+    
+    public List<WeightedDirection> desiredWeights;                                          // list of weights to calculate highest Weight
 
-    public Vector3 MyDirection
-    {
-        set{dir = value;}
-    }
+    // public Vector3 MyDirection
+    // {
+    //     set{dir = value;}
+    // }
 
     // Start is called before the first frame update
     void Start()
@@ -59,14 +60,14 @@ public class Character : MonoBehaviour
         //Save checkers
         if (mana <= 0.0f) { mana = 0.0f; }
 
-        desiredWeights = new List<float>();
+        desiredWeights = new List<WeightedDirection>();
 
         //Ask all ot our AI Scripts to tell us what to do
         BroadcastMessage("DoAIBehaviour", SendMessageOptions.DontRequireReceiver);
 
         // Move to direction set by Behaviors 
         MoveTo();
-        dir = Vector3.zero;
+        //dir = Vector3.zero;
     }
     
 
@@ -74,9 +75,16 @@ public class Character : MonoBehaviour
     // have to check to not get to fast
     public void MoveTo()
     {
-        // smooth out movement
-        velocity = Vector3.Lerp(velocity, dir.normalized * runSpeed, Time.deltaTime * 5f);
-        moveTransform.transform.Translate(velocity * Time.deltaTime);
+        Vector3 dir = Vector3.zero;
+		foreach(WeightedDirection wd in desiredWeights) {
+			// NOTE: If you are implementing EXCLUSIVE/FALLBACK blend modes, check here.
+
+			dir += wd.direction * wd.weight;
+		}
+
+		velocity = Vector2.Lerp(velocity, dir.normalized * runSpeed, Time.deltaTime * 5f);
+		transform.Translate( velocity * Time.deltaTime );
+
     }
     
     public void Hit(Character target, float dmg)
