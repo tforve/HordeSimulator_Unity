@@ -14,9 +14,9 @@ public class UIController : MonoBehaviour
     private float maxWeight;
     [SerializeField] private HeroAI_Controller heroAI_Controller;
     
-    [Header("UI Elements")]
-    [SerializeField] private GameObject WaveStrength;
-    [SerializeField] private GameObject ActualAiState;
+    [SerializeField] private Text killCountTxt;
+    private int killCount = 0;
+    [SerializeField] private Slider actualAiState;
     
     // Start is called before the first frame update
     void Start()
