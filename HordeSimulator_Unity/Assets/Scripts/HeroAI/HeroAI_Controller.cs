@@ -35,13 +35,6 @@ public class HeroAI_Controller : MonoBehaviour
     [SerializeField] private float maxWeight;                       // score calculated to choose action
     [SerializeField] private bool veto = false;                     // if true action can not be executed, if true utility = 0
 
-    //UI Debug Stuff
-    [SerializeField] private Text heighestTxt, evadeTxt, healthTxt, manaTxt, shootTxt;                         // for debuging purpose
-    private AI_EvadeEnemy MyAi_Evade;
-    private AI_SeekHealth MyAi_SeekHeal;
-    // private AI_SeekMana MyAi_SeekMana;
-    private AI_ShootEnemy MyAi_Shoot;
-
     private Character MyCharacter;
     
 
@@ -55,11 +48,11 @@ public class HeroAI_Controller : MonoBehaviour
     [HideInInspector] public Animator animator;
 
     // Get and Set Target etc
-    // public float MyWeight
-    // {
-    //     get { return weight; }
-    //     set { weight = value; }
-    // }
+    public float MyWeight
+    {
+        get { return maxWeight; }
+        //set { maxWeight = value; }
+    }
     // public bool MyVeto
     // {
     //     get { return veto; }
@@ -91,18 +84,11 @@ public class HeroAI_Controller : MonoBehaviour
         MyCharacter = GetComponent<Character>();
 
         weightList = new List<float>();
-
-        //Debug
-        MyAi_Evade = GetComponent<AI_EvadeEnemy>();
-        MyAi_SeekHeal = GetComponent<AI_SeekHealth>();
-        // MyAi_SeekMana = GetComponent<AI_SeekMana>();
-        MyAi_Shoot = GetComponent<AI_ShootEnemy>();
     }
 
     void Update()
     {
         SearchEnemyTarget();
-       // SortList(MyCharacter.desiredWeights.weight);
 
         // save for Idle
         if (targetLookAt == null)
@@ -113,23 +99,18 @@ public class HeroAI_Controller : MonoBehaviour
         // go through wd and check all weights. then save it in List
         foreach (WeightedDirection wd in MyCharacter.desiredWeights)
         {
+            Debug.Log("Update List");
             weightList.Add(wd.weight);
         }
 
-        SortList(weightList);
-
-        //UI Debug Only
-        heighestTxt.text = "Decision: " + maxWeight;
-        evadeTxt.text = "Evade: " + MyAi_Evade.MyWeight;
-        healthTxt.text = "Heal: " + MyAi_SeekHeal.MyWeight;
-        // manaTxt.text = "Mana: " + MyAi_SeekMana.MyWeight;
-        shootTxt.text = "Fight: " + MyAi_Shoot.MyWeight;
+        GetMaxWeightInList(weightList);
 
     }
 
     // save biggest Value of desiredWeights List in weight
-    void SortList(List<float> list)
+    void GetMaxWeightInList(List<float> list)
     {
+        Debug.Log("Calculate new MaxWeight");
         maxWeight = Mathf.Max(list.ToArray());
         // maxWeight decides which behavior to trigger
     }
