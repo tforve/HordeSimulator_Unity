@@ -65,8 +65,10 @@ public class AI_SeekHero : MonoBehaviour
         else
         {
             Vector3 dir = closestChar.transform.position - this.transform.position;
-            WeightedDirection wd = new WeightedDirection(weight);
-            MyCharacter.desiredDirection.Add(wd);
+            
+            float wd = weight;
+           
+            MyCharacter.desiredWeights.Add(wd);
             MyCharacter.MoveTo(dir);
         }
     }

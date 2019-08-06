@@ -67,9 +67,9 @@ public class AI_ShootEnemy : MonoBehaviour
             MyCharacter.RestoreMana(-manaCost);
         }
 
-        WeightedDirection wd = new WeightedDirection(weight);
-        MyCharacter.desiredDirection.Add(wd);
-        Debug.Log("AI_ShootEnemy Triggered");
+        float wd = weight;
+        MyCharacter.desiredWeights.Add(wd);
+        // Debug.Log("AI_ShootEnemy Triggered");
 
     }
 

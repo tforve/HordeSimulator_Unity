@@ -108,14 +108,15 @@ public class HeroAI_Controller : MonoBehaviour
 
         float distanceToTarget = Vector3.Distance(this.transform.position, targetLookAt.transform.position);
 
-
         // Debuggin to get highest Weight/ Score and update Text
-        foreach (WeightedDirection wd in MyCharacter.desiredDirection)
+        foreach (float wd in MyCharacter.desiredWeights)
         {
-            float tmp = wd.weight;
-            weight = tmp;
+            Debug.Log("DesiredWeights.count in HeroAI_Cntroller: "+MyCharacter.desiredWeights.Count);
+            weight = wd;
         }
-        heighestTxt.text = "Decision: " + weight;
+
+        var maxWeight = Mathf.Max(MyCharacter.desiredWeights.ToArray());
+        heighestTxt.text = "Decision: " + maxWeight;
         evadeTxt.text = "Evade: " + MyAi_Evade.MyWeight;
         healthTxt.text = "Heal: " + MyAi_SeekHeal.MyWeight;
         // manaTxt.text = "Mana: " + MyAi_SeekMana.MyWeight;
