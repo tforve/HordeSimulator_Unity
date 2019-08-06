@@ -118,6 +118,7 @@ public class HeroAI_Controller : MonoBehaviour
 
     }
 
+    // save biggest Value of desiredWeights List in weight
     void SortList(List<float> list)
     {
         weight = Mathf.Max(MyCharacter.desiredWeights.ToArray());
