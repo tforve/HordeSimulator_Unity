@@ -5,9 +5,15 @@ using UnityEngine;
 public class AI_EvadeEnemy : MonoBehaviour
 {
     public CharacterType charType = CharacterType.ENEMY;
-    // public ImportanceLevel importanceLevel = ImportanceLevel.ALLWAYS;
-    public float rangeOfCare = 3.0f;
-    public float weight = 2.0f;
+    public float rangeOfCare = 5.0f;
+    public float weight;                                    // weight given to Character for Decision making, different to calculated because of Veto
+    public float weightCalculated = 2.0f;                   // weight to calculate
+    public bool veto = false;                               // if true AI Action not executed
+
+    public float MyWeight                                   // get the Max Weight 
+    {
+        get { return weight; }
+    }
 
     Character MyCharacter;
 
@@ -18,37 +24,59 @@ public class AI_EvadeEnemy : MonoBehaviour
 
     void DoAIBehaviour()
     {
-        if(Character.characterByType.ContainsKey(charType) == false)
+        // Check Veto to not execute 
+        if (veto)
         {
-            //nothing to do
-            return;
+            weight = 0.0f;
+        }
+        // Go on and execute AI_Behavior
+        else
+        {
+            weight = weightCalculated;
         }
 
+        if (Character.characterByType.ContainsKey(charType) == false) { return; }
+
         // calculate nearest
-        Character closestChar = null;
+        Character closest = null;
         float dist = Mathf.Infinity;
 
         foreach (Character c in Character.characterByType[charType])
         {
             float d = Vector3.Distance(this.transform.position, c.transform.position);
-            if(closestChar == null || d<dist)
+            if (closest == null || d < dist)
             {
-                closestChar = c;
+                closest = c;
                 dist = d;
             }
-
         }
         // no Enemy existing
-        if(closestChar == null){ return;}
-        Vector3 dir = closestChar.transform.position - this.transform.position;
-       // dir *= -1;
-        
-        // Do weight Calculation HERE 
-        // 10/dist^2
-       // weight = 10 / (dist*dist);        
-        
-        WeightedDirection wd = new WeightedDirection( dir, weight ); //1 is the weight
-		MyCharacter.desiredDirections.Add( wd );
-        
+        if (closest == null) { return; }
+
+
+        // evade if
+        if (dist > rangeOfCare)
+        {
+            return;
+        }
+        else // if in care Range
+        {
+            CalculateWeight(); // depends on closest - this
+
+            //Caculate Direction for move to 
+            Vector3 dir = closest.transform.position - this.transform.position;
+            MyCharacter.MyDirection = -dir;
+            
+            // return weight in desiredWeights List 
+            float wd = weight;
+            MyCharacter.desiredWeights.Add(wd);
+            Debug.Log("Evade triggered");
+        }
+
+    }
+
+    private float CalculateWeight()
+    {
+        return weightCalculated;
     }
 }

@@ -5,7 +5,6 @@ using UnityEngine;
 public class AI_SeekHero : MonoBehaviour
 {
     public CharacterType charType = CharacterType.HERO;
-    public ImportanceLevel importanceLevel = ImportanceLevel.NORMAL;
 
     [SerializeField] private float attackRange = 2.0f;
     [SerializeField] private float attackSpeed = 1.5f;
@@ -13,6 +12,11 @@ public class AI_SeekHero : MonoBehaviour
     [SerializeField] private float damage = 10.0f;
 
     public float weight = 1.0f;
+
+    public float MyWeight
+    {
+        get { return weight; }
+    }
 
     Character MyCharacter;
 
@@ -24,7 +28,7 @@ public class AI_SeekHero : MonoBehaviour
 
     void DoAIBehaviour()
     {
-        if(Character.characterByType.ContainsKey(charType) == false)
+        if (Character.characterByType.ContainsKey(charType) == false)
         {
             //nothing to do
             return;
@@ -37,32 +41,40 @@ public class AI_SeekHero : MonoBehaviour
         foreach (Character c in Character.characterByType[charType])
         {
             float d = Vector3.Distance(this.transform.position, c.transform.position);
-            if(closestChar == null || d<dist)
+            if (closestChar == null || d < dist)
             {
                 closestChar = c;
                 dist = d;
             }
 
         }
-        // no Potion existing
-        if(closestChar == null){ return;}
+        // no Hero existing
+        if (closestChar == null) { return; }
 
-        if(dist <= attackRange)
+        CalculateWeight();
+
+        if (dist <= attackRange)
         {
             attackCooldown -= Time.deltaTime;
-            if(attackCooldown <= 0.0f)
+            if (attackCooldown <= 0.0f)
             {
                 attackCooldown = attackSpeed;
-                closestChar.Hit(closestChar,damage);
+                closestChar.Hit(closestChar, damage);
             }
         }
         else
         {
             Vector3 dir = closestChar.transform.position - this.transform.position;
-            WeightedDirection wd = new WeightedDirection( dir, weight ); //1 is the weight
-            MyCharacter.desiredDirections.Add( wd );
-            MyCharacter.MoveTo();
+            
+            float wd = weight;
+           
+            MyCharacter.desiredWeights.Add(wd);
+            MyCharacter.MyDirection = dir;
         }
-        
+    }
+
+    private float CalculateWeight()
+    {
+        return weight;
     }
 }

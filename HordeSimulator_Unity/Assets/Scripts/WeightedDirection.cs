@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ImportanceLevel { NORMAL, ALLWAYS, ATLAST };
 
-public class WeightedDirection 
+public class WeightedDirection// : IComparer<float>
 {
-	public readonly Vector3 direction;
+	//public readonly Vector3 direction;
 	public readonly float weight;
 
-	public WeightedDirection(Vector3 dir, float wgt) 
+	public WeightedDirection(float wgt) 
     {
-		direction = dir.normalized;
+		//direction = dir.normalized;
 		weight = wgt;
 	}
 
-	public ImportanceLevel blending = ImportanceLevel.NORMAL;	// UNUSED right now
+    // public int Compare(float x, float y)
+    // {
+    //     return null;
+    // }
 }

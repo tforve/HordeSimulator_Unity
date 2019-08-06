@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum SpawnState{SPAWNING, WAITING, COUNTING};
+public enum SpawnState { SPAWNING, WAITING, COUNTING };
 public class WaveSpawner : MonoBehaviour
 {
-    
+
     [System.Serializable]
     public class Wave
     {
@@ -37,9 +37,9 @@ public class WaveSpawner : MonoBehaviour
     void Update()
     {
         // check if still enemies alive
-        if(state == SpawnState.WAITING)
+        if (state == SpawnState.WAITING)
         {
-            if(!EnemyIsAlive()) // start new Wave etc
+            if (!EnemyIsAlive()) // start new Wave etc
             {
                 WaveCompleted();
             }
@@ -49,9 +49,9 @@ public class WaveSpawner : MonoBehaviour
             }
         }
 
-        if(waveCountdown <= 0)
+        if (waveCountdown <= 0)
         {
-            if(state != SpawnState.SPAWNING)
+            if (state != SpawnState.SPAWNING)
             {
                 StartCoroutine(SpawnWave(wave[nextWave]));
             }
@@ -61,7 +61,7 @@ public class WaveSpawner : MonoBehaviour
             waveCountdown -= Time.deltaTime;
         }
     }
-    
+
     //reset Wave
     void WaveCompleted()
     {
@@ -69,7 +69,7 @@ public class WaveSpawner : MonoBehaviour
         waveCountdown = timeBetweenWaves;
 
         //looping if wave Array finised, Completed all waves
-        if(nextWave +1 > wave.Length -1)
+        if (nextWave + 1 > wave.Length - 1)
         {
             nextWave = 0;
             // If Game completed DO IT HERE! Or Multiplier to Enemy States etc.
@@ -84,22 +84,22 @@ public class WaveSpawner : MonoBehaviour
     bool EnemyIsAlive()
     {
         searchCountdown -= Time.deltaTime;
-        if(searchCountdown <= 0.0f)
+        if (searchCountdown <= 0.0f)
         {
             searchCountdown = 1.0f; // reset countdown
-            if(GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+            if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
             {
                 return false;
             }
         }
-        
+
         return true;
     }
 
     IEnumerator SpawnWave(Wave _wave)
     {
         state = SpawnState.SPAWNING;
-        
+
         for (int i = 0; i < _wave.count; i++)
         {
             SpawnEnemy(_wave.enemy);

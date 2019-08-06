@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 4140304394511255696}
   - component: {fileID: 4140304394511255703}
   - component: {fileID: 4140304394511255702}
-  - component: {fileID: 4140304394511255698}
+  - component: {fileID: 5017133190598619328}
   m_Layer: 0
   m_Name: Manapotion
   m_TagString: Item
@@ -185,7 +185,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4140304394511255698
+--- !u!114 &5017133190598619328
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -198,9 +198,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
-  maxHealth: 100
+  maxHealth: 1
   mana: 1
-  maxMana: 100
+  maxMana: 1
   runSpeed: 0
   characterType: 3
-  importanceLevel: 0
+  moveTransform: {fileID: 4140304394511255697}
+  dir: {x: 0, y: 0, z: 0}
+  desiredWeights: []

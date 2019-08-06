@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-
 public class Character : MonoBehaviour
 {
     [Header("Character Resources")]
@@ -12,36 +11,40 @@ public class Character : MonoBehaviour
     public float mana;
     public float maxMana = 100.0f;
     [Space]
-
     public float runSpeed = 3.0f;
     private Vector3 velocity;       // for moving calculation
 
-    // for resource calculations
-    public event Action<float> OnHealthChanged = delegate{};
-    public event Action<float> OnManaChanged = delegate{};
+    // UI related 
+    public event Action<float> OnHealthChanged = delegate { };
+    public event Action<float> OnManaChanged = delegate { };
 
-
+    // For AI and Movement
     public CharacterType characterType;
-    
-    static public Dictionary<CharacterType, List<Character>> characterByType;   // Dictionary to select CharTypes
-    public List<WeightedDirection> desiredDirections;                           // direction character wants to move to
+    public Transform moveTransform;                                             // Transform just for Walking so Rotation dont mess up dir of Behaviours
+    public Vector3 dir;                                                        // overall direction set with setter 
 
-    public ImportanceLevel importanceLevel = ImportanceLevel.NORMAL;            // to order the Behaviours by more importend to less
+    static public Dictionary<CharacterType, List<Character>> characterByType;   // Dictionary to select CharTypes only
+    public List<float> desiredWeights;                                          // list of weights to calculate highest Weight
 
+    public Vector3 MyDirection
+    {
+        set{dir = value;}
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        if(characterByType == null)
+        if (characterByType == null)
         {
             characterByType = new Dictionary<CharacterType, List<Character>>();
         }
-        if(characterByType.ContainsKey(characterType)==false)
+        if (characterByType.ContainsKey(characterType) == false)
         {
             characterByType[characterType] = new List<Character>();
         }
         characterByType[characterType].Add(this);
 
+        // StartValues
         health = maxHealth;
         mana = maxMana;
     }
@@ -54,59 +57,51 @@ public class Character : MonoBehaviour
     void Update()
     {
         //Save checkers
-        if(mana <= 0.0f) { mana = 0.0f; }
+        if (mana <= 0.0f) { mana = 0.0f; }
 
         //Ask all ot our AI Scripts to tell us what to do
-        desiredDirections = new List<WeightedDirection>();
+
+        desiredWeights = new List<float>();
         BroadcastMessage("DoAIBehaviour", SendMessageOptions.DontRequireReceiver);
-
-       // MoveTo();
-        
+        MoveTo();
+        dir = Vector3.zero;
     }
+    
 
+    // ------------- METHODES FOR AI -----------------
+    // have to check to not get to fast
     public void MoveTo()
     {
         // Add up all the desired directions by weight
-		Vector3 dir = Vector3.zero;
-		foreach(WeightedDirection wd in desiredDirections) 
+        foreach (float wd in desiredWeights)
         {
-            if(importanceLevel == ImportanceLevel.ALLWAYS)
-            {
-                // DO THIS OVER ALL
-            }
-            else if( importanceLevel == ImportanceLevel.ATLAST)
-            {
-                // do this only if nothing else is going on
-            }
-            else
-            {
-			    dir += wd.direction * wd.weight;
-            }
-		}
+            Debug.Log("DesiredWeights.count in Character: "+desiredWeights.Count);
+            dir *= wd;
+        }
         // smooth out movement
-		velocity = Vector3.Lerp(velocity, dir.normalized * runSpeed, Time.deltaTime * 5f);
-
-		// Move in the desired direction at our top speed.
-		transform.Translate( velocity * Time.deltaTime );
+        velocity = Vector3.Lerp(velocity, dir.normalized * runSpeed, Time.deltaTime * 5f);
+        moveTransform.transform.Translate(velocity * Time.deltaTime);
     }
-
-
-    // Methodes to call from AI_Behaviours
+    
     public void Hit(Character target, float dmg)
     {
-        Debug.Log("Char:" + this.name + " got hit for: " + dmg);
         health -= dmg;
-
         float currentHealthPct = health / maxHealth;
         OnHealthChanged(currentHealthPct);
 
-        if(health <= 0.0f)  { Destroy(gameObject); return; }
+        if (health <= 0.0f) 
+        { 
+            Destroy(transform.parent.gameObject);
+            return; 
+        }
     }
 
     public void RestoreHealth(float amount)
-    {   
+    {
         health += amount;
-        if(health > maxHealth) { health = maxHealth; }
+        float currentHealthPct = health / maxHealth;
+        OnHealthChanged(currentHealthPct);
+        if (health > maxHealth) { health = maxHealth; }
     }
 
     public void RestoreMana(float amount)
@@ -114,6 +109,6 @@ public class Character : MonoBehaviour
         mana += amount;
         float currentManaPct = mana / maxMana;
         OnManaChanged(currentManaPct);
-        if(mana > maxMana) { mana = maxMana; }
+        if (mana > maxMana) { mana = maxMana; }
     }
 }

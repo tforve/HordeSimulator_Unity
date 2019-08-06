@@ -56,9 +56,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eba74a7dccf7954b8106ad21afa5af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthBar: {fileID: 0}
-  Ammo: {fileID: 0}
-  FearLevel: {fileID: 0}
   WaveStrength: {fileID: 0}
   ActualAiState: {fileID: 0}
 --- !u!114 &1052104382
@@ -75,16 +72,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wave:
   - name: Round 1
-    enemy: {fileID: 3510877383010246384, guid: 3731a58b202bd4f41954f36246f96f35, type: 3}
-    count: 2
-    spawnRate: 1
-  - name: Round 2
-    enemy: {fileID: 3510877383010246384, guid: 3731a58b202bd4f41954f36246f96f35, type: 3}
+    enemy: {fileID: 2471515041333138616, guid: 86416bd6d2bff474f84649d7ff16f310, type: 3}
     count: 3
+    spawnRate: 2
+  - name: Round 2
+    enemy: {fileID: 2471515041333138616, guid: 86416bd6d2bff474f84649d7ff16f310, type: 3}
+    count: 4
     spawnRate: 1.5
   - name: Round 3
-    enemy: {fileID: 3510877383010246384, guid: 3731a58b202bd4f41954f36246f96f35, type: 3}
-    count: 5
+    enemy: {fileID: 2471515041333138616, guid: 86416bd6d2bff474f84649d7ff16f310, type: 3}
+    count: 6
     spawnRate: 1
   spawnPoints:
   - {fileID: 7635226208065533753}
@@ -92,7 +89,7 @@ MonoBehaviour:
   - {fileID: 8235827267555815967}
   - {fileID: 8235827268542398516}
   - {fileID: 8235827267666601410}
-  timeBetweenWaves: 5
+  timeBetweenWaves: 10
   waveCountdown: 0
 --- !u!114 &7464734145951246691
 MonoBehaviour:
@@ -109,16 +106,16 @@ MonoBehaviour:
   itemWave:
   - name: Item00
     item:
-    - {fileID: 4140304394511255697, guid: a8e37cc2c84d20847853977c7b6e3a6b, type: 3}
     - {fileID: 4140304394511255697, guid: cd3566264e96389438c55bdbfea5d44f, type: 3}
+    - {fileID: 4140304394511255697, guid: a8e37cc2c84d20847853977c7b6e3a6b, type: 3}
     count: 2
-    spawnRate: 3
+    spawnRate: 2
   - name: Item01
     item:
-    - {fileID: 4140304394511255697, guid: a8e37cc2c84d20847853977c7b6e3a6b, type: 3}
     - {fileID: 4140304394511255697, guid: cd3566264e96389438c55bdbfea5d44f, type: 3}
-    count: 4
-    spawnRate: 2
+    - {fileID: 4140304394511255697, guid: a8e37cc2c84d20847853977c7b6e3a6b, type: 3}
+    count: 2
+    spawnRate: 3
   - name: Item02
     item:
     - {fileID: 4140304394511255697, guid: cd3566264e96389438c55bdbfea5d44f, type: 3}
@@ -132,7 +129,7 @@ MonoBehaviour:
   - {fileID: 8235827268391843976}
   - {fileID: 8235827268199548446}
   - {fileID: 8235827268512744617}
-  timeBetweenWaves: 15
+  timeBetweenWaves: 3
   waveCountdown: 0
 --- !u!1001 &7635226206130029140
 PrefabInstance:
@@ -305,7 +302,7 @@ PrefabInstance:
     - target: {fileID: 1999119447989120886, guid: ebb3009c8a784504ba7c01d51b8d563f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.05
+      value: -10.33
       objectReference: {fileID: 0}
     - target: {fileID: 1999119447989120886, guid: ebb3009c8a784504ba7c01d51b8d563f,
         type: 3}
@@ -315,7 +312,7 @@ PrefabInstance:
     - target: {fileID: 1999119447989120886, guid: ebb3009c8a784504ba7c01d51b8d563f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.08
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1999119447989120886, guid: ebb3009c8a784504ba7c01d51b8d563f,
         type: 3}
@@ -552,7 +549,7 @@ PrefabInstance:
     - target: {fileID: 1999119447989120886, guid: ebb3009c8a784504ba7c01d51b8d563f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -14.54
+      value: -10.91
       objectReference: {fileID: 0}
     - target: {fileID: 1999119447989120886, guid: ebb3009c8a784504ba7c01d51b8d563f,
         type: 3}
@@ -633,7 +630,7 @@ PrefabInstance:
     - target: {fileID: 1999119447989120886, guid: ebb3009c8a784504ba7c01d51b8d563f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.05
+      value: 6.38
       objectReference: {fileID: 0}
     - target: {fileID: 1999119447989120886, guid: ebb3009c8a784504ba7c01d51b8d563f,
         type: 3}
@@ -704,7 +701,7 @@ PrefabInstance:
     - target: {fileID: 1999119447989120886, guid: ebb3009c8a784504ba7c01d51b8d563f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.66
+      value: 5.16
       objectReference: {fileID: 0}
     - target: {fileID: 1999119447989120886, guid: ebb3009c8a784504ba7c01d51b8d563f,
         type: 3}
@@ -714,7 +711,7 @@ PrefabInstance:
     - target: {fileID: 1999119447989120886, guid: ebb3009c8a784504ba7c01d51b8d563f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.17
+      value: -0.19
       objectReference: {fileID: 0}
     - target: {fileID: 1999119447989120886, guid: ebb3009c8a784504ba7c01d51b8d563f,
         type: 3}
