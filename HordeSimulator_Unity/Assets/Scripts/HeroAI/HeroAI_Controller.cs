@@ -31,7 +31,8 @@ public class HeroAI_Controller : MonoBehaviour
     [SerializeField] private Character targetEnemy;                 // closest Enemy and biggest Threat
 
     [Header("Scoring System")]
-    [SerializeField] private float weight;                          // score calculated to choose action
+    private List<float> weightList;                                 // List for maxWeigt... maybe delete later
+    [SerializeField] private float maxWeight;                       // score calculated to choose action
     [SerializeField] private bool veto = false;                     // if true action can not be executed, if true utility = 0
 
     //UI Debug Stuff
@@ -42,6 +43,7 @@ public class HeroAI_Controller : MonoBehaviour
     private AI_ShootEnemy MyAi_Shoot;
 
     private Character MyCharacter;
+    
 
     [Header("Sense for lookAt Only")]
     public float checkRadius = 25.0f;
@@ -88,12 +90,13 @@ public class HeroAI_Controller : MonoBehaviour
         animator = GetComponent<Animator>();
         MyCharacter = GetComponent<Character>();
 
+        weightList = new List<float>();
+
         //Debug
         MyAi_Evade = GetComponent<AI_EvadeEnemy>();
         MyAi_SeekHeal = GetComponent<AI_SeekHealth>();
         // MyAi_SeekMana = GetComponent<AI_SeekMana>();
         MyAi_Shoot = GetComponent<AI_ShootEnemy>();
-
     }
 
     void Update()
@@ -106,11 +109,17 @@ public class HeroAI_Controller : MonoBehaviour
         {
             targetLookAt = idleObject;
         }
-        //float distanceToTarget = Vector3.Distance(this.transform.position, targetLookAt.transform.position);
 
+        // go through wd and check all weights. then save it in List
+        foreach (WeightedDirection wd in MyCharacter.desiredWeights)
+        {
+            weightList.Add(wd.weight);
+        }
+
+        SortList(weightList);
 
         //UI Debug Only
-        heighestTxt.text = "Decision: " + weight;
+        heighestTxt.text = "Decision: " + maxWeight;
         evadeTxt.text = "Evade: " + MyAi_Evade.MyWeight;
         healthTxt.text = "Heal: " + MyAi_SeekHeal.MyWeight;
         // manaTxt.text = "Mana: " + MyAi_SeekMana.MyWeight;
@@ -119,10 +128,10 @@ public class HeroAI_Controller : MonoBehaviour
     }
 
     // save biggest Value of desiredWeights List in weight
-    void SortList(List<WeightedDirection> list)
+    void SortList(List<float> list)
     {
-        //weight = Mathf.Max(MyCharacter.desiredWeights.weight.ToArray());
-        // maxweight decides which behavior to trigger
+        maxWeight = Mathf.Max(list.ToArray());
+        // maxWeight decides which behavior to trigger
     }
 
     void OnDestroy()

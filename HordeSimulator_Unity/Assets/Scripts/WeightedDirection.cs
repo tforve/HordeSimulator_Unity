@@ -13,6 +13,8 @@ public class WeightedDirection// : IComparer<float>
 		weight = wgt;
 	}
 
+	public float MyWeight{ get{return weight;}}
+
 	// Not used in this tutorial, but you could set a flag
 	// to determine if we are going to be blending this direction
 	// with others, or if it's exclusive and should be the ONLY

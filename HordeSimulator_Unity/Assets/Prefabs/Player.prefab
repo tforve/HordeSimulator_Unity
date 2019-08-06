@@ -2765,7 +2765,7 @@ MonoBehaviour:
   targetLookAt: {fileID: 0}
   idleObject: {fileID: 3127033702925769981}
   targetEnemy: {fileID: 0}
-  weight: 0
+  maxWeight: 0
   veto: 0
   heighestTxt: {fileID: 3127033703375731434}
   evadeTxt: {fileID: 3127033702513422887}
@@ -2820,7 +2820,7 @@ MonoBehaviour:
   maxHealth: 100
   mana: 100
   maxMana: 100
-  runSpeed: 4
+  runSpeed: 3
   characterType: 1
   moveTransform: {fileID: 3127033702615541656}
 --- !u!114 &8379919708930809616
@@ -2838,7 +2838,7 @@ MonoBehaviour:
   charType: 2
   potionSize: 25
   collectingRange: 2
-  weightCalculated: 0
+  weightCalculated: 1
   veto: 0
 --- !u!114 &6465870240181817484
 MonoBehaviour:
@@ -2855,7 +2855,7 @@ MonoBehaviour:
   charType: 0
   rangeOfCare: 5
   weight: 5
-  weightCalculated: 0
+  weightCalculated: 2
   veto: 0
 --- !u!114 &3127033702128177955
 MonoBehaviour:
@@ -2873,7 +2873,7 @@ MonoBehaviour:
   damage: 20
   manaCost: 0
   attackCooldown: 2.15
-  weightCalculated: 12
+  weightCalculated: 3
   veto: 0
 --- !u!1 &3127033702612061677
 GameObject:

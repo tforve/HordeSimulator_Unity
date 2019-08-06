@@ -82,7 +82,8 @@ public class Character : MonoBehaviour
 			dir += wd.direction * wd.weight;
 		}
 
-		velocity = Vector2.Lerp(velocity, dir.normalized * runSpeed, Time.deltaTime * 5f);
+
+		velocity = Vector3.Lerp(velocity, dir.normalized * runSpeed, Time.deltaTime * 5f);
 		moveTransform.transform.Translate( velocity * Time.deltaTime );
 
     }

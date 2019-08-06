@@ -61,7 +61,7 @@ public class AI_EvadeEnemy : MonoBehaviour
         }
         else // if in care Range
         {
-            CalculateWeight(); // depends on closest - this
+            //CalculateWeight(); // depends on closest - this
 
             Vector3 dir = closest.transform.position - this.transform.position;
 			WeightedDirection wd = new WeightedDirection( -dir, weight );
