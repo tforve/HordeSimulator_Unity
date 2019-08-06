@@ -2820,7 +2820,7 @@ MonoBehaviour:
   maxHealth: 100
   mana: 100
   maxMana: 100
-  runSpeed: 3
+  runSpeed: 4
   characterType: 1
   moveTransform: {fileID: 3127033702615541656}
 --- !u!114 &8379919708930809616
@@ -2838,7 +2838,7 @@ MonoBehaviour:
   charType: 2
   potionSize: 25
   collectingRange: 2
-  weightCalculated: 1
+  weightCalculated: 0
   veto: 0
 --- !u!114 &6465870240181817484
 MonoBehaviour:
@@ -2855,7 +2855,7 @@ MonoBehaviour:
   charType: 0
   rangeOfCare: 5
   weight: 5
-  weightCalculated: 2
+  weightCalculated: 0
   veto: 0
 --- !u!114 &3127033702128177955
 MonoBehaviour:
@@ -2871,9 +2871,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charType: 0
   damage: 20
-  manaCost: 10
+  manaCost: 0
   attackCooldown: 2.15
-  weightCalculated: 2
+  weightCalculated: 12
   veto: 0
 --- !u!1 &3127033702612061677
 GameObject:

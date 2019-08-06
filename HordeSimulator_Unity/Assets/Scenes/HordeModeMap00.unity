@@ -480,15 +480,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8279400595626185406, guid: 25b72b8260d6bf14486085ec5d106088,
-        type: 3}
-      propertyPath: weightCalculated
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 3127033702716638723, guid: 25b72b8260d6bf14486085ec5d106088,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8379919708930809616, guid: 25b72b8260d6bf14486085ec5d106088,
+        type: 3}
+      propertyPath: veto
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8379919708930809616, guid: 25b72b8260d6bf14486085ec5d106088,
+        type: 3}
+      propertyPath: weightCalculated
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3127033702128177955, guid: 25b72b8260d6bf14486085ec5d106088,
+        type: 3}
+      propertyPath: weightCalculated
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6465870240181817484, guid: 25b72b8260d6bf14486085ec5d106088,
+        type: 3}
+      propertyPath: weightCalculated
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25b72b8260d6bf14486085ec5d106088, type: 3}
@@ -668,5 +683,23 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7464734145951246691, guid: 9b28c2ea3289d5943ad21abeb0906cca,
+        type: 3}
+      propertyPath: itemWave.Array.data[0].item.Array.data[0]
+      value: 
+      objectReference: {fileID: 4140304394511255697, guid: a8e37cc2c84d20847853977c7b6e3a6b,
+        type: 3}
+    - target: {fileID: 7464734145951246691, guid: 9b28c2ea3289d5943ad21abeb0906cca,
+        type: 3}
+      propertyPath: itemWave.Array.data[1].item.Array.data[0]
+      value: 
+      objectReference: {fileID: 4140304394511255697, guid: a8e37cc2c84d20847853977c7b6e3a6b,
+        type: 3}
+    - target: {fileID: 7464734145951246691, guid: 9b28c2ea3289d5943ad21abeb0906cca,
+        type: 3}
+      propertyPath: itemWave.Array.data[2].item.Array.data[0]
+      value: 
+      objectReference: {fileID: 4140304394511255697, guid: a8e37cc2c84d20847853977c7b6e3a6b,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b28c2ea3289d5943ad21abeb0906cca, type: 3}

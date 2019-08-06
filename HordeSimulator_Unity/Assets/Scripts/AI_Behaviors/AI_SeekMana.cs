@@ -80,7 +80,7 @@ public class AI_SeekMana : MonoBehaviour
 
             // float wd = weight;
             // MyCharacter.desiredWeights.Add(wd);
-            // Debug.Log("AI_SeekMana Triggered");
+            Debug.Log("AI_SeekMana Triggered");
 
         }
 

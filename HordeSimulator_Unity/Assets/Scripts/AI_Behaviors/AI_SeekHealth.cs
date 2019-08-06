@@ -79,7 +79,7 @@ public class AI_SeekHealth : MonoBehaviour
 
             // float wd = weight;
             // MyCharacter.desiredWeights.Add(wd);
-            // Debug.Log("AI_SeekHealth Triggered");
+            Debug.Log("AI_SeekHealth Triggered");
 
         }
 

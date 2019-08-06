@@ -83,7 +83,7 @@ public class Character : MonoBehaviour
 		}
 
 		velocity = Vector2.Lerp(velocity, dir.normalized * runSpeed, Time.deltaTime * 5f);
-		transform.Translate( velocity * Time.deltaTime );
+		moveTransform.transform.Translate( velocity * Time.deltaTime );
 
     }
     
