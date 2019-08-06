@@ -203,3 +203,6 @@ MonoBehaviour:
   maxMana: 1
   runSpeed: 0
   characterType: 3
+  moveTransform: {fileID: 4140304394511255697}
+  dir: {x: 0, y: 0, z: 0}
+  desiredWeights: []

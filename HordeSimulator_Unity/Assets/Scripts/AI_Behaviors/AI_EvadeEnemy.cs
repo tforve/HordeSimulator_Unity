@@ -10,7 +10,7 @@ public class AI_EvadeEnemy : MonoBehaviour
     public float weightCalculated = 2.0f;                   // weight to calculate
     public bool veto = false;                               // if true AI Action not executed
 
-    public float MyWeight
+    public float MyWeight                                   // get the Max Weight 
     {
         get { return weight; }
     }
@@ -61,13 +61,15 @@ public class AI_EvadeEnemy : MonoBehaviour
         }
         else // if in care Range
         {
-            CalculateWeight();
-            Vector3 dir = closest.transform.position - this.transform.position;
-            float wd = weight;
-            // MyCharacter.desiredDirection.Add(wd);
-            MyCharacter.desiredWeights.Add(wd);
+            CalculateWeight(); // depends on closest - this
 
-            MyCharacter.MoveTo(-dir);
+            //Caculate Direction for move to 
+            Vector3 dir = closest.transform.position - this.transform.position;
+            MyCharacter.MyDirection = -dir;
+            
+            // return weight in desiredWeights List 
+            float wd = weight;
+            MyCharacter.desiredWeights.Add(wd);
             Debug.Log("Evade triggered");
         }
 

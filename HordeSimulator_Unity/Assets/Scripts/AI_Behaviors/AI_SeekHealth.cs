@@ -69,7 +69,7 @@ public class AI_SeekHealth : MonoBehaviour
         else
         {
             Vector3 dir = closest.transform.position - this.transform.position;
-            MyCharacter.MoveTo(dir);
+            MyCharacter.MyDirection = dir;
 
             float wd = weight;
             MyCharacter.desiredWeights.Add(wd);

@@ -69,7 +69,7 @@ public class AI_SeekHero : MonoBehaviour
             float wd = weight;
            
             MyCharacter.desiredWeights.Add(wd);
-            MyCharacter.MoveTo(dir);
+            MyCharacter.MyDirection = dir;
         }
     }
 

@@ -28,10 +28,10 @@ public class HeroAI_Controller : MonoBehaviour
     public Transform targetLookAt;                                  // Enemyto Target
     public Transform idleObject;                                    // start Object. DELETE ME LATER
 
-    [SerializeField] private Character targetEnemy;
+    [SerializeField] private Character targetEnemy;                 // closest Enemy and biggest Threat
 
     [Header("Scoring System")]
-    [SerializeField] private float weight;                           // score calculated to choose action
+    [SerializeField] private float weight;                          // score calculated to choose action
     [SerializeField] private bool veto = false;                     // if true action can not be executed, if true utility = 0
 
     //UI Debug Stuff
@@ -53,17 +53,17 @@ public class HeroAI_Controller : MonoBehaviour
     [HideInInspector] public Animator animator;
 
     // Get and Set Target etc
-    public float MyWeight
-    {
-        get { return weight; }
-        set { weight = value; }
-    }
-    public bool MyVeto
-    {
-        get { return veto; }
-        set { veto = value; }
-    }
-    public Character MyTargetEnemy
+    // public float MyWeight
+    // {
+    //     get { return weight; }
+    //     set { weight = value; }
+    // }
+    // public bool MyVeto
+    // {
+    //     get { return veto; }
+    //     set { veto = value; }
+    // }
+    public Character MyTargetEnemy // is used in AI_ShootEnemy to get target to shoot at
     {
         get { return targetEnemy; }
     }
@@ -99,29 +99,29 @@ public class HeroAI_Controller : MonoBehaviour
     void Update()
     {
         SearchEnemyTarget();
+        SortList(MyCharacter.desiredWeights);
 
         // save for Idle
         if (targetLookAt == null)
         {
             targetLookAt = idleObject;
         }
+        //float distanceToTarget = Vector3.Distance(this.transform.position, targetLookAt.transform.position);
 
-        float distanceToTarget = Vector3.Distance(this.transform.position, targetLookAt.transform.position);
 
-        // Debuggin to get highest Weight/ Score and update Text
-        foreach (float wd in MyCharacter.desiredWeights)
-        {
-            Debug.Log("DesiredWeights.count in HeroAI_Cntroller: "+MyCharacter.desiredWeights.Count);
-            weight = wd;
-        }
-
-        var maxWeight = Mathf.Max(MyCharacter.desiredWeights.ToArray());
-        heighestTxt.text = "Decision: " + maxWeight;
+        //UI Debug Only
+        heighestTxt.text = "Decision: " + weight;
         evadeTxt.text = "Evade: " + MyAi_Evade.MyWeight;
         healthTxt.text = "Heal: " + MyAi_SeekHeal.MyWeight;
         // manaTxt.text = "Mana: " + MyAi_SeekMana.MyWeight;
         shootTxt.text = "Fight: " + MyAi_Shoot.MyWeight;
 
+    }
+
+    void SortList(List<float> list)
+    {
+        weight = Mathf.Max(MyCharacter.desiredWeights.ToArray());
+        // maxweight decides which behavior to trigger
     }
 
     void OnDestroy()

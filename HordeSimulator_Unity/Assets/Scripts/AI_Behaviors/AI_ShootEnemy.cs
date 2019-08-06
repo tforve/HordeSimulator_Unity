@@ -69,7 +69,7 @@ public class AI_ShootEnemy : MonoBehaviour
 
         float wd = weight;
         MyCharacter.desiredWeights.Add(wd);
-        // Debug.Log("AI_ShootEnemy Triggered");
+        Debug.Log("AI_ShootEnemy Triggered");
 
     }
 

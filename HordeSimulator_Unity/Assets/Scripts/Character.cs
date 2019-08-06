@@ -18,13 +18,18 @@ public class Character : MonoBehaviour
     public event Action<float> OnHealthChanged = delegate { };
     public event Action<float> OnManaChanged = delegate { };
 
+    // For AI and Movement
     public CharacterType characterType;
     public Transform moveTransform;                                             // Transform just for Walking so Rotation dont mess up dir of Behaviours
+    public Vector3 dir;                                                        // overall direction set with setter 
 
-    static public Dictionary<CharacterType, List<Character>> characterByType;   // Dictionary to select CharTypes
-    //public List<WeightedDirection> desiredDirection;                            // direction character wants to move to
-    public List<float> desiredWeights;                                          // list of weights
+    static public Dictionary<CharacterType, List<Character>> characterByType;   // Dictionary to select CharTypes only
+    public List<float> desiredWeights;                                          // list of weights to calculate highest Weight
 
+    public Vector3 MyDirection
+    {
+        set{dir = value;}
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -55,22 +60,17 @@ public class Character : MonoBehaviour
         if (mana <= 0.0f) { mana = 0.0f; }
 
         //Ask all ot our AI Scripts to tell us what to do
-        // desiredDirection = new List<WeightedDirection>();
-        // test
+
         desiredWeights = new List<float>();
         BroadcastMessage("DoAIBehaviour", SendMessageOptions.DontRequireReceiver);
-       // SortListWeight();
+        MoveTo();
+        dir = Vector3.zero;
     }
     
-    void SortListWeight()
-    {
-        var maxWeight = Mathf.Max(desiredWeights.ToArray());
-    }
-
 
     // ------------- METHODES FOR AI -----------------
     // have to check to not get to fast
-    public void MoveTo(Vector3 dir)
+    public void MoveTo()
     {
         // Add up all the desired directions by weight
         foreach (float wd in desiredWeights)
@@ -80,10 +80,9 @@ public class Character : MonoBehaviour
         }
         // smooth out movement
         velocity = Vector3.Lerp(velocity, dir.normalized * runSpeed, Time.deltaTime * 5f);
-        // Move in the desired direction at our top speed.
         moveTransform.transform.Translate(velocity * Time.deltaTime);
     }
-
+    
     public void Hit(Character target, float dmg)
     {
         health -= dmg;
