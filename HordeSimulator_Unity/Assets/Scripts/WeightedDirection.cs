@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class WeightedDirection 
+public class WeightedDirection// : IComparer<float>
 {
 	//public readonly Vector3 direction;
 	public readonly float weight;
@@ -14,4 +14,8 @@ public class WeightedDirection
 		weight = wgt;
 	}
 
+    // public int Compare(float x, float y)
+    // {
+    //     return null;
+    // }
 }

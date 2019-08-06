@@ -36,9 +36,9 @@ public class HeroAI_Controller : MonoBehaviour
 
     //UI Debug Stuff
     [SerializeField] private Text heighestTxt, evadeTxt, healthTxt, manaTxt, shootTxt;                         // for debuging purpose
-    // private AI_EvadeEnemy MyAi_Evade;
+    private AI_EvadeEnemy MyAi_Evade;
     private AI_SeekHealth MyAi_SeekHeal;
-    private AI_SeekMana MyAi_SeekMana;
+    // private AI_SeekMana MyAi_SeekMana;
     private AI_ShootEnemy MyAi_Shoot;
 
     private Character MyCharacter;
@@ -89,9 +89,9 @@ public class HeroAI_Controller : MonoBehaviour
         MyCharacter = GetComponent<Character>();
 
         //Debug
-        // MyAi_Evade = GetComponent<AI_EvadeEnemy>();
+        MyAi_Evade = GetComponent<AI_EvadeEnemy>();
         MyAi_SeekHeal = GetComponent<AI_SeekHealth>();
-        MyAi_SeekMana = GetComponent<AI_SeekMana>();
+        // MyAi_SeekMana = GetComponent<AI_SeekMana>();
         MyAi_Shoot = GetComponent<AI_ShootEnemy>();
 
     }
@@ -110,15 +110,15 @@ public class HeroAI_Controller : MonoBehaviour
 
 
         // Debuggin to get highest Weight/ Score and update Text
-        foreach (WeightedDirection wd in MyCharacter.desiredDirections)
+        foreach (WeightedDirection wd in MyCharacter.desiredDirection)
         {
             float tmp = wd.weight;
             weight = tmp;
         }
         heighestTxt.text = "Decision: " + weight;
-        // evadeTxt.text = "Evade: " + MyAi_Evade.MyWeight;
+        evadeTxt.text = "Evade: " + MyAi_Evade.MyWeight;
         healthTxt.text = "Heal: " + MyAi_SeekHeal.MyWeight;
-        manaTxt.text = "Mana: " + MyAi_SeekMana.MyWeight;
+        // manaTxt.text = "Mana: " + MyAi_SeekMana.MyWeight;
         shootTxt.text = "Fight: " + MyAi_Shoot.MyWeight;
 
     }

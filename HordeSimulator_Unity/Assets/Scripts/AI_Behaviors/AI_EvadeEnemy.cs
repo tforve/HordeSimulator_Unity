@@ -64,14 +64,15 @@ public class AI_EvadeEnemy : MonoBehaviour
             CalculateWeight();
             Vector3 dir = closest.transform.position - this.transform.position;
             WeightedDirection wd = new WeightedDirection(weight);
-            MyCharacter.desiredDirections.Add(wd);
-            MyCharacter.MoveTo(dir);
+            MyCharacter.desiredDirection.Add(wd);
+            MyCharacter.MoveTo(-dir);
+            Debug.Log("Evade triggered");
         }
 
     }
 
     private float CalculateWeight()
     {
-        return weight;
+        return weightCalculated;
     }
 }

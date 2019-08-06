@@ -2651,7 +2651,7 @@ GameObject:
   - component: {fileID: 3127033703028915091}
   - component: {fileID: 7674419196388899188}
   - component: {fileID: 8379919708930809616}
-  - component: {fileID: 8279400595626185406}
+  - component: {fileID: 6465870240181817484}
   - component: {fileID: 3127033702128177955}
   m_Layer: 0
   m_Name: HeroAI
@@ -2840,7 +2840,7 @@ MonoBehaviour:
   collectingRange: 2
   weightCalculated: 1
   veto: 0
---- !u!114 &8279400595626185406
+--- !u!114 &6465870240181817484
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2849,12 +2849,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3127033702610662768}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66ce58aef71cea7489a10ce218c62893, type: 3}
+  m_Script: {fileID: 11500000, guid: e56da2c0b18f9a943844a0fd26732dcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charType: 3
-  potionSize: 100
-  collectingRange: 2
+  charType: 0
+  rangeOfCare: 5
+  weight: 5
   weightCalculated: 2
   veto: 0
 --- !u!114 &3127033702128177955

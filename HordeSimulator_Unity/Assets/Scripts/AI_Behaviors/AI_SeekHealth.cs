@@ -70,7 +70,7 @@ public class AI_SeekHealth : MonoBehaviour
         {
             Vector3 dir = closest.transform.position - this.transform.position;
             WeightedDirection wd = new WeightedDirection(weight);
-            MyCharacter.desiredDirections.Add(wd);
+            MyCharacter.desiredDirection.Add(wd);
             MyCharacter.MoveTo(dir);
             Debug.Log("AI_SeekHealth Triggered");
 
@@ -80,6 +80,6 @@ public class AI_SeekHealth : MonoBehaviour
 
     private float CalculateWeight()
     {
-        return weight;
+        return weightCalculated;
     }
 }

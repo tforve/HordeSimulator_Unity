@@ -22,7 +22,8 @@ public class Character : MonoBehaviour
     public Transform moveTransform;                                             // Transform just for Walking so Rotation dont mess up dir of Behaviours
 
     static public Dictionary<CharacterType, List<Character>> characterByType;   // Dictionary to select CharTypes
-    public List<WeightedDirection> desiredDirections;                           // direction character wants to move to
+    public List<WeightedDirection> desiredDirection;                            // direction character wants to move to
+    public List<float> desiredWeights;                                          // list of weights
 
 
     // Start is called before the first frame update
@@ -54,8 +55,19 @@ public class Character : MonoBehaviour
         if (mana <= 0.0f) { mana = 0.0f; }
 
         //Ask all ot our AI Scripts to tell us what to do
-        desiredDirections = new List<WeightedDirection>();
+        desiredDirection = new List<WeightedDirection>();
         BroadcastMessage("DoAIBehaviour", SendMessageOptions.DontRequireReceiver);
+        // test
+        desiredWeights = new List<float>();
+        SortListWeight();
+
+    }
+
+    
+
+    void SortListWeight()
+    {
+        var maxWeight = Mathf.Max(desiredWeights.ToArray());
     }
 
 
@@ -64,7 +76,7 @@ public class Character : MonoBehaviour
     public void MoveTo(Vector3 dir)
     {
         // Add up all the desired directions by weight
-        foreach (WeightedDirection wd in desiredDirections)
+        foreach (WeightedDirection wd in desiredDirection)
         {
             dir *= wd.weight;
         }

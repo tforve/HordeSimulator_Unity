@@ -68,14 +68,14 @@ public class AI_ShootEnemy : MonoBehaviour
         }
 
         WeightedDirection wd = new WeightedDirection(weight);
-        MyCharacter.desiredDirections.Add(wd);
+        MyCharacter.desiredDirection.Add(wd);
         Debug.Log("AI_ShootEnemy Triggered");
 
     }
 
     private float CalculateWeight()
     {
-        return weight;
+        return weightCalculated;
     }
 
     IEnumerator StartCooldown()
