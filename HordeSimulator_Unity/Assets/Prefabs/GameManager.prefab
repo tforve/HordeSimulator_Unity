@@ -1558,7 +1558,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3608794570717408439}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38e943e959b41e24baf1c086b8c350d5, type: 3}
   m_Name: 
@@ -1582,7 +1582,7 @@ MonoBehaviour:
   - {fileID: 9148960759556792598}
   - {fileID: 9148960758452654909}
   - {fileID: 9148960758120543947}
-  timeBetweenWaves: 10
+  timeBetweenWaves: 5
   waveCountdown: 0
 --- !u!114 &7720359648638417514
 MonoBehaviour:
@@ -1607,12 +1607,14 @@ MonoBehaviour:
     item:
     - {fileID: 2365178809083964379, guid: cd3566264e96389438c55bdbfea5d44f, type: 3}
     - {fileID: 4140304394511255697, guid: a8e37cc2c84d20847853977c7b6e3a6b, type: 3}
+    - {fileID: 2365178809083964379, guid: cd3566264e96389438c55bdbfea5d44f, type: 3}
     count: 2
     spawnRate: 3
   - name: Item02
     item:
     - {fileID: 2365178809083964379, guid: cd3566264e96389438c55bdbfea5d44f, type: 3}
     - {fileID: 4140304394511255697, guid: a8e37cc2c84d20847853977c7b6e3a6b, type: 3}
+    - {fileID: 2365178809083964379, guid: cd3566264e96389438c55bdbfea5d44f, type: 3}
     count: 1
     spawnRate: 3
   spawnPoints:
@@ -1622,7 +1624,7 @@ MonoBehaviour:
   - {fileID: 9148960758737251201}
   - {fileID: 9148960758661354775}
   - {fileID: 9148960758331119520}
-  timeBetweenWaves: 3
+  timeBetweenWaves: 7
   waveCountdown: 0
 --- !u!1 &7298628406349046835
 GameObject:
