@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AI_ShootEnemy : MonoBehaviour
 {
-    public CharacterType charType = CharacterType.ENEMY;
+    public string charType = "Enemy";
 
     [SerializeField] private float damage = 10.0f;          //  projectile later
     [SerializeField] private float manaCost = 5.0f;
@@ -55,17 +55,17 @@ public class AI_ShootEnemy : MonoBehaviour
 
         // calculate weight
 
-        if (weightCalculated == HeroAI_Controller.MyInstance.MyMaxWeight)
-        {
             AttackTarget();
             Vector3 dir = Vector3.zero;
             WeightedDirection wd = new WeightedDirection(dir, weight);
             MyCharacter.desiredWeights.Add(wd);
-        }
-        else
-        {
-            Debug.Log("not allowed: ShootEnemy");
-        }
+        // if (weightCalculated == HeroAI_Controller.MyInstance.MyMaxWeight)
+        // {
+        // }
+        // else
+        // {
+        //     Debug.Log("not allowed: ShootEnemy");
+        // }
 
         // float wd = weight;
         // MyCharacter.desiredWeights.Add(wd);

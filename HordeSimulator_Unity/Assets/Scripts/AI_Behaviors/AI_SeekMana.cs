@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AI_SeekMana : MonoBehaviour
 {
-    public CharacterType charType = CharacterType.MANAPOTION;
+    public string charType = "Manapotion";
 
     public float potionSize = 100.0f;
     public float collectingRange = 1.0f;
@@ -31,12 +31,12 @@ public class AI_SeekMana : MonoBehaviour
         // Check Veto to not execute 
         if (veto)
         {
-            weight = 0.0f;            
+            weight = 0.0f;
         }
         // Go on and execute AI_Behavior
         else
         {
-            weight = weightCalculated;
+            CalculateWeight();
         }
 
 
@@ -63,8 +63,6 @@ public class AI_SeekMana : MonoBehaviour
         // no Potion existing
         if (closest == null) { return; }
 
-        CalculateWeight();
-
         if (dist < collectingRange)
         {
             MyCharacter.RestoreMana(potionSize);
@@ -73,21 +71,18 @@ public class AI_SeekMana : MonoBehaviour
         else
         {
             Vector3 dir = closest.transform.position - this.transform.position;
-			WeightedDirection wd = new WeightedDirection( dir, weight );
-			MyCharacter.desiredWeights.Add( wd );
-            // Vector3 dir = closest.transform.position - this.transform.position;
-            // MyCharacter.MyDirection = dir;
-
-            // float wd = weight;
-            // MyCharacter.desiredWeights.Add(wd);
-            Debug.Log("AI_SeekMana Triggered");
-
+            WeightedDirection wd = new WeightedDirection(dir, weight);
+            MyCharacter.desiredWeights.Add(wd);
         }
 
     }
 
-    private float CalculateWeight()
+    private void CalculateWeight()
     {
-        return weightCalculated;
+        float linearTmp = ((MyCharacter.maxMana - MyCharacter.mana) / MyCharacter.maxMana); // 100-currentHp / 100
+
+        weightCalculated = Mathf.InverseLerp(0, 1, linearTmp);
+        weight = weightCalculated;
+        HeroAI_Controller.MyInstance.weightList.Add(weight);
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 
 
-public enum CharacterType { ENEMY, HERO, HEALTHPOTION, MANAPOTION }
+//public enum CharacterType {ENEMY, HERO, HEALTHPOTION, MANAPOTION }
 
 public class HeroAI_Controller : MonoBehaviour
 {
@@ -34,7 +34,7 @@ public class HeroAI_Controller : MonoBehaviour
 
     [Header("Scoring System")]
     public List<float> weightList;                                  // List for maxWeigt... maybe delete later
-    [SerializeField] private float maxWeight;                       // score calculated to choose action
+    [SerializeField] private float maxWeight = 0.0f;                // score calculated to choose action
     [SerializeField] private bool veto = false;                     // if true action can not be executed, if true utility = 0
 
     private Character MyCharacter;
@@ -54,7 +54,7 @@ public class HeroAI_Controller : MonoBehaviour
     public float MyMaxWeight
     {
         get { return maxWeight; }
-        //set { maxWeight = value; }
+        set { maxWeight = value; }
     }
     // public bool MyVeto
     // {
@@ -86,7 +86,7 @@ public class HeroAI_Controller : MonoBehaviour
         animator = GetComponent<Animator>();
         MyCharacter = GetComponent<Character>();
 
-        weightList = new List<float>();
+        // weightList = new List<float>();
     }
 
     void Update()
@@ -99,15 +99,18 @@ public class HeroAI_Controller : MonoBehaviour
             targetLookAt = idleObject;
         }
 
-        // go through wd and check all weights. then save it in List
+        // //go through wd and check all weights. then save it in List
         // foreach (WeightedDirection wd in MyCharacter.desiredWeights)
         // {
-        //     weightList.Add(wd.weight);
+        //     if(wd.weight >= maxWeight)
+        //     {
+        //         maxWeight = wd.weight;
+        //     }
         // }
 
 
-        GetMaxWeightInList(weightList);
-        weightList.Clear();
+        // GetMaxWeightInList(weightList);
+        // weightList.Clear();
 
     }
 

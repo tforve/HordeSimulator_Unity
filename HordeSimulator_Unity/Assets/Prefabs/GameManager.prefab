@@ -1547,8 +1547,8 @@ MonoBehaviour:
   shootTxt: {fileID: 1124951845303472877}
   MyAi_Evade: {fileID: 0}
   MyAi_SeekHeal: {fileID: 0}
+  MyAi_SeekMana: {fileID: 0}
   MyAi_Shoot: {fileID: 0}
-  heroAI_Controller: {fileID: 0}
   killCountTxt: {fileID: 1743118381189199852}
   actualAiState: {fileID: 1801248076}
 --- !u!114 &917654697748776375
@@ -1558,7 +1558,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3608794570717408439}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38e943e959b41e24baf1c086b8c350d5, type: 3}
   m_Name: 
@@ -1599,22 +1599,22 @@ MonoBehaviour:
   itemWave:
   - name: Item00
     item:
-    - {fileID: 4140304394511255697, guid: a8e37cc2c84d20847853977c7b6e3a6b, type: 3}
+    - {fileID: 2365178809083964379, guid: cd3566264e96389438c55bdbfea5d44f, type: 3}
     - {fileID: 4140304394511255697, guid: a8e37cc2c84d20847853977c7b6e3a6b, type: 3}
     count: 2
     spawnRate: 2
   - name: Item01
     item:
-    - {fileID: 4140304394511255697, guid: a8e37cc2c84d20847853977c7b6e3a6b, type: 3}
+    - {fileID: 2365178809083964379, guid: cd3566264e96389438c55bdbfea5d44f, type: 3}
     - {fileID: 4140304394511255697, guid: a8e37cc2c84d20847853977c7b6e3a6b, type: 3}
     count: 2
     spawnRate: 3
   - name: Item02
     item:
-    - {fileID: 4140304394511255697, guid: a8e37cc2c84d20847853977c7b6e3a6b, type: 3}
+    - {fileID: 2365178809083964379, guid: cd3566264e96389438c55bdbfea5d44f, type: 3}
     - {fileID: 4140304394511255697, guid: a8e37cc2c84d20847853977c7b6e3a6b, type: 3}
     count: 1
-    spawnRate: 2
+    spawnRate: 3
   spawnPoints:
   - {fileID: 9148960759130626191}
   - {fileID: 9148960758183957178}

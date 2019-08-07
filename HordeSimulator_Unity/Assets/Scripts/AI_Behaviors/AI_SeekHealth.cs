@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AI_SeekHealth : MonoBehaviour
 {
-    public CharacterType charType = CharacterType.HEALTHPOTION;
+    public string charType = "Healthpotion";
 
     public float potionSize = 20;
     public float collectingRange = 1.0f;
@@ -67,24 +67,9 @@ public class AI_SeekHealth : MonoBehaviour
         }
         else
         {
-            if (weightCalculated == HeroAI_Controller.MyInstance.MyMaxWeight)
-            {
-                Vector3 dir = closest.transform.position - this.transform.position;
-                WeightedDirection wd = new WeightedDirection(dir, weight);
-                MyCharacter.desiredWeights.Add(wd);
-            }
-            else
-            {
-                Debug.Log("not allowed: Seek Heal");
-            }
-
-
-            // Vector3 dir = closest.transform.position - this.transform.position;
-            // MyCharacter.MyDirection = dir;
-
-            // float wd = weight;
-            // MyCharacter.desiredWeights.Add(wd);
-            // Debug.Log("AI_SeekHealth Triggered");
+            Vector3 dir = closest.transform.position - this.transform.position;
+            WeightedDirection wd = new WeightedDirection(dir, weight);
+            MyCharacter.desiredWeights.Add(wd);
 
         }
 
@@ -92,11 +77,10 @@ public class AI_SeekHealth : MonoBehaviour
 
     private void CalculateWeight()
     {
-        float linearTmp = ((MyCharacter.maxHealth - MyCharacter.health )/ MyCharacter.maxHealth); // 100-currentHp / 100
-        float expoTmp = ((MyCharacter.maxHealth - Mathf.Pow(MyCharacter.health,5) )/ Mathf.Pow(MyCharacter.maxHealth,5)); // 100-currentHp^3 / 100^3
+        float linearTmp = ((MyCharacter.maxHealth - MyCharacter.health) / MyCharacter.maxHealth); // 100-currentHp / 100
+        //float expoTmp = ((MyCharacter.maxHealth - Mathf.Pow(MyCharacter.health, 5)) / Mathf.Pow(MyCharacter.maxHealth, 5)); // 100-currentHp^3 / 100^3
 
-        // float expoTmp = (1/(1+(Mathf.Pow((2.78f+0.45f),MyCharacter.health))));
-        weightCalculated = Mathf.InverseLerp(0, 1, expoTmp);
+        weightCalculated = Mathf.InverseLerp(0, 1, linearTmp);
         weight = weightCalculated;
         HeroAI_Controller.MyInstance.weightList.Add(weight);
     }

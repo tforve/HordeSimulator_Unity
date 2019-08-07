@@ -217,7 +217,7 @@ MonoBehaviour:
   mana: 0
   maxMana: 0
   runSpeed: 3.5
-  characterType: 0
+  characterType: 
   moveTransform: {fileID: 2471515041333138616}
 --- !u!114 &7061098630496548527
 MonoBehaviour:
@@ -231,7 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d93faa8366b99c147a570c3ee022731a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charType: 1
+  charType: Hero
   attackRange: 2
   attackSpeed: 2
   damage: 15

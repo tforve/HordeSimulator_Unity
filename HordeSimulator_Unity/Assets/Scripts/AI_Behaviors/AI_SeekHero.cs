@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AI_SeekHero : MonoBehaviour
 {
-    public CharacterType charType = CharacterType.HERO;
+    public string charType = "Hero";
 
     [SerializeField] private float attackRange = 2.0f;
     [SerializeField] private float attackSpeed = 1.5f;

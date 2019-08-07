@@ -2489,10 +2489,11 @@ GameObject:
   - component: {fileID: 3127033702610662774}
   - component: {fileID: 3127033702610662770}
   - component: {fileID: 3127033702610662769}
-  - component: {fileID: 3127033702610662773}
   - component: {fileID: 3127033703028915091}
+  - component: {fileID: 3127033702610662773}
   - component: {fileID: 7674419196388899188}
   - component: {fileID: 8379919708930809616}
+  - component: {fileID: 955483716649632909}
   - component: {fileID: 6465870240181817484}
   - component: {fileID: 3127033702128177955}
   m_Layer: 0
@@ -2591,34 +2592,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &3127033702610662773
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3127033702610662768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79f06f4ead28b424394e077a89c588b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetLookAt: {fileID: 0}
-  idleObject: {fileID: 3127033702925769981}
-  targetEnemy: {fileID: 0}
-  maxWeight: 0
-  veto: 0
-  heighestTxt: {fileID: 0}
-  evadeTxt: {fileID: 0}
-  healthTxt: {fileID: 0}
-  manaTxt: {fileID: 0}
-  shootTxt: {fileID: 0}
-  checkRadius: 25
-  turnSpeed: 5.5
-  checkLayers:
-    serializedVersion: 2
-    m_Bits: 512
-  animator: {fileID: 0}
 --- !u!114 &3127033703028915091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2645,6 +2618,31 @@ MonoBehaviour:
   AdditionalEffectAttachPoint: {fileID: 0}
   AdditionalEffect_DestroyTime: 10
   IsMobile: 0
+--- !u!114 &3127033702610662773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3127033702610662768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79f06f4ead28b424394e077a89c588b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetLookAt: {fileID: 0}
+  idleObject: {fileID: 3127033702925769981}
+  targetEnemy: {fileID: 0}
+  listOfEnemies: []
+  weightList: []
+  maxWeight: 0
+  veto: 0
+  checkRadius: 25
+  turnSpeed: 5.5
+  checkLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  animator: {fileID: 0}
 --- !u!114 &7674419196388899188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2662,7 +2660,7 @@ MonoBehaviour:
   mana: 100
   maxMana: 100
   runSpeed: 3
-  characterType: 1
+  characterType: Hero
   moveTransform: {fileID: 3127033702615541656}
 --- !u!114 &8379919708930809616
 MonoBehaviour:
@@ -2676,10 +2674,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c83bc5a423f214cb79c1d401785d73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charType: 2
+  charType: Healthpotion
   potionSize: 25
   collectingRange: 2
-  weightCalculated: 1
+  weightCalculated: 0
+  veto: 0
+--- !u!114 &955483716649632909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3127033702610662768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ce58aef71cea7489a10ce218c62893, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charType: Manapotion
+  potionSize: 100
+  collectingRange: 2
+  weightCalculated: 0
   veto: 0
 --- !u!114 &6465870240181817484
 MonoBehaviour:
@@ -2693,10 +2708,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e56da2c0b18f9a943844a0fd26732dcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charType: 0
+  charType: Enemy
   rangeOfCare: 5
-  weight: 5
-  weightCalculated: 2
+  weightCalculated: 0
   veto: 0
 --- !u!114 &3127033702128177955
 MonoBehaviour:
@@ -2710,11 +2724,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8d9099edda244d41b553aa8aabc029a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charType: 0
+  charType: Enemy
   damage: 20
-  manaCost: 0
+  manaCost: 10
   attackCooldown: 2.15
-  weightCalculated: 3
+  weightCalculated: 0
   veto: 0
 --- !u!1 &3127033702612061677
 GameObject:

@@ -19,12 +19,12 @@ public class Character : MonoBehaviour
     public event Action<float> OnManaChanged = delegate { };
 
     // For AI and Movement
-    public CharacterType characterType;
+    public string characterType;
     public Transform moveTransform;                                             // Transform just for Walking so Rotation dont mess up dir of Behaviours
-   // public Vector3 dir;                                                        // overall direction set with setter 
+                                                                                // public Vector3 dir;                                                        // overall direction set with setter 
 
-    static public Dictionary<CharacterType, List<Character>> characterByType;   // Dictionary to select CharTypes only
-    
+    static public Dictionary<string, List<Character>> characterByType;   // Dictionary to select CharTypes only
+
     public List<WeightedDirection> desiredWeights;                                          // list of weights to calculate highest Weight
 
 
@@ -33,7 +33,7 @@ public class Character : MonoBehaviour
     {
         if (characterByType == null)
         {
-            characterByType = new Dictionary<CharacterType, List<Character>>();
+            characterByType = new Dictionary<string, List<Character>>();
         }
         if (characterByType.ContainsKey(characterType) == false)
         {
@@ -61,54 +61,64 @@ public class Character : MonoBehaviour
         //Ask all ot our AI Scripts to tell us what to do
         BroadcastMessage("DoAIBehaviour", SendMessageOptions.DontRequireReceiver);
 
+
+        Vector3 dir = Vector3.zero;
+
+        foreach (WeightedDirection wd in desiredWeights)
+        {
+            if (wd.weight >= HeroAI_Controller.MyInstance.MyMaxWeight)
+            {
+                HeroAI_Controller.MyInstance.MyMaxWeight = wd.weight;
+                dir += wd.direction * wd.weight;
+                //wd.Action();
+            }
+        }
         // Move to direction set by Behaviors 
-        MoveTo();
+        MoveTo(dir);
         //dir = Vector3.zero;
 
         //Debug
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            health -= 20.0f;
-        }
+        // if(Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     health -= 20.0f;
+        // }
 
-        float currentHealthPct = health / maxHealth;
-        OnHealthChanged(currentHealthPct);
+        // float currentHealthPct = health / maxHealth;
+        // OnHealthChanged(currentHealthPct);
 
-        if (health <= 0.0f) 
-        { 
-            Destroy(transform.parent.gameObject);
-            return; 
-        }
+        // if (health <= 0.0f) 
+        // { 
+        //     Destroy(transform.parent.gameObject);
+        //     return; 
+        // }
     }
-    
+
 
     // ------------- METHODES FOR AI -----------------
     // have to check to not get to fast
-    public void MoveTo()
+    public void MoveTo(Vector3 dir)
     {
-        Vector3 dir = Vector3.zero;
-		foreach(WeightedDirection wd in desiredWeights) {
-			// NOTE: If you are implementing EXCLUSIVE/FALLBACK blend modes, check here.
-
-			dir += wd.direction * wd.weight;
-		}
-
-
-		velocity = Vector3.Lerp(velocity, dir.normalized * runSpeed, Time.deltaTime * 5f);
-		moveTransform.transform.Translate( velocity * Time.deltaTime );
+        foreach (WeightedDirection wd in desiredWeights)
+        {
+            // NOTE: If you are implementing EXCLUSIVE/FALLBACK blend modes, check here.
+            dir += wd.direction * wd.weight;
+            
+        }
+        velocity = Vector3.Lerp(velocity, dir.normalized * runSpeed, Time.deltaTime * 5f);
+        moveTransform.transform.Translate(velocity * Time.deltaTime);
 
     }
-    
+
     public void Hit(Character target, float dmg)
     {
         health -= dmg;
         float currentHealthPct = health / maxHealth;
         OnHealthChanged(currentHealthPct);
 
-        if (health <= 0.0f) 
-        { 
+        if (health <= 0.0f)
+        {
             Destroy(transform.parent.gameObject);
-            return; 
+            return;
         }
     }
 

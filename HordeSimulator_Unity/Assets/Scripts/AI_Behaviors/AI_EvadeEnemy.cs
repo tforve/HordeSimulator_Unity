@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class AI_EvadeEnemy : MonoBehaviour
 {
-    public CharacterType charType = CharacterType.ENEMY;
+    // public CharacterType charType = CharacterType.ENEMY;
+    public string charType = "Enemy";
     public float rangeOfCare = 5.0f;
-    public float weight;                                    // weight given to Character for Decision making, different to calculated because of Veto
+    private float weight;                                    // weight given to Character for Decision making, different to calculated because of Veto
     public float weightCalculated = 2.0f;                   // weight to calculate
     public bool veto = false;                               // if true AI Action not executed
 
@@ -65,18 +66,18 @@ public class AI_EvadeEnemy : MonoBehaviour
         else // if in care Range
         {
 
-            if (weightCalculated == HeroAI_Controller.MyInstance.MyMaxWeight)
-            {
-                Vector3 dir = closest.transform.position - this.transform.position;
-                WeightedDirection wd = new WeightedDirection(-dir, weight);
-                MyCharacter.desiredWeights.Add(wd);
-            }
-            else
-            {
-                Debug.Log("not allowed: Evade");
-            }
+            Vector3 dir = closest.transform.position - this.transform.position;
+            WeightedDirection wd = new WeightedDirection(-dir, weight);
+            MyCharacter.desiredWeights.Add(wd);
+            // if (weightCalculated == HeroAI_Controller.MyInstance.MyMaxWeight)
+            // {
+            // }
+            // else
+            // {
+            //     Debug.Log("not allowed: Evade");
+            // }
 
-            // //Caculate Direction for move to 
+            // // //Caculate Direction for move to 
             // Vector3 dir = closest.transform.position - this.transform.position;
             // MyCharacter.MyDirection = -dir;
 
@@ -92,6 +93,6 @@ public class AI_EvadeEnemy : MonoBehaviour
     {
         weightCalculated = Mathf.InverseLerp(0, 1, 10 / (distanceToEnemey * distanceToEnemey));
         weight = weightCalculated;
-        HeroAI_Controller.MyInstance.weightList.Add(weight);
+        // HeroAI_Controller.MyInstance.weightList.Add(weight);
     }
 }
