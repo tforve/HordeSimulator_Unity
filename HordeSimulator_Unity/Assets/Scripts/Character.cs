@@ -27,10 +27,6 @@ public class Character : MonoBehaviour
     
     public List<WeightedDirection> desiredWeights;                                          // list of weights to calculate highest Weight
 
-    // public Vector3 MyDirection
-    // {
-    //     set{dir = value;}
-    // }
 
     // Start is called before the first frame update
     void Start()
@@ -68,6 +64,21 @@ public class Character : MonoBehaviour
         // Move to direction set by Behaviors 
         MoveTo();
         //dir = Vector3.zero;
+
+        //Debug
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            health -= 20.0f;
+        }
+
+        float currentHealthPct = health / maxHealth;
+        OnHealthChanged(currentHealthPct);
+
+        if (health <= 0.0f) 
+        { 
+            Destroy(transform.parent.gameObject);
+            return; 
+        }
     }
     
 

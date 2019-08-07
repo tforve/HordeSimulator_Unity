@@ -27,13 +27,9 @@ public class AI_EvadeEnemy : MonoBehaviour
         // Check Veto to not execute 
         if (veto)
         {
-            weight = 0.0f;
+            weight = 0.0f; return;
         }
-        // Go on and execute AI_Behavior
-        else
-        {
-            weight = weightCalculated;
-        }
+
 
         if (Character.characterByType.ContainsKey(charType) == false) { return; }
 
@@ -51,9 +47,15 @@ public class AI_EvadeEnemy : MonoBehaviour
             }
         }
         // no Enemy existing
-        if (closest == null) { return; }
-        CalculateWeight(dist);
+        if (closest == null)
+        {
+            weight = 0.0f;
+            HeroAI_Controller.MyInstance.weightList.Add(weight);
 
+            return;
+        }
+
+        CalculateWeight(dist);
 
         // evade if
         if (dist > rangeOfCare)
@@ -63,11 +65,11 @@ public class AI_EvadeEnemy : MonoBehaviour
         else // if in care Range
         {
 
-            Vector3 dir = closest.transform.position - this.transform.position;
-            WeightedDirection wd = new WeightedDirection(-dir, weight);
-            MyCharacter.desiredWeights.Add(wd);
             if (weightCalculated == HeroAI_Controller.MyInstance.MyMaxWeight)
             {
+                Vector3 dir = closest.transform.position - this.transform.position;
+                WeightedDirection wd = new WeightedDirection(-dir, weight);
+                MyCharacter.desiredWeights.Add(wd);
             }
             else
             {
@@ -81,13 +83,15 @@ public class AI_EvadeEnemy : MonoBehaviour
             // // return weight in desiredWeights List 
             // float wd = weight;
             // MyCharacter.desiredWeights.Add(wd);
-            Debug.Log("Evade triggered");
+            // Debug.Log("Evade triggered");
         }
 
     }
 
     private void CalculateWeight(float distanceToEnemey)
     {
-        weightCalculated = 10 / (distanceToEnemey * distanceToEnemey);
+        weightCalculated = Mathf.InverseLerp(0, 1, 10 / (distanceToEnemey * distanceToEnemey));
+        weight = weightCalculated;
+        HeroAI_Controller.MyInstance.weightList.Add(weight);
     }
 }

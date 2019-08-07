@@ -21,13 +21,12 @@ public class AI_ShootEnemy : MonoBehaviour
     }
 
     Character MyCharacter;
-    HeroAI_Controller HeroAI;
     Character target;
+
 
     void Start()
     {
         MyCharacter = GetComponent<Character>();
-        HeroAI = GetComponent<HeroAI_Controller>();
     }
 
     void DoAIBehaviour()
@@ -40,39 +39,28 @@ public class AI_ShootEnemy : MonoBehaviour
         // Go on and execute AI_Behavior
         else
         {
-            weight = weightCalculated;
+            CalculateWeight();
         }
 
         // get Target from HeroAI_Controller LookAt()
-        target = HeroAI.MyTargetEnemy;
+        target = HeroAI_Controller.MyInstance.MyTargetEnemy;
 
         if (Character.characterByType.ContainsKey(charType) == false) { return; }
-        if (target == null) { return; }
-
-        // calculate weight
-        CalculateWeight();
-
-        // Attack target
-        if (canAttack && MyCharacter.mana >= manaCost)
+        if (target == null)
         {
-            // play Animations
-            HeroAI.animator.SetTrigger("UseSkill");
-            HeroAI.animator.SetInteger("SkillNumber", 0);
-
-            // deal damage. has to be changed to hit collider
-            target.Hit(target, damage);
-            canAttack = false;
-            // start cooldown
-            StartCoroutine(StartCooldown());
-            MyCharacter.RestoreMana(-manaCost);
+            weight = 0.0f;
+            HeroAI_Controller.MyInstance.weightList.Add(weight);
+            return;
         }
 
+        // calculate weight
+
+        if (weightCalculated == HeroAI_Controller.MyInstance.MyMaxWeight)
+        {
+            AttackTarget();
             Vector3 dir = Vector3.zero;
             WeightedDirection wd = new WeightedDirection(dir, weight);
             MyCharacter.desiredWeights.Add(wd);
-            
-        if (weightCalculated == HeroAI_Controller.MyInstance.MyMaxWeight)
-        {
         }
         else
         {
@@ -85,9 +73,36 @@ public class AI_ShootEnemy : MonoBehaviour
 
     }
 
-    private float CalculateWeight()
+    private void AttackTarget()
     {
-        return weightCalculated;
+        // Attack target
+        if (canAttack && MyCharacter.mana >= manaCost)
+        {
+            // play Animations
+            HeroAI_Controller.MyInstance.animator.SetTrigger("UseSkill");
+            HeroAI_Controller.MyInstance.animator.SetInteger("SkillNumber", 0);
+
+            // deal damage. has to be changed to hit collider
+            target.Hit(target, damage);
+            canAttack = false;
+            // start cooldown
+            StartCoroutine(StartCooldown());
+            MyCharacter.RestoreMana(-manaCost);
+        }
+    }
+
+    private void CalculateWeight()
+    {
+        weightCalculated = 0.0f;
+        float tmp = 0.0f;
+        foreach (Character enemy in HeroAI_Controller.MyInstance.listOfEnemies)
+        {
+            tmp += 0.2f; // need function here
+        }
+
+        weightCalculated = Mathf.InverseLerp(0, 1, tmp);
+        weight = weightCalculated;
+        HeroAI_Controller.MyInstance.weightList.Add(weight);
     }
 
     IEnumerator StartCooldown()

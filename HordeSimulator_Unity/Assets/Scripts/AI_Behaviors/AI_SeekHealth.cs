@@ -37,7 +37,6 @@ public class AI_SeekHealth : MonoBehaviour
         else
         {
             CalculateWeight();
-            weight = weightCalculated;
         }
 
         if (Character.characterByType.ContainsKey(charType) == false) { return; }
@@ -54,12 +53,12 @@ public class AI_SeekHealth : MonoBehaviour
                 closest = c;
                 dist = d;
             }
-
         }
         // no Potion existing
-        if (closest == null) { return; }
-
-
+        if (closest == null)
+        {
+            return;
+        }
 
         if (dist < collectingRange)
         {
@@ -68,13 +67,11 @@ public class AI_SeekHealth : MonoBehaviour
         }
         else
         {
+            if (weightCalculated == HeroAI_Controller.MyInstance.MyMaxWeight)
+            {
                 Vector3 dir = closest.transform.position - this.transform.position;
                 WeightedDirection wd = new WeightedDirection(dir, weight);
                 MyCharacter.desiredWeights.Add(wd);
-            if (weightCalculated == HeroAI_Controller.MyInstance.MyMaxWeight)
-            {
-
-
             }
             else
             {
@@ -87,14 +84,20 @@ public class AI_SeekHealth : MonoBehaviour
 
             // float wd = weight;
             // MyCharacter.desiredWeights.Add(wd);
-            Debug.Log("AI_SeekHealth Triggered");
+            // Debug.Log("AI_SeekHealth Triggered");
 
         }
 
     }
 
-    private float CalculateWeight()
+    private void CalculateWeight()
     {
-        return weightCalculated;
+        float linearTmp = ((MyCharacter.maxHealth - MyCharacter.health )/ MyCharacter.maxHealth); // 100-currentHp / 100
+        float expoTmp = ((MyCharacter.maxHealth - Mathf.Pow(MyCharacter.health,5) )/ Mathf.Pow(MyCharacter.maxHealth,5)); // 100-currentHp^3 / 100^3
+
+        // float expoTmp = (1/(1+(Mathf.Pow((2.78f+0.45f),MyCharacter.health))));
+        weightCalculated = Mathf.InverseLerp(0, 1, expoTmp);
+        weight = weightCalculated;
+        HeroAI_Controller.MyInstance.weightList.Add(weight);
     }
 }

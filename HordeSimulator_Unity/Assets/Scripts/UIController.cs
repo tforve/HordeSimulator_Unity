@@ -26,6 +26,7 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(HeroAI_Controller.MyInstance != null)
         maxWeight = HeroAI_Controller.MyInstance.MyMaxWeight;
         //UI Debug Only
         heighestTxt.text = "Decision: " + maxWeight;

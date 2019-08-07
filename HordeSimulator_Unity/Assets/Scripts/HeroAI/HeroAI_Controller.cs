@@ -29,19 +29,22 @@ public class HeroAI_Controller : MonoBehaviour
     public Transform idleObject;                                    // start Object. DELETE ME LATER
 
     [SerializeField] private Character targetEnemy;                 // closest Enemy and biggest Threat
+    public List<Character> listOfEnemies;                           // List of all Enemies in Radius
+
 
     [Header("Scoring System")]
-    private List<float> weightList;                                 // List for maxWeigt... maybe delete later
+    public List<float> weightList;                                  // List for maxWeigt... maybe delete later
     [SerializeField] private float maxWeight;                       // score calculated to choose action
     [SerializeField] private bool veto = false;                     // if true action can not be executed, if true utility = 0
 
     private Character MyCharacter;
-    
+
 
     [Header("Sense for lookAt Only")]
     public float checkRadius = 25.0f;
     public float turnSpeed = 5.5f;
     public LayerMask checkLayers;
+
 
     // others
     private NavMeshAgent agent;
@@ -97,10 +100,11 @@ public class HeroAI_Controller : MonoBehaviour
         }
 
         // go through wd and check all weights. then save it in List
-        foreach (WeightedDirection wd in MyCharacter.desiredWeights)
-        {
-            weightList.Add(wd.weight);
-        }
+        // foreach (WeightedDirection wd in MyCharacter.desiredWeights)
+        // {
+        //     weightList.Add(wd.weight);
+        // }
+
 
         GetMaxWeightInList(weightList);
         weightList.Clear();
@@ -125,6 +129,12 @@ public class HeroAI_Controller : MonoBehaviour
     public void SearchEnemyTarget()
     {
         Collider[] colliders = Physics.OverlapSphere(this.transform.position, checkRadius, checkLayers);
+
+        foreach (Collider c in colliders)
+        {
+            listOfEnemies.Add(c.GetComponent<Character>());
+        }
+
         Array.Sort(colliders, new DistanceComparer(transform));
         if (colliders.Length != 0)
         {
