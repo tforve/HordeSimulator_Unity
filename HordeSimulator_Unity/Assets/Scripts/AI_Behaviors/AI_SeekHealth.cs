@@ -54,7 +54,7 @@ public class AI_SeekHealth : MonoBehaviour
                 dist = d;
             }
         }
-        // no Potion existing
+        // no Potion existing but my weight stays the same because my Mana is the condition
         if (closest == null)
         {
             return;
@@ -82,6 +82,5 @@ public class AI_SeekHealth : MonoBehaviour
 
         weightCalculated = Mathf.InverseLerp(0, 1, linearTmp);
         weight = weightCalculated;
-        HeroAI_Controller.MyInstance.weightList.Add(weight);
     }
 }

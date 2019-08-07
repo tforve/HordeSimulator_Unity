@@ -33,7 +33,6 @@ public class HeroAI_Controller : MonoBehaviour
 
 
     [Header("Scoring System")]
-    public List<float> weightList;                                  // List for maxWeigt... maybe delete later
     [SerializeField] private float maxWeight = 0.0f;                // score calculated to choose action
     [SerializeField] private bool veto = false;                     // if true action can not be executed, if true utility = 0
 
@@ -98,27 +97,6 @@ public class HeroAI_Controller : MonoBehaviour
         {
             targetLookAt = idleObject;
         }
-
-        // //go through wd and check all weights. then save it in List
-        // foreach (WeightedDirection wd in MyCharacter.desiredWeights)
-        // {
-        //     if(wd.weight >= maxWeight)
-        //     {
-        //         maxWeight = wd.weight;
-        //     }
-        // }
-
-
-        // GetMaxWeightInList(weightList);
-        // weightList.Clear();
-
-    }
-
-    // save biggest Value of desiredWeights List in weight
-    void GetMaxWeightInList(List<float> list)
-    {
-        maxWeight = Mathf.Max(list.ToArray());
-        // maxWeight decides which behavior to trigger
     }
 
     void OnDestroy()
@@ -132,7 +110,8 @@ public class HeroAI_Controller : MonoBehaviour
     public void SearchEnemyTarget()
     {
         Collider[] colliders = Physics.OverlapSphere(this.transform.position, checkRadius, checkLayers);
-
+        
+        listOfEnemies.Clear();
         foreach (Collider c in colliders)
         {
             listOfEnemies.Add(c.GetComponent<Character>());

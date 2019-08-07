@@ -12,7 +12,7 @@ public class Character : MonoBehaviour
     public float maxMana = 100.0f;
     [Space]
     public float runSpeed = 3.0f;
-    private Vector3 velocity;       // for moving calculation
+    private Vector3 velocity;                                                   // for moving calculation
 
     // UI related 
     public event Action<float> OnHealthChanged = delegate { };
@@ -21,11 +21,9 @@ public class Character : MonoBehaviour
     // For AI and Movement
     public string characterType;
     public Transform moveTransform;                                             // Transform just for Walking so Rotation dont mess up dir of Behaviours
-                                                                                // public Vector3 dir;                                                        // overall direction set with setter 
 
-    static public Dictionary<string, List<Character>> characterByType;   // Dictionary to select CharTypes only
-
-    public List<WeightedDirection> desiredWeights;                                          // list of weights to calculate highest Weight
+    static public Dictionary<string, List<Character>> characterByType;          // Dictionary to select CharTypes only
+    public List<WeightedDirection> desiredWeights;                              // list of weights to calculate highest Weight
 
 
     // Start is called before the first frame update
@@ -56,11 +54,9 @@ public class Character : MonoBehaviour
         //Save checkers
         if (mana <= 0.0f) { mana = 0.0f; }
 
-        desiredWeights = new List<WeightedDirection>();
-
         //Ask all ot our AI Scripts to tell us what to do
+        desiredWeights = new List<WeightedDirection>();
         BroadcastMessage("DoAIBehaviour", SendMessageOptions.DontRequireReceiver);
-
 
         Vector3 dir = Vector3.zero;
 
@@ -70,27 +66,12 @@ public class Character : MonoBehaviour
             {
                 HeroAI_Controller.MyInstance.MyMaxWeight = wd.weight;
                 dir += wd.direction * wd.weight;
-                //wd.Action();
             }
         }
         // Move to direction set by Behaviors 
         MoveTo(dir);
-        //dir = Vector3.zero;
-
-        //Debug
-        // if(Input.GetKeyDown(KeyCode.Space))
-        // {
-        //     health -= 20.0f;
-        // }
-
-        // float currentHealthPct = health / maxHealth;
-        // OnHealthChanged(currentHealthPct);
-
-        // if (health <= 0.0f) 
-        // { 
-        //     Destroy(transform.parent.gameObject);
-        //     return; 
-        // }
+        
+        HeroAI_Controller.MyInstance.MyMaxWeight = 0.0f;
     }
 
 
@@ -102,7 +83,7 @@ public class Character : MonoBehaviour
         {
             // NOTE: If you are implementing EXCLUSIVE/FALLBACK blend modes, check here.
             dir += wd.direction * wd.weight;
-            
+
         }
         velocity = Vector3.Lerp(velocity, dir.normalized * runSpeed, Time.deltaTime * 5f);
         moveTransform.transform.Translate(velocity * Time.deltaTime);

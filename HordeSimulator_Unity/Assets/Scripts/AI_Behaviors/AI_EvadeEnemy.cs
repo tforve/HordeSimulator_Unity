@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AI_EvadeEnemy : MonoBehaviour
 {
-    // public CharacterType charType = CharacterType.ENEMY;
     public string charType = "Enemy";
     public float rangeOfCare = 5.0f;
     private float weight;                                    // weight given to Character for Decision making, different to calculated because of Veto
@@ -51,8 +50,9 @@ public class AI_EvadeEnemy : MonoBehaviour
         if (closest == null)
         {
             weight = 0.0f;
-            HeroAI_Controller.MyInstance.weightList.Add(weight);
-
+            weightCalculated = 0.0f;
+            Vector3 dir = Vector3.zero;
+            WeightedDirection wd = new WeightedDirection(-dir, weight);
             return;
         }
 
@@ -93,6 +93,5 @@ public class AI_EvadeEnemy : MonoBehaviour
     {
         weightCalculated = Mathf.InverseLerp(0, 1, 10 / (distanceToEnemey * distanceToEnemey));
         weight = weightCalculated;
-        // HeroAI_Controller.MyInstance.weightList.Add(weight);
     }
 }

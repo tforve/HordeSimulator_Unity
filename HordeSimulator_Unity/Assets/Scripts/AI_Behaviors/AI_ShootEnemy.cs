@@ -46,30 +46,25 @@ public class AI_ShootEnemy : MonoBehaviour
         target = HeroAI_Controller.MyInstance.MyTargetEnemy;
 
         if (Character.characterByType.ContainsKey(charType) == false) { return; }
+        
         if (target == null)
         {
             weight = 0.0f;
-            HeroAI_Controller.MyInstance.weightList.Add(weight);
-            return;
+            weightCalculated = 0.0f;
+            Vector3 dir = Vector3.zero;
+            WeightedDirection wd = new WeightedDirection(dir, weight);
         }
-
-        // calculate weight
-
+        else
+        {
             AttackTarget();
             Vector3 dir = Vector3.zero;
             WeightedDirection wd = new WeightedDirection(dir, weight);
             MyCharacter.desiredWeights.Add(wd);
-        // if (weightCalculated == HeroAI_Controller.MyInstance.MyMaxWeight)
-        // {
-        // }
-        // else
-        // {
-        //     Debug.Log("not allowed: ShootEnemy");
-        // }
+        }
 
-        // float wd = weight;
-        // MyCharacter.desiredWeights.Add(wd);
-        // Debug.Log("AI_ShootEnemy Triggered");
+        // calculate weight
+
+
 
     }
 
@@ -102,7 +97,6 @@ public class AI_ShootEnemy : MonoBehaviour
 
         weightCalculated = Mathf.InverseLerp(0, 1, tmp);
         weight = weightCalculated;
-        HeroAI_Controller.MyInstance.weightList.Add(weight);
     }
 
     IEnumerator StartCooldown()

@@ -29,7 +29,7 @@ public class UIController : MonoBehaviour
         if(HeroAI_Controller.MyInstance != null)
         maxWeight = HeroAI_Controller.MyInstance.MyMaxWeight;
         //UI Debug Only
-        heighestTxt.text = "Decision: " + maxWeight;
+        heighestTxt.text = "Highest Weight: " + maxWeight;
         evadeTxt.text = "Evade: " + MyAi_Evade.MyWeight;
         healthTxt.text = "Heal: " + MyAi_SeekHeal.MyWeight;
         manaTxt.text = "Mana: " + MyAi_SeekMana.MyWeight;
