@@ -62,6 +62,7 @@ public class Character : MonoBehaviour
 
         foreach (WeightedDirection wd in desiredWeights)
         {
+            // Check for Blending HERE
             if (wd.weight >= HeroAI_Controller.MyInstance.MyMaxWeight)
             {
                 HeroAI_Controller.MyInstance.MyMaxWeight = wd.weight;
@@ -70,8 +71,10 @@ public class Character : MonoBehaviour
         }
         // Move to direction set by Behaviors 
         MoveTo(dir);
-        
-        HeroAI_Controller.MyInstance.MyMaxWeight = 0.0f;
+        if (HeroAI_Controller.MyInstance != null)
+        {
+            HeroAI_Controller.MyInstance.MyMaxWeight = 0.0f;
+        }
     }
 
 

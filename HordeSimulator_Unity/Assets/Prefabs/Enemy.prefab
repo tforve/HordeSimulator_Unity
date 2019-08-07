@@ -216,7 +216,7 @@ MonoBehaviour:
   maxHealth: 40
   mana: 0
   maxMana: 0
-  runSpeed: 3
+  runSpeed: 2.5
   characterType: Enemy
   moveTransform: {fileID: 2471515041333138616}
 --- !u!114 &7061098630496548527

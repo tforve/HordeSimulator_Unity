@@ -26,13 +26,4 @@ public class WeightedDirection// : IComparer<float>
 	// there's nothing else to do.
 	public enum BlendingType { BLEND, EXCLUSIVE, FALLBACK };
 	public BlendingType blending = BlendingType.BLEND;	// UNUSED
-
-	// Not used in this tutorial, but scripts could set a desired
-	// speed, especially if the energy cost of moving scales
-	// exponentially with speed.  Normal movement would be done at
-	// a lower, more efficient speed -- but emergencies (escaping
-	// a predator, or moving in for the final kill) could request
-	// higher, more costly speeds.  This would be blended based on
-	// weight.
-	public float speed = -1f; // UNUSED
 }
