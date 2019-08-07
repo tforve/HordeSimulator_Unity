@@ -12,7 +12,6 @@ public class UIController : MonoBehaviour
     [SerializeField] private AI_ShootEnemy MyAi_Shoot;
 
     private float maxWeight;
-    [SerializeField] private HeroAI_Controller heroAI_Controller;
     
     [SerializeField] private Text killCountTxt;
     private int killCount = 0;
@@ -27,7 +26,7 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        maxWeight = heroAI_Controller.MyWeight;
+        maxWeight = HeroAI_Controller.MyInstance.MyMaxWeight;
         //UI Debug Only
         heighestTxt.text = "Decision: " + maxWeight;
         evadeTxt.text = "Evade: " + MyAi_Evade.MyWeight;

@@ -67,13 +67,21 @@ public class AI_ShootEnemy : MonoBehaviour
             MyCharacter.RestoreMana(-manaCost);
         }
 
-        Vector3 dir = Vector3.zero;
-		WeightedDirection wd = new WeightedDirection( dir, weight );
-		MyCharacter.desiredWeights.Add( wd );
+            Vector3 dir = Vector3.zero;
+            WeightedDirection wd = new WeightedDirection(dir, weight);
+            MyCharacter.desiredWeights.Add(wd);
+            
+        if (weightCalculated == HeroAI_Controller.MyInstance.MyMaxWeight)
+        {
+        }
+        else
+        {
+            Debug.Log("not allowed: ShootEnemy");
+        }
 
         // float wd = weight;
         // MyCharacter.desiredWeights.Add(wd);
-        Debug.Log("AI_ShootEnemy Triggered");
+        // Debug.Log("AI_ShootEnemy Triggered");
 
     }
 

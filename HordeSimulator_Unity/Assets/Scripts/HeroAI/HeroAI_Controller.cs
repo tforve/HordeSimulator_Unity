@@ -48,7 +48,7 @@ public class HeroAI_Controller : MonoBehaviour
     [HideInInspector] public Animator animator;
 
     // Get and Set Target etc
-    public float MyWeight
+    public float MyMaxWeight
     {
         get { return maxWeight; }
         //set { maxWeight = value; }
@@ -99,18 +99,17 @@ public class HeroAI_Controller : MonoBehaviour
         // go through wd and check all weights. then save it in List
         foreach (WeightedDirection wd in MyCharacter.desiredWeights)
         {
-            Debug.Log("Update List");
             weightList.Add(wd.weight);
         }
 
         GetMaxWeightInList(weightList);
+        weightList.Clear();
 
     }
 
     // save biggest Value of desiredWeights List in weight
     void GetMaxWeightInList(List<float> list)
     {
-        Debug.Log("Calculate new MaxWeight");
         maxWeight = Mathf.Max(list.ToArray());
         // maxWeight decides which behavior to trigger
     }

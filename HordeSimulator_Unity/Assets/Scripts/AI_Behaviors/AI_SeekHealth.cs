@@ -31,7 +31,7 @@ public class AI_SeekHealth : MonoBehaviour
         // Check Veto to not execute 
         if (veto)
         {
-            weight = 0.0f;     
+            weight = 0.0f;
         }
         // Go on and execute AI_Behavior
         else
@@ -59,7 +59,7 @@ public class AI_SeekHealth : MonoBehaviour
         // no Potion existing
         if (closest == null) { return; }
 
-        
+
 
         if (dist < collectingRange)
         {
@@ -68,10 +68,18 @@ public class AI_SeekHealth : MonoBehaviour
         }
         else
         {
+                Vector3 dir = closest.transform.position - this.transform.position;
+                WeightedDirection wd = new WeightedDirection(dir, weight);
+                MyCharacter.desiredWeights.Add(wd);
+            if (weightCalculated == HeroAI_Controller.MyInstance.MyMaxWeight)
+            {
 
-            Vector3 dir = closest.transform.position - this.transform.position;
-			WeightedDirection wd = new WeightedDirection( dir, weight );
-			MyCharacter.desiredWeights.Add( wd );
+
+            }
+            else
+            {
+                Debug.Log("not allowed: Seek Heal");
+            }
 
 
             // Vector3 dir = closest.transform.position - this.transform.position;
