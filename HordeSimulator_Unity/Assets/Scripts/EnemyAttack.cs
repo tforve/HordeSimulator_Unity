@@ -2,31 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AI_SeekHero : MonoBehaviour
+public class EnemyAttack : MonoBehaviour
 {
     public string charType = "Hero";
+
+    [SerializeField] private Transform moveTransform;
 
     [SerializeField] private float attackRange = 2.0f;
     [SerializeField] private float attackSpeed = 1.5f;
     private float attackCooldown;
     [SerializeField] private float damage = 10.0f;
 
-    public float weight = 1.0f;
+    private Vector3 velocity;
+    public float health;
+    public float runSpeed;
 
-    public float MyWeight
+    // Update is called once per frame
+    void Update()
     {
-        get { return weight; }
+        CalcTarget();
     }
 
-    Character MyCharacter;
-
-    void Start()
-    {
-        MyCharacter = GetComponent<Character>();
-        attackCooldown = attackSpeed;
-    }
-
-    void DoEnemyBehavior()
+    void CalcTarget()
     {
         if (Character.characterByType.ContainsKey(charType) == false)
         {
@@ -64,9 +61,17 @@ public class AI_SeekHero : MonoBehaviour
         {
 
             Vector3 dir = closestChar.transform.position - this.transform.position;
-			WeightedDirection wd = new WeightedDirection( dir, weight,"" );
-			MyCharacter.enemyAIList.Add( wd );
+            moveTransform.transform.Translate(velocity * Time.deltaTime);
 
+        }
+    }
+
+    public void Hit( float dmg)
+    {
+        health -= dmg;
+        if(health <= 0.0f)
+        {
+            Destroy(transform.parent.gameObject);
         }
     }
 }

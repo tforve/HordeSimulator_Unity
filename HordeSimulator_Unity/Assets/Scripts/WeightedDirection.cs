@@ -7,10 +7,12 @@ public class WeightedDirection// : IComparer<float>
 {
 	public readonly Vector3 direction;
 	public readonly float weight;
+    public string calledFromMe;
 
-	public WeightedDirection(Vector3 dir, float wgt) {
+	public WeightedDirection(Vector3 dir, float wgt, string calledbzme) {
 		direction = dir.normalized;
 		weight = wgt;
+        calledFromMe = calledbzme;
 	}
 
 	public float MyWeight{ get{return weight;}}

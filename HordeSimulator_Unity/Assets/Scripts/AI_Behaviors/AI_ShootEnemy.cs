@@ -12,7 +12,7 @@ public class AI_ShootEnemy : MonoBehaviour
     private bool canAttack = true;                          // for coolDown
 
     private float weight;                                   // weight given to Character for Decision making, different to calculated because of Veto
-    public float weightCalculated = 2.0f;                   // weight to calculate
+    public float weightCalculated = 0.0f;                   // weight to calculate
     public bool veto = false;                               // if true AI Action not executed
 
     public float MyWeight
@@ -52,13 +52,13 @@ public class AI_ShootEnemy : MonoBehaviour
             weight = 0.0f;
             weightCalculated = 0.0f;
             Vector3 dir = Vector3.zero;
-            WeightedDirection wd = new WeightedDirection(dir, weight);
+            WeightedDirection wd = new WeightedDirection(dir, weight, "Shoot");
         }
         else
         {
             AttackTarget();
             Vector3 dir = Vector3.zero;
-            WeightedDirection wd = new WeightedDirection(dir, weight);
+            WeightedDirection wd = new WeightedDirection(dir, weight, "Shoot");
             MyCharacter.desiredWeights.Add(wd);
         }
 

@@ -23,6 +23,7 @@ public class Character : MonoBehaviour
     public Transform moveTransform;                                             // Transform just for Walking so Rotation dont mess up dir of Behaviours
 
     static public Dictionary<string, List<Character>> characterByType;          // Dictionary to select CharTypes only
+    public List<WeightedDirection> enemyAIList;
     public List<WeightedDirection> desiredWeights;                              // list of weights to calculate highest Weight
 
 
@@ -57,20 +58,39 @@ public class Character : MonoBehaviour
         //Ask all ot our AI Scripts to tell us what to do
         desiredWeights = new List<WeightedDirection>();
         BroadcastMessage("DoAIBehaviour", SendMessageOptions.DontRequireReceiver);
+        // so enemy move and can use same class
+        enemyAIList = new List<WeightedDirection>();
+        BroadcastMessage("DoEnemyBehavior", SendMessageOptions.DontRequireReceiver);
 
         Vector3 dir = Vector3.zero;
+        string gotcalled = null;
 
         foreach (WeightedDirection wd in desiredWeights)
         {
             // Check for Blending HERE
-            if (wd.weight >= HeroAI_Controller.MyInstance.MyMaxWeight)
+            if(desiredWeights.Count == 0) { Debug.Log("list is empty"); return; }
+            if (wd.weight > HeroAI_Controller.MyInstance.MyMaxWeight)
             {
                 HeroAI_Controller.MyInstance.MyMaxWeight = wd.weight;
-                dir += wd.direction * wd.weight;
+                dir = wd.direction * wd.weight;
+                //Debug.Log(wd.weight);
+               // Debug.Log(wd.calledFromMe + "weight: " + wd.weight);
+                gotcalled = wd.calledFromMe;
             }
         }
         // Move to direction set by Behaviors 
+        //Debug.Log(gotcalled);
         MoveTo(dir);
+        // EnemyAI Only
+        Vector3 enemyDir = Vector3.zero;
+        foreach (WeightedDirection wd in enemyAIList)
+        {
+            enemyDir = wd.direction * wd.weight;
+        }
+
+        MoveTo(enemyDir);
+
+
         if (HeroAI_Controller.MyInstance != null)
         {
             HeroAI_Controller.MyInstance.MyMaxWeight = 0.0f;
@@ -81,16 +101,9 @@ public class Character : MonoBehaviour
     // ------------- METHODES FOR AI -----------------
     // have to check to not get to fast
     public void MoveTo(Vector3 dir)
-    {
-        foreach (WeightedDirection wd in desiredWeights)
-        {
-            // NOTE: If you are implementing EXCLUSIVE/FALLBACK blend modes, check here.
-            dir += wd.direction * wd.weight;
-
-        }
+    {       
         velocity = Vector3.Lerp(velocity, dir.normalized * runSpeed, Time.deltaTime * 5f);
         moveTransform.transform.Translate(velocity * Time.deltaTime);
-
     }
 
     public void Hit(Character target, float dmg)
