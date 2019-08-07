@@ -79,9 +79,9 @@ public class AI_SeekMana : MonoBehaviour
 
     private void CalculateWeight()
     {
-        float linearTmp = ((MyCharacter.maxMana - MyCharacter.mana) / MyCharacter.maxMana); // 100-currentHp / 100
-
-        weightCalculated = Mathf.InverseLerp(0, 1, linearTmp);
+        //float linearTmp = ((MyCharacter.maxMana - MyCharacter.mana) / MyCharacter.maxMana); // 100-currentHp / 100
+        float expoTmp = (Mathf.Pow(2, MyCharacter.mana *(-0.05f))); // 2^-x
+        weightCalculated = expoTmp;//Mathf.InverseLerp(0, 1, expoTmp);
         weight = weightCalculated;
     }
 }
