@@ -23,7 +23,6 @@ public class HeroAI_Controller : MonoBehaviour
         }
     }
 
-
     [Header("Objects")]                                             // have to be changed autamtic in Range of AI bzw. nearest to 
     public Transform targetLookAt;                                  // Enemyto Target
     public Transform idleObject;                                    // start Object. DELETE ME LATER
@@ -31,19 +30,16 @@ public class HeroAI_Controller : MonoBehaviour
     [SerializeField] private Character targetEnemy;                 // closest Enemy and biggest Threat
     public List<Character> listOfEnemies;                           // List of all Enemies in Radius
 
-
     [Header("Scoring System")]
     [SerializeField] private float maxWeight = 0.0f;                // score calculated to choose action
     [SerializeField] private bool veto = false;                     // if true action can not be executed, if true utility = 0
 
     private Character MyCharacter;
 
-
     [Header("Sense for lookAt Only")]
     public float checkRadius = 25.0f;
     public float turnSpeed = 5.5f;
     public LayerMask checkLayers;
-
 
     // others
     private NavMeshAgent agent;
@@ -55,11 +51,7 @@ public class HeroAI_Controller : MonoBehaviour
         get { return maxWeight; }
         set { maxWeight = value; }
     }
-    // public bool MyVeto
-    // {
-    //     get { return veto; }
-    //     set { veto = value; }
-    // }
+
     public Character MyTargetEnemy // is used in AI_ShootEnemy to get target to shoot at
     {
         get { return targetEnemy; }
@@ -84,8 +76,6 @@ public class HeroAI_Controller : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         MyCharacter = GetComponent<Character>();
-
-        // weightList = new List<float>();
     }
 
     void Update()
@@ -96,6 +86,11 @@ public class HeroAI_Controller : MonoBehaviour
         if (targetLookAt == null)
         {
             targetLookAt = idleObject;
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
         }
     }
 

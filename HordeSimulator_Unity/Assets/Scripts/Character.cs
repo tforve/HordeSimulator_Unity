@@ -98,6 +98,7 @@ public class Character : MonoBehaviour
 
         if (health <= 0.0f)
         {
+            UIController.MyInstance.killCount += 1;
             Destroy(transform.parent.gameObject);
             return;
         }
