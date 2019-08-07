@@ -26,6 +26,9 @@ public class Character : MonoBehaviour
     public List<WeightedDirection> enemyAIList;
     public List<WeightedDirection> desiredWeights;                              // list of weights to calculate highest Weight
 
+    // Animation
+    private Animator animator;
+
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +46,9 @@ public class Character : MonoBehaviour
         // StartValues
         health = maxHealth;
         mana = maxMana;
+
+        // animation
+        animator = GetComponent<Animator>();
     }
 
     void OnDestroy()
@@ -101,7 +107,10 @@ public class Character : MonoBehaviour
     // ------------- METHODES FOR AI -----------------
     // have to check to not get to fast
     public void MoveTo(Vector3 dir)
-    {       
+    {   
+        Debug.Log("Walking");
+        animator.SetBool("isWalking", true);
+
         velocity = Vector3.Lerp(velocity, dir.normalized * runSpeed, Time.deltaTime * 5f);
         moveTransform.transform.Translate(velocity * Time.deltaTime);
     }
