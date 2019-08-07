@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AI_SeekHealth : MonoBehaviour
 {
-    public CharacterType charType = CharacterType.HEALTHPOTION;
+    public string charType = "Healthpotion";
 
     public float potionSize = 20;
     public float collectingRange = 1.0f;
@@ -31,13 +31,12 @@ public class AI_SeekHealth : MonoBehaviour
         // Check Veto to not execute 
         if (veto)
         {
-            weight = 0.0f;     
+            weight = 0.0f;
         }
         // Go on and execute AI_Behavior
         else
         {
             CalculateWeight();
-            weight = weightCalculated;
         }
 
         if (Character.characterByType.ContainsKey(charType) == false) { return; }
@@ -54,12 +53,12 @@ public class AI_SeekHealth : MonoBehaviour
                 closest = c;
                 dist = d;
             }
-
         }
-        // no Potion existing
-        if (closest == null) { return; }
-
-        
+        // no Potion existing but my weight stays the same because my Mana is the condition
+        if (closest == null)
+        {
+            return;
+        }
 
         if (dist < collectingRange)
         {
@@ -69,18 +68,19 @@ public class AI_SeekHealth : MonoBehaviour
         else
         {
             Vector3 dir = closest.transform.position - this.transform.position;
-            MyCharacter.MyDirection = dir;
-
-            float wd = weight;
+            WeightedDirection wd = new WeightedDirection(dir, weight);
             MyCharacter.desiredWeights.Add(wd);
-            Debug.Log("AI_SeekHealth Triggered");
 
         }
 
     }
 
-    private float CalculateWeight()
+    private void CalculateWeight()
     {
-        return weightCalculated;
+        float linearTmp = ((MyCharacter.maxHealth - MyCharacter.health) / MyCharacter.maxHealth); // 100-currentHp / 100
+        //float expoTmp = ((MyCharacter.maxHealth - Mathf.Pow(MyCharacter.health, 5)) / Mathf.Pow(MyCharacter.maxHealth, 5)); // 100-currentHp^3 / 100^3
+
+        weightCalculated = Mathf.InverseLerp(0, 1, linearTmp);
+        weight = weightCalculated;
     }
 }

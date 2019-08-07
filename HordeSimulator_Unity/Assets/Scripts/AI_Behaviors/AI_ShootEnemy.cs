@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AI_ShootEnemy : MonoBehaviour
 {
-    public CharacterType charType = CharacterType.ENEMY;
+    public string charType = "Enemy";
 
     [SerializeField] private float damage = 10.0f;          //  projectile later
     [SerializeField] private float manaCost = 5.0f;
@@ -21,13 +21,12 @@ public class AI_ShootEnemy : MonoBehaviour
     }
 
     Character MyCharacter;
-    HeroAI_Controller HeroAI;
     Character target;
+
 
     void Start()
     {
         MyCharacter = GetComponent<Character>();
-        HeroAI = GetComponent<HeroAI_Controller>();
     }
 
     void DoAIBehaviour()
@@ -40,24 +39,43 @@ public class AI_ShootEnemy : MonoBehaviour
         // Go on and execute AI_Behavior
         else
         {
-            weight = weightCalculated;
+            CalculateWeight();
         }
 
         // get Target from HeroAI_Controller LookAt()
-        target = HeroAI.MyTargetEnemy;
+        target = HeroAI_Controller.MyInstance.MyTargetEnemy;
 
         if (Character.characterByType.ContainsKey(charType) == false) { return; }
-        if (target == null) { return; }
+        
+        if (target == null)
+        {
+            weight = 0.0f;
+            weightCalculated = 0.0f;
+            Vector3 dir = Vector3.zero;
+            WeightedDirection wd = new WeightedDirection(dir, weight);
+        }
+        else
+        {
+            AttackTarget();
+            Vector3 dir = Vector3.zero;
+            WeightedDirection wd = new WeightedDirection(dir, weight);
+            MyCharacter.desiredWeights.Add(wd);
+        }
 
         // calculate weight
-        CalculateWeight();
 
+
+
+    }
+
+    private void AttackTarget()
+    {
         // Attack target
         if (canAttack && MyCharacter.mana >= manaCost)
         {
             // play Animations
-            HeroAI.animator.SetTrigger("UseSkill");
-            HeroAI.animator.SetInteger("SkillNumber", 0);
+            HeroAI_Controller.MyInstance.animator.SetTrigger("UseSkill");
+            HeroAI_Controller.MyInstance.animator.SetInteger("SkillNumber", 0);
 
             // deal damage. has to be changed to hit collider
             target.Hit(target, damage);
@@ -66,16 +84,19 @@ public class AI_ShootEnemy : MonoBehaviour
             StartCoroutine(StartCooldown());
             MyCharacter.RestoreMana(-manaCost);
         }
-
-        float wd = weight;
-        MyCharacter.desiredWeights.Add(wd);
-        Debug.Log("AI_ShootEnemy Triggered");
-
     }
 
-    private float CalculateWeight()
+    private void CalculateWeight()
     {
-        return weightCalculated;
+        weightCalculated = 0.0f;
+        float tmp = 0.0f;
+        foreach (Character enemy in HeroAI_Controller.MyInstance.listOfEnemies)
+        {
+            tmp += 0.2f; // need function here
+        }
+
+        weightCalculated = Mathf.InverseLerp(0, 1, tmp);
+        weight = weightCalculated;
     }
 
     IEnumerator StartCooldown()

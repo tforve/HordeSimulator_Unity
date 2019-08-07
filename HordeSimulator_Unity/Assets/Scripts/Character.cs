@@ -12,31 +12,26 @@ public class Character : MonoBehaviour
     public float maxMana = 100.0f;
     [Space]
     public float runSpeed = 3.0f;
-    private Vector3 velocity;       // for moving calculation
+    private Vector3 velocity;                                                   // for moving calculation
 
     // UI related 
     public event Action<float> OnHealthChanged = delegate { };
     public event Action<float> OnManaChanged = delegate { };
 
     // For AI and Movement
-    public CharacterType characterType;
+    public string characterType;
     public Transform moveTransform;                                             // Transform just for Walking so Rotation dont mess up dir of Behaviours
-    public Vector3 dir;                                                        // overall direction set with setter 
 
-    static public Dictionary<CharacterType, List<Character>> characterByType;   // Dictionary to select CharTypes only
-    public List<float> desiredWeights;                                          // list of weights to calculate highest Weight
+    static public Dictionary<string, List<Character>> characterByType;          // Dictionary to select CharTypes only
+    public List<WeightedDirection> desiredWeights;                              // list of weights to calculate highest Weight
 
-    public Vector3 MyDirection
-    {
-        set{dir = value;}
-    }
 
     // Start is called before the first frame update
     void Start()
     {
         if (characterByType == null)
         {
-            characterByType = new Dictionary<CharacterType, List<Character>>();
+            characterByType = new Dictionary<string, List<Character>>();
         }
         if (characterByType.ContainsKey(characterType) == false)
         {
@@ -59,36 +54,52 @@ public class Character : MonoBehaviour
         //Save checkers
         if (mana <= 0.0f) { mana = 0.0f; }
 
-        desiredWeights = new List<float>();
-
         //Ask all ot our AI Scripts to tell us what to do
+        desiredWeights = new List<WeightedDirection>();
         BroadcastMessage("DoAIBehaviour", SendMessageOptions.DontRequireReceiver);
 
+        Vector3 dir = Vector3.zero;
+
+        foreach (WeightedDirection wd in desiredWeights)
+        {
+            if (wd.weight >= HeroAI_Controller.MyInstance.MyMaxWeight)
+            {
+                HeroAI_Controller.MyInstance.MyMaxWeight = wd.weight;
+                dir += wd.direction * wd.weight;
+            }
+        }
         // Move to direction set by Behaviors 
-        MoveTo();
-        dir = Vector3.zero;
+        MoveTo(dir);
+        
+        HeroAI_Controller.MyInstance.MyMaxWeight = 0.0f;
     }
-    
+
 
     // ------------- METHODES FOR AI -----------------
     // have to check to not get to fast
-    public void MoveTo()
+    public void MoveTo(Vector3 dir)
     {
-        // smooth out movement
+        foreach (WeightedDirection wd in desiredWeights)
+        {
+            // NOTE: If you are implementing EXCLUSIVE/FALLBACK blend modes, check here.
+            dir += wd.direction * wd.weight;
+
+        }
         velocity = Vector3.Lerp(velocity, dir.normalized * runSpeed, Time.deltaTime * 5f);
         moveTransform.transform.Translate(velocity * Time.deltaTime);
+
     }
-    
+
     public void Hit(Character target, float dmg)
     {
         health -= dmg;
         float currentHealthPct = health / maxHealth;
         OnHealthChanged(currentHealthPct);
 
-        if (health <= 0.0f) 
-        { 
+        if (health <= 0.0f)
+        {
             Destroy(transform.parent.gameObject);
-            return; 
+            return;
         }
     }
 

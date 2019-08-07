@@ -6,7 +6,7 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 
 
-public enum CharacterType { ENEMY, HERO, HEALTHPOTION, MANAPOTION }
+//public enum CharacterType {ENEMY, HERO, HEALTHPOTION, MANAPOTION }
 
 public class HeroAI_Controller : MonoBehaviour
 {
@@ -29,35 +29,32 @@ public class HeroAI_Controller : MonoBehaviour
     public Transform idleObject;                                    // start Object. DELETE ME LATER
 
     [SerializeField] private Character targetEnemy;                 // closest Enemy and biggest Threat
+    public List<Character> listOfEnemies;                           // List of all Enemies in Radius
+
 
     [Header("Scoring System")]
-    [SerializeField] private float weight;                          // score calculated to choose action
+    [SerializeField] private float maxWeight = 0.0f;                // score calculated to choose action
     [SerializeField] private bool veto = false;                     // if true action can not be executed, if true utility = 0
 
-    //UI Debug Stuff
-    [SerializeField] private Text heighestTxt, evadeTxt, healthTxt, manaTxt, shootTxt;                         // for debuging purpose
-    private AI_EvadeEnemy MyAi_Evade;
-    private AI_SeekHealth MyAi_SeekHeal;
-    // private AI_SeekMana MyAi_SeekMana;
-    private AI_ShootEnemy MyAi_Shoot;
-
     private Character MyCharacter;
+
 
     [Header("Sense for lookAt Only")]
     public float checkRadius = 25.0f;
     public float turnSpeed = 5.5f;
     public LayerMask checkLayers;
 
+
     // others
     private NavMeshAgent agent;
     [HideInInspector] public Animator animator;
 
     // Get and Set Target etc
-    // public float MyWeight
-    // {
-    //     get { return weight; }
-    //     set { weight = value; }
-    // }
+    public float MyMaxWeight
+    {
+        get { return maxWeight; }
+        set { maxWeight = value; }
+    }
     // public bool MyVeto
     // {
     //     get { return veto; }
@@ -88,40 +85,18 @@ public class HeroAI_Controller : MonoBehaviour
         animator = GetComponent<Animator>();
         MyCharacter = GetComponent<Character>();
 
-        //Debug
-        MyAi_Evade = GetComponent<AI_EvadeEnemy>();
-        MyAi_SeekHeal = GetComponent<AI_SeekHealth>();
-        // MyAi_SeekMana = GetComponent<AI_SeekMana>();
-        MyAi_Shoot = GetComponent<AI_ShootEnemy>();
-
+        // weightList = new List<float>();
     }
 
     void Update()
     {
         SearchEnemyTarget();
-        SortList(MyCharacter.desiredWeights);
 
         // save for Idle
         if (targetLookAt == null)
         {
             targetLookAt = idleObject;
         }
-        //float distanceToTarget = Vector3.Distance(this.transform.position, targetLookAt.transform.position);
-
-
-        //UI Debug Only
-        heighestTxt.text = "Decision: " + weight;
-        evadeTxt.text = "Evade: " + MyAi_Evade.MyWeight;
-        healthTxt.text = "Heal: " + MyAi_SeekHeal.MyWeight;
-        // manaTxt.text = "Mana: " + MyAi_SeekMana.MyWeight;
-        shootTxt.text = "Fight: " + MyAi_Shoot.MyWeight;
-
-    }
-
-    void SortList(List<float> list)
-    {
-        weight = Mathf.Max(MyCharacter.desiredWeights.ToArray());
-        // maxweight decides which behavior to trigger
     }
 
     void OnDestroy()
@@ -135,6 +110,13 @@ public class HeroAI_Controller : MonoBehaviour
     public void SearchEnemyTarget()
     {
         Collider[] colliders = Physics.OverlapSphere(this.transform.position, checkRadius, checkLayers);
+        
+        listOfEnemies.Clear();
+        foreach (Collider c in colliders)
+        {
+            listOfEnemies.Add(c.GetComponent<Character>());
+        }
+
         Array.Sort(colliders, new DistanceComparer(transform));
         if (colliders.Length != 0)
         {

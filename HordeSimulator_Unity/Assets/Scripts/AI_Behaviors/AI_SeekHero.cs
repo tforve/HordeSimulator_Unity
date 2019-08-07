@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AI_SeekHero : MonoBehaviour
 {
-    public CharacterType charType = CharacterType.HERO;
+    public string charType = "Hero";
 
     [SerializeField] private float attackRange = 2.0f;
     [SerializeField] private float attackSpeed = 1.5f;
@@ -64,12 +64,11 @@ public class AI_SeekHero : MonoBehaviour
         }
         else
         {
+
             Vector3 dir = closestChar.transform.position - this.transform.position;
-            
-            float wd = weight;
-           
-            MyCharacter.desiredWeights.Add(wd);
-            MyCharacter.MyDirection = dir;
+			WeightedDirection wd = new WeightedDirection( dir, weight );
+			MyCharacter.desiredWeights.Add( wd );
+
         }
     }
 

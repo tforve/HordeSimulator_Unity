@@ -202,7 +202,5 @@ MonoBehaviour:
   mana: 1
   maxMana: 1
   runSpeed: 0
-  characterType: 2
+  characterType: Healthpotion
   moveTransform: {fileID: 4140304394511255697}
-  dir: {x: 0, y: 0, z: 0}
-  desiredWeights: []
