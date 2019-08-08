@@ -10,7 +10,7 @@ public class AI_SeekHealth : MonoBehaviour
     public float collectingRange = 1.0f;
 
     private float weight;                                           // weight given to Character for Decision making, different to calculated because of Veto
-    public float weightCalculated = 1.0f;                           // weight to calculate
+    public float weightCalculated = 0.0f;                           // weight to calculate
 
     public bool veto = false;                                       // if true AI Action not executed
 
@@ -77,10 +77,10 @@ public class AI_SeekHealth : MonoBehaviour
 
     private void CalculateWeight()
     {
-        float linearTmp = ((MyCharacter.maxHealth - MyCharacter.health) / MyCharacter.maxHealth); // 100-currentHp / 100
-        //float expoTmp = ((MyCharacter.maxHealth - Mathf.Pow(MyCharacter.health, 5)) / Mathf.Pow(MyCharacter.maxHealth, 5)); // 100-currentHp^3 / 100^3
+        // float linearTmp = ((MyCharacter.maxHealth - MyCharacter.health) / MyCharacter.maxHealth); // 100-currentHp / 100
+        float expoTmp = (0.5f * Mathf.Sin((3.14159f/100)*(MyCharacter.health+50))+0.5f);//(Mathf.Pow(2, MyCharacter.health *(-0.05f))); // 2^-x
 
-        weightCalculated = Mathf.InverseLerp(0, 1, linearTmp);
+        weightCalculated = expoTmp;//Mathf.InverseLerp(0, 1, linearTmp);
         weight = weightCalculated;
     }
 }

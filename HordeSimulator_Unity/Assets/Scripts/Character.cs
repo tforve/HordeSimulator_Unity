@@ -23,7 +23,11 @@ public class Character : MonoBehaviour
     public Transform moveTransform;                                             // Transform just for Walking so Rotation dont mess up dir of Behaviours
 
     static public Dictionary<string, List<Character>> characterByType;          // Dictionary to select CharTypes only
+    public List<WeightedDirection> enemyAIList;
     public List<WeightedDirection> desiredWeights;                              // list of weights to calculate highest Weight
+
+    // Animation
+    public Animator animator;
 
 
     // Start is called before the first frame update
@@ -42,6 +46,9 @@ public class Character : MonoBehaviour
         // StartValues
         health = maxHealth;
         mana = maxMana;
+
+        // animation
+        animator = GetComponent<Animator>();
     }
 
     void OnDestroy()
@@ -57,37 +64,59 @@ public class Character : MonoBehaviour
         //Ask all ot our AI Scripts to tell us what to do
         desiredWeights = new List<WeightedDirection>();
         BroadcastMessage("DoAIBehaviour", SendMessageOptions.DontRequireReceiver);
+        // so enemy move and can use same class
+        enemyAIList = new List<WeightedDirection>();
+        BroadcastMessage("DoEnemyBehavior", SendMessageOptions.DontRequireReceiver);
 
         Vector3 dir = Vector3.zero;
 
         foreach (WeightedDirection wd in desiredWeights)
         {
-            if (wd.weight >= HeroAI_Controller.MyInstance.MyMaxWeight)
+            // Check for Blending HERE
+            if(desiredWeights.Count == 0) {return; }
+            if (wd.weight > HeroAI_Controller.MyInstance.MyMaxWeight)
             {
                 HeroAI_Controller.MyInstance.MyMaxWeight = wd.weight;
-                dir += wd.direction * wd.weight;
+                dir = wd.direction * wd.weight;
             }
         }
         // Move to direction set by Behaviors 
+        //Debug.Log(gotcalled);
         MoveTo(dir);
-        
-        HeroAI_Controller.MyInstance.MyMaxWeight = 0.0f;
+        // EnemyAI Only
+        Vector3 enemyDir = Vector3.zero;
+        foreach (WeightedDirection wd in enemyAIList)
+        {
+            enemyDir = wd.direction * wd.weight;
+        }
+
+        MoveTo(enemyDir);
+
+        if (HeroAI_Controller.MyInstance != null)
+        {
+            HeroAI_Controller.MyInstance.MyMaxWeight = 0.0f;
+        }
     }
 
 
     // ------------- METHODES FOR AI -----------------
     // have to check to not get to fast
     public void MoveTo(Vector3 dir)
-    {
-        foreach (WeightedDirection wd in desiredWeights)
-        {
-            // NOTE: If you are implementing EXCLUSIVE/FALLBACK blend modes, check here.
-            dir += wd.direction * wd.weight;
+    {   
+        animator.SetBool("isWalking", true);
 
-        }
         velocity = Vector3.Lerp(velocity, dir.normalized * runSpeed, Time.deltaTime * 5f);
         moveTransform.transform.Translate(velocity * Time.deltaTime);
+        Quaternion lookRotation = Quaternion.LookRotation(dir);
+        moveTransform.transform.rotation = Quaternion.Slerp(this.transform.rotation, lookRotation, Time.deltaTime * 5.5f);
+    }
+    /* Here Look At nochmal betrachten und anpassen */
 
+    public void LookAt(Transform target)
+    {
+        Vector3 direction = target.position.normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, lookRotation, Time.deltaTime * 5.5f);
     }
 
     public void Hit(Character target, float dmg)
@@ -98,9 +127,16 @@ public class Character : MonoBehaviour
 
         if (health <= 0.0f)
         {
-            Destroy(transform.parent.gameObject);
-            return;
+            UIController.MyInstance.killCount += 1;
+            animator.SetTrigger("isDead");
+            moveTransform.transform.position = this.transform.position;
+            StartCoroutine(WaitDeath());
         }
+    }
+    IEnumerator WaitDeath()
+    {
+        yield return new WaitForSeconds(3.5f);
+        Destroy(transform.parent.gameObject);
     }
 
     public void RestoreHealth(float amount)

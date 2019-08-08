@@ -7,7 +7,7 @@ public class AI_EvadeEnemy : MonoBehaviour
     public string charType = "Enemy";
     public float rangeOfCare = 5.0f;
     private float weight;                                    // weight given to Character for Decision making, different to calculated because of Veto
-    public float weightCalculated = 2.0f;                   // weight to calculate
+    public float weightCalculated = 0.0f;                   // weight to calculate
     public bool veto = false;                               // if true AI Action not executed
 
     public float MyWeight                                   // get the Max Weight 
@@ -69,22 +69,6 @@ public class AI_EvadeEnemy : MonoBehaviour
             Vector3 dir = closest.transform.position - this.transform.position;
             WeightedDirection wd = new WeightedDirection(-dir, weight);
             MyCharacter.desiredWeights.Add(wd);
-            // if (weightCalculated == HeroAI_Controller.MyInstance.MyMaxWeight)
-            // {
-            // }
-            // else
-            // {
-            //     Debug.Log("not allowed: Evade");
-            // }
-
-            // // //Caculate Direction for move to 
-            // Vector3 dir = closest.transform.position - this.transform.position;
-            // MyCharacter.MyDirection = -dir;
-
-            // // return weight in desiredWeights List 
-            // float wd = weight;
-            // MyCharacter.desiredWeights.Add(wd);
-            // Debug.Log("Evade triggered");
         }
 
     }

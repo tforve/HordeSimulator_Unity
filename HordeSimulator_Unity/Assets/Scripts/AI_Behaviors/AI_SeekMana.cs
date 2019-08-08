@@ -10,7 +10,7 @@ public class AI_SeekMana : MonoBehaviour
     public float collectingRange = 1.0f;
 
     private float weight;                                       // weight given to Character for Decision making, different to calculated because of Veto
-    public float weightCalculated = 2.0f;                       // weight to calculate
+    public float weightCalculated = 0.0f;                       // weight to calculate
     public bool veto = false;                                   // if true AI Action not executed
 
     // just for Debug purpose right now
@@ -79,9 +79,8 @@ public class AI_SeekMana : MonoBehaviour
 
     private void CalculateWeight()
     {
-        float linearTmp = ((MyCharacter.maxMana - MyCharacter.mana) / MyCharacter.maxMana); // 100-currentHp / 100
-
-        weightCalculated = Mathf.InverseLerp(0, 1, linearTmp);
+        float expoTmp = (Mathf.Pow(2, MyCharacter.mana *(-0.05f))); // 2^-x
+        weightCalculated = expoTmp;
         weight = weightCalculated;
     }
 }

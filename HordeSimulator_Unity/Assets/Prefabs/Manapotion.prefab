@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5029788457045097314}
   - component: {fileID: 2264111933402841861}
   - component: {fileID: 9211960602099398079}
+  - component: {fileID: 8302869374515239918}
   m_Layer: 0
   m_Name: ManaPotion
   m_TagString: Untagged
@@ -112,6 +113,25 @@ MonoBehaviour:
   runSpeed: 0
   characterType: Manapotion
   moveTransform: {fileID: 2365178809083964379}
+--- !u!95 &8302869374515239918
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7407165349285304609}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7854001005158605275
 GameObject:
   m_ObjectHideFlags: 0
