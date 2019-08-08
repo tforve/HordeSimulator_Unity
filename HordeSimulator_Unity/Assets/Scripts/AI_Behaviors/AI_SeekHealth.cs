@@ -68,7 +68,7 @@ public class AI_SeekHealth : MonoBehaviour
         else
         {
             Vector3 dir = closest.transform.position - this.transform.position;
-            WeightedDirection wd = new WeightedDirection(dir, weight,"SeekHealth");
+            WeightedDirection wd = new WeightedDirection(dir, weight);
             MyCharacter.desiredWeights.Add(wd);
 
         }
@@ -77,10 +77,10 @@ public class AI_SeekHealth : MonoBehaviour
 
     private void CalculateWeight()
     {
-        float linearTmp = ((MyCharacter.maxHealth - MyCharacter.health) / MyCharacter.maxHealth); // 100-currentHp / 100
-        //float expoTmp = (Mathf.Pow(2, MyCharacter.health *(-0.05f))); // 2^-x
+        // float linearTmp = ((MyCharacter.maxHealth - MyCharacter.health) / MyCharacter.maxHealth); // 100-currentHp / 100
+        float expoTmp = (0.5f * Mathf.Sin((3.14159f/100)*(MyCharacter.health+50))+0.5f);//(Mathf.Pow(2, MyCharacter.health *(-0.05f))); // 2^-x
 
-        weightCalculated = Mathf.InverseLerp(0, 1, linearTmp);
+        weightCalculated = expoTmp;//Mathf.InverseLerp(0, 1, linearTmp);
         weight = weightCalculated;
     }
 }

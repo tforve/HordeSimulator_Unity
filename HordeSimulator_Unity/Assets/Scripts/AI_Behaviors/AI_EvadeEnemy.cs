@@ -52,7 +52,7 @@ public class AI_EvadeEnemy : MonoBehaviour
             weight = 0.0f;
             weightCalculated = 0.0f;
             Vector3 dir = Vector3.zero;
-            WeightedDirection wd = new WeightedDirection(-dir, weight, "Evade");
+            WeightedDirection wd = new WeightedDirection(-dir, weight);
             return;
         }
 
@@ -67,24 +67,8 @@ public class AI_EvadeEnemy : MonoBehaviour
         {
 
             Vector3 dir = closest.transform.position - this.transform.position;
-            WeightedDirection wd = new WeightedDirection(-dir, weight, "Evade");
+            WeightedDirection wd = new WeightedDirection(-dir, weight);
             MyCharacter.desiredWeights.Add(wd);
-            // if (weightCalculated == HeroAI_Controller.MyInstance.MyMaxWeight)
-            // {
-            // }
-            // else
-            // {
-            //     Debug.Log("not allowed: Evade");
-            // }
-
-            // // //Caculate Direction for move to 
-            // Vector3 dir = closest.transform.position - this.transform.position;
-            // MyCharacter.MyDirection = -dir;
-
-            // // return weight in desiredWeights List 
-            // float wd = weight;
-            // MyCharacter.desiredWeights.Add(wd);
-            // Debug.Log("Evade triggered");
         }
 
     }

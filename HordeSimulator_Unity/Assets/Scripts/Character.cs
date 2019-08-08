@@ -27,7 +27,7 @@ public class Character : MonoBehaviour
     public List<WeightedDirection> desiredWeights;                              // list of weights to calculate highest Weight
 
     // Animation
-    private Animator animator;
+    public Animator animator;
 
 
     // Start is called before the first frame update
@@ -69,19 +69,15 @@ public class Character : MonoBehaviour
         BroadcastMessage("DoEnemyBehavior", SendMessageOptions.DontRequireReceiver);
 
         Vector3 dir = Vector3.zero;
-        string gotcalled = null;
 
         foreach (WeightedDirection wd in desiredWeights)
         {
             // Check for Blending HERE
-            if(desiredWeights.Count == 0) { Debug.Log("list is empty"); return; }
+            if(desiredWeights.Count == 0) {return; }
             if (wd.weight > HeroAI_Controller.MyInstance.MyMaxWeight)
             {
                 HeroAI_Controller.MyInstance.MyMaxWeight = wd.weight;
                 dir = wd.direction * wd.weight;
-                //Debug.Log(wd.weight);
-               // Debug.Log(wd.calledFromMe + "weight: " + wd.weight);
-                gotcalled = wd.calledFromMe;
             }
         }
         // Move to direction set by Behaviors 
@@ -96,7 +92,6 @@ public class Character : MonoBehaviour
 
         MoveTo(enemyDir);
 
-
         if (HeroAI_Controller.MyInstance != null)
         {
             HeroAI_Controller.MyInstance.MyMaxWeight = 0.0f;
@@ -108,11 +103,20 @@ public class Character : MonoBehaviour
     // have to check to not get to fast
     public void MoveTo(Vector3 dir)
     {   
-        Debug.Log("Walking");
         animator.SetBool("isWalking", true);
 
         velocity = Vector3.Lerp(velocity, dir.normalized * runSpeed, Time.deltaTime * 5f);
         moveTransform.transform.Translate(velocity * Time.deltaTime);
+        Quaternion lookRotation = Quaternion.LookRotation(dir);
+        moveTransform.transform.rotation = Quaternion.Slerp(this.transform.rotation, lookRotation, Time.deltaTime * 5.5f);
+    }
+    /* Here Look At nochmal betrachten und anpassen */
+
+    public void LookAt(Transform target)
+    {
+        Vector3 direction = target.position.normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, lookRotation, Time.deltaTime * 5.5f);
     }
 
     public void Hit(Character target, float dmg)
@@ -124,9 +128,15 @@ public class Character : MonoBehaviour
         if (health <= 0.0f)
         {
             UIController.MyInstance.killCount += 1;
-            Destroy(transform.parent.gameObject);
-            return;
+            animator.SetTrigger("isDead");
+            moveTransform.transform.position = this.transform.position;
+            StartCoroutine(WaitDeath());
         }
+    }
+    IEnumerator WaitDeath()
+    {
+        yield return new WaitForSeconds(3.5f);
+        Destroy(transform.parent.gameObject);
     }
 
     public void RestoreHealth(float amount)

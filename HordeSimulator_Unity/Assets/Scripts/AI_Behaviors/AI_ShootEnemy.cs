@@ -52,13 +52,13 @@ public class AI_ShootEnemy : MonoBehaviour
             weight = 0.0f;
             weightCalculated = 0.0f;
             Vector3 dir = Vector3.zero;
-            WeightedDirection wd = new WeightedDirection(dir, weight, "Shoot");
+            WeightedDirection wd = new WeightedDirection(dir, weight);
         }
         else
         {
             AttackTarget();
             Vector3 dir = Vector3.zero;
-            WeightedDirection wd = new WeightedDirection(dir, weight, "Shoot");
+            WeightedDirection wd = new WeightedDirection(dir, weight);
             MyCharacter.desiredWeights.Add(wd);
         }
 

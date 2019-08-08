@@ -7,7 +7,7 @@ public class AI_SeekHero : MonoBehaviour
     public string charType = "Hero";
 
     [SerializeField] private float attackRange = 2.0f;
-    [SerializeField] private float attackSpeed = 1.5f;
+    [SerializeField] private float attackSpeed = 2.23f;
     private float attackCooldown;
     [SerializeField] private float damage = 10.0f;
 
@@ -51,11 +51,15 @@ public class AI_SeekHero : MonoBehaviour
         // no Hero existing
         if (closestChar == null) { return; }
 
+        //MyCharacter.LookAt(closestChar.transform);
+
         if (dist <= attackRange)
         {
+            MyCharacter.animator.SetTrigger("isAttacking");
             attackCooldown -= Time.deltaTime;
             if (attackCooldown <= 0.0f)
             {
+                
                 attackCooldown = attackSpeed;
                 closestChar.Hit(closestChar, damage);
             }
@@ -64,7 +68,7 @@ public class AI_SeekHero : MonoBehaviour
         {
 
             Vector3 dir = closestChar.transform.position - this.transform.position;
-			WeightedDirection wd = new WeightedDirection( dir, weight,"" );
+			WeightedDirection wd = new WeightedDirection( dir, weight);
 			MyCharacter.enemyAIList.Add( wd );
 
         }
