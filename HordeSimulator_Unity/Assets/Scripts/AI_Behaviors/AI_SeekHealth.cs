@@ -77,10 +77,10 @@ public class AI_SeekHealth : MonoBehaviour
 
     private void CalculateWeight()
     {
-        // float linearTmp = ((MyCharacter.maxHealth - MyCharacter.health) / MyCharacter.maxHealth); // 100-currentHp / 100
-        float expoTmp = (0.5f * Mathf.Sin((3.14159f/100)*(MyCharacter.health+50))+0.5f);//(Mathf.Pow(2, MyCharacter.health *(-0.05f))); // 2^-x
-
-        weightCalculated = expoTmp;//Mathf.InverseLerp(0, 1, linearTmp);
+        // h = max HP, x = current HP
+        // 0.5 sin(PI/h * (x + h/2)) + 0.5
+        float expoTmp = (0.5f * Mathf.Sin((3.14159f / MyCharacter.maxHealth) * (MyCharacter.health + (MyCharacter.maxHealth * 0.5f))) + 0.5f);
+        weightCalculated = expoTmp;
         weight = weightCalculated;
     }
 }

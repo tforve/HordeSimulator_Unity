@@ -81,8 +81,9 @@ public class Character : MonoBehaviour
             }
         }
         // Move to direction set by Behaviors 
-        //Debug.Log(gotcalled);
         MoveTo(dir);
+
+        
         // EnemyAI Only
         Vector3 enemyDir = Vector3.zero;
         foreach (WeightedDirection wd in enemyAIList)
@@ -107,8 +108,8 @@ public class Character : MonoBehaviour
 
         velocity = Vector3.Lerp(velocity, dir.normalized * runSpeed, Time.deltaTime * 5f);
         moveTransform.transform.Translate(velocity * Time.deltaTime);
-        Quaternion lookRotation = Quaternion.LookRotation(dir);
-        moveTransform.transform.rotation = Quaternion.Slerp(this.transform.rotation, lookRotation, Time.deltaTime * 5.5f);
+        // Quaternion lookRotation = Quaternion.LookRotation(dir);
+        // moveTransform.transform.rotation = Quaternion.Slerp(this.transform.rotation, lookRotation, Time.deltaTime * 5.5f);
     }
     /* Here Look At nochmal betrachten und anpassen */
 
