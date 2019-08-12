@@ -661,20 +661,6 @@ PrefabInstance:
       propertyPath: MyAi_Shoot
       value: 
       objectReference: {fileID: 3127033702128177955}
-    - target: {fileID: 6538805475939359185, guid: 9b28c2ea3289d5943ad21abeb0906cca,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1124951844632823196, guid: 9b28c2ea3289d5943ad21abeb0906cca,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1907271119, guid: 9b28c2ea3289d5943ad21abeb0906cca, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2094550606, guid: 9b28c2ea3289d5943ad21abeb0906cca, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

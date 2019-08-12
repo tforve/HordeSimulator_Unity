@@ -553,8 +553,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb62fc7392a7fbb4b929087761609cba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 40
-  maxHealth: 60
+  health: 50
+  maxHealth: 50
   mana: 0
   maxMana: 0
   runSpeed: 2.5
