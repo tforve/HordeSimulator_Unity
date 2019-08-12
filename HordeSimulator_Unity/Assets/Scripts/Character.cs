@@ -22,6 +22,9 @@ public class Character : MonoBehaviour
     public string characterType;
     public Transform moveTransform;                                             // Transform just for Walking so Rotation dont mess up dir of Behaviours
 
+    Vector3 currenPos;
+
+
     static public Dictionary<string, List<Character>> characterByType;          // Dictionary to select CharTypes only
     public List<WeightedDirection> enemyAIList;
     public List<WeightedDirection> desiredWeights;                              // list of weights to calculate highest Weight
@@ -73,7 +76,7 @@ public class Character : MonoBehaviour
         foreach (WeightedDirection wd in desiredWeights)
         {
             // Check for Blending HERE
-            if(desiredWeights.Count == 0) {return; }
+            if (desiredWeights.Count == 0) { return; }
             if (wd.weight > HeroAI_Controller.MyInstance.MyMaxWeight)
             {
                 HeroAI_Controller.MyInstance.MyMaxWeight = wd.weight;
@@ -83,7 +86,7 @@ public class Character : MonoBehaviour
         // Move to direction set by Behaviors 
         MoveTo(dir);
 
-        
+
         // EnemyAI Only
         Vector3 enemyDir = Vector3.zero;
         foreach (WeightedDirection wd in enemyAIList)
@@ -97,27 +100,33 @@ public class Character : MonoBehaviour
         {
             HeroAI_Controller.MyInstance.MyMaxWeight = 0.0f;
         }
+
+        // DMG
+        if (health <= 0.0f)
+        {            
+            moveTransform.transform.position = currenPos;
+        }
+
     }
 
 
     // ------------- METHODES FOR AI -----------------
     // have to check to not get to fast
     public void MoveTo(Vector3 dir)
-    {   
+    {
         animator.SetBool("isWalking", true);
 
         velocity = Vector3.Lerp(velocity, dir.normalized * runSpeed, Time.deltaTime * 5f);
         moveTransform.transform.Translate(velocity * Time.deltaTime);
-        // Quaternion lookRotation = Quaternion.LookRotation(dir);
-        // moveTransform.transform.rotation = Quaternion.Slerp(this.transform.rotation, lookRotation, Time.deltaTime * 5.5f);
     }
-    /* Here Look At nochmal betrachten und anpassen */
 
+
+    /* Here Look At nochmal betrachten und anpassen */
     public void LookAt(Transform target)
     {
         Vector3 direction = target.position.normalized;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
-        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, lookRotation, Time.deltaTime * 5.5f);
+        moveTransform.transform.rotation = Quaternion.Slerp(moveTransform.transform.rotation, lookRotation, Time.deltaTime * 5.5f);
     }
 
     public void Hit(Character target, float dmg)
@@ -130,13 +139,14 @@ public class Character : MonoBehaviour
         {
             UIController.MyInstance.killCount += 1;
             animator.SetTrigger("isDead");
-            moveTransform.transform.position = this.transform.position;
+            currenPos = moveTransform.transform.position;
             StartCoroutine(WaitDeath());
         }
     }
+
     IEnumerator WaitDeath()
     {
-        yield return new WaitForSeconds(3.5f);
+        yield return new WaitForSeconds(2.0f);
         Destroy(transform.parent.gameObject);
     }
 

@@ -60,11 +60,8 @@ public class AI_ShootEnemy : MonoBehaviour
             Vector3 dir = Vector3.zero;
             WeightedDirection wd = new WeightedDirection(dir, weight);
             MyCharacter.desiredWeights.Add(wd);
+
         }
-
-        // calculate weight
-
-
 
     }
 
@@ -77,7 +74,7 @@ public class AI_ShootEnemy : MonoBehaviour
             HeroAI_Controller.MyInstance.animator.SetTrigger("UseSkill");
             HeroAI_Controller.MyInstance.animator.SetInteger("SkillNumber", 0);
 
-            // deal damage. has to be changed to hit collider
+            // deal damage. has to be changed to hit collider            
             target.Hit(target, damage);
             canAttack = false;
             // start cooldown

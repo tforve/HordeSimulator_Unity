@@ -69,6 +69,8 @@ public class AI_EvadeEnemy : MonoBehaviour
             Vector3 dir = closest.transform.position - this.transform.position;
             WeightedDirection wd = new WeightedDirection(-dir, weight);
             MyCharacter.desiredWeights.Add(wd);
+
+            UIController.MyInstance.SetSliderValue(1.0f);
         }
 
     }

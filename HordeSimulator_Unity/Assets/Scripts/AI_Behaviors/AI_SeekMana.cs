@@ -73,6 +73,8 @@ public class AI_SeekMana : MonoBehaviour
             Vector3 dir = closest.transform.position - this.transform.position;
             WeightedDirection wd = new WeightedDirection(dir, weight);
             MyCharacter.desiredWeights.Add(wd);
+            UIController.MyInstance.SetSliderValue(0.5f);
+
         }
 
     }

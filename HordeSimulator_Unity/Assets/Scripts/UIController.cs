@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
@@ -35,6 +36,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private AI_SeekHealth MyAi_SeekHeal;
     [SerializeField] private AI_SeekMana MyAi_SeekMana;
     [SerializeField] private AI_ShootEnemy MyAi_Shoot;
+    [SerializeField] private Button restartBtn;
 
     private float maxWeight;
 
@@ -62,5 +64,15 @@ public class UIController : MonoBehaviour
     public void SetSliderValue(float value)
     {
         actualAiState.value = value;
+    }
+
+    public void SetBtnActive()
+    {
+        restartBtn.gameObject.SetActive(true);
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(0);
     }
 }

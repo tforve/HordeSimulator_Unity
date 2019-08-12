@@ -2634,9 +2634,7 @@ MonoBehaviour:
   idleObject: {fileID: 3127033702925769981}
   targetEnemy: {fileID: 0}
   listOfEnemies: []
-  maxWeight: 0
-  veto: 0
-  checkRadius: 25
+  checkRadius: 20
   turnSpeed: 5.5
   checkLayers:
     serializedVersion: 2
@@ -2658,7 +2656,7 @@ MonoBehaviour:
   maxHealth: 100
   mana: 100
   maxMana: 100
-  runSpeed: 4
+  runSpeed: 3
   characterType: Hero
   moveTransform: {fileID: 3127033702615541656}
   animator: {fileID: 0}
@@ -2703,7 +2701,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3127033702610662768}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e56da2c0b18f9a943844a0fd26732dcf, type: 3}
   m_Name: 

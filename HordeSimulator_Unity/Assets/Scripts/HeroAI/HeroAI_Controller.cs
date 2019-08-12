@@ -30,9 +30,7 @@ public class HeroAI_Controller : MonoBehaviour
     [SerializeField] private Character targetEnemy;                 // closest Enemy and biggest Threat
     public List<Character> listOfEnemies;                           // List of all Enemies in Radius
 
-    [Header("Scoring System")]
-    [SerializeField] private float maxWeight = 0.0f;                // score calculated to choose action
-    [SerializeField] private bool veto = false;                     // if true action can not be executed, if true utility = 0
+    private float maxWeight = 0.0f;                                 // score calculated to choose action
 
     private Character MyCharacter;
 
@@ -88,7 +86,7 @@ public class HeroAI_Controller : MonoBehaviour
             targetLookAt = idleObject;
         }
 
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
         }
@@ -96,8 +94,7 @@ public class HeroAI_Controller : MonoBehaviour
 
     void OnDestroy()
     {
-        Debug.Log("Game OVER");
-        // Show EndScreen
+        UIController.MyInstance.SetBtnActive();
     }
 
     // LEAVE IT IN BECAUSE IS DONE ALL THE TIME
@@ -105,7 +102,7 @@ public class HeroAI_Controller : MonoBehaviour
     public void SearchEnemyTarget()
     {
         Collider[] colliders = Physics.OverlapSphere(this.transform.position, checkRadius, checkLayers);
-        
+
         listOfEnemies.Clear();
         foreach (Collider c in colliders)
         {
@@ -117,14 +114,13 @@ public class HeroAI_Controller : MonoBehaviour
         {
             targetLookAt = colliders[0].transform;
             targetEnemy = colliders[0].GetComponent<Character>();
-            LookAt(targetLookAt.transform);
         }
     }
     //Rotate HeroAI to Target
     void LookAt(Transform target)
     {
         Vector3 direction = target.position.normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        Quaternion lookRotation = Quaternion.LookRotation(target.position);
         this.transform.rotation = Quaternion.Slerp(this.transform.rotation, lookRotation, Time.deltaTime * turnSpeed);
     }
 
