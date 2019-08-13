@@ -31,7 +31,7 @@ public class UIController : MonoBehaviour
         }
     }
 
-    [SerializeField] private Text heighestTxt, evadeTxt, healthTxt, manaTxt, shootTxt;     // for debuging purpose
+    [SerializeField] private Text evadeTxt, healthTxt, manaTxt, shootTxt;     // for debuging purpose
     [SerializeField] private AI_EvadeEnemy MyAi_Evade;
     [SerializeField] private AI_SeekHealth MyAi_SeekHeal;
     [SerializeField] private AI_SeekMana MyAi_SeekMana;
@@ -52,7 +52,6 @@ public class UIController : MonoBehaviour
         }
 
         //UI Debug Only
-        heighestTxt.text = "Highest Weight: " + maxWeight;
         evadeTxt.text = "Evade: " + MyAi_Evade.MyWeight;
         healthTxt.text = "Heal: " + MyAi_SeekHeal.MyWeight;
         manaTxt.text = "Mana: " + MyAi_SeekMana.MyWeight;

@@ -86,15 +86,14 @@ public class Character : MonoBehaviour
         // Move to direction set by Behaviors 
         MoveTo(dir);
 
-
         // EnemyAI Only
         Vector3 enemyDir = Vector3.zero;
         foreach (WeightedDirection wd in enemyAIList)
         {
             enemyDir = wd.direction * wd.weight;
         }
-
         MoveTo(enemyDir);
+
 
         if (HeroAI_Controller.MyInstance != null)
         {
@@ -118,15 +117,6 @@ public class Character : MonoBehaviour
 
         velocity = Vector3.Lerp(velocity, dir.normalized * runSpeed, Time.deltaTime * 5f);
         moveTransform.transform.Translate(velocity * Time.deltaTime);
-    }
-
-
-    /* Here Look At nochmal betrachten und anpassen */
-    public void LookAt(Transform target)
-    {
-        Vector3 direction = target.position.normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(direction);
-        moveTransform.transform.rotation = Quaternion.Slerp(moveTransform.transform.rotation, lookRotation, Time.deltaTime * 5.5f);
     }
 
     public void Hit(Character target, float dmg)
