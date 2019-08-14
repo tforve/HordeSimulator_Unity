@@ -2673,7 +2673,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charType: Healthpotion
-  potionSize: 25
+  potionSize: 40
   collectingRange: 2
   weightCalculated: 0
   veto: 0
