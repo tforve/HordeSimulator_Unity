@@ -2724,7 +2724,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charType: Enemy
   damage: 20
-  manaCost: 8
+  manaCost: 10
   attackCooldown: 2.15
   weightCalculated: 0
   veto: 0

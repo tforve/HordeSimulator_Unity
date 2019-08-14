@@ -539,7 +539,7 @@ MonoBehaviour:
   charType: Hero
   attackRange: 2
   attackSpeed: 1.5
-  damage: 10
+  damage: 7
   weight: 1
 --- !u!114 &677216600959857854
 MonoBehaviour:
@@ -557,7 +557,7 @@ MonoBehaviour:
   maxHealth: 40
   mana: 0
   maxMana: 0
-  runSpeed: 2.5
+  runSpeed: 3
   characterType: Enemy
   moveTransform: {fileID: 677216602446557519}
   animator: {fileID: 0}

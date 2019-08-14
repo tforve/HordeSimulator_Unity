@@ -29,7 +29,7 @@ public class AI_ShootEnemy : MonoBehaviour
         MyCharacter = GetComponent<Character>();
     }
 
-    void DoAIBehaviour()
+    void DoAIBehavior()
     {
         // Check Veto to not execute.... MAYBE RETURN IS OK, to not calc everything
         if (veto)

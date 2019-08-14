@@ -66,7 +66,7 @@ public class Character : MonoBehaviour
 
         //Ask all ot our AI Scripts to tell us what to do
         desiredWeights = new List<WeightedDirection>();
-        BroadcastMessage("DoAIBehaviour", SendMessageOptions.DontRequireReceiver);
+        BroadcastMessage("DoAIBehavior", SendMessageOptions.DontRequireReceiver);
         // so enemy move and can use same class
         enemyAIList = new List<WeightedDirection>();
         BroadcastMessage("DoEnemyBehavior", SendMessageOptions.DontRequireReceiver);

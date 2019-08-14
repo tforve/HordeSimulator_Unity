@@ -26,14 +26,13 @@ public class AI_SeekMana : MonoBehaviour
         MyCharacter = GetComponent<Character>();
     }
 
-    void DoAIBehaviour()
+    void DoAIBehavior()
     {
         // Check Veto to not execute 
         if (veto)
         {
             weight = 0.0f;
         }
-        // Go on and execute AI_Behavior
         else
         {
             CalculateWeight();

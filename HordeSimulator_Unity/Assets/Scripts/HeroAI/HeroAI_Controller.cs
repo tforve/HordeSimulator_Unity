@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 
 //public enum CharacterType {ENEMY, HERO, HEALTHPOTION, MANAPOTION }
 
@@ -94,7 +93,7 @@ public class HeroAI_Controller : MonoBehaviour
 
     void OnDestroy()
     {
-        UIController.MyInstance.SetBtnActive();
+        SceneManager.LoadScene("HordeModeMap00");
     }
 
     // LEAVE IT IN BECAUSE IS DONE ALL THE TIME

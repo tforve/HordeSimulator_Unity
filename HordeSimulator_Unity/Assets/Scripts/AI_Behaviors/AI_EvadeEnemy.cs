@@ -22,7 +22,7 @@ public class AI_EvadeEnemy : MonoBehaviour
         MyCharacter = GetComponent<Character>();
     }
 
-    void DoAIBehaviour()
+    void DoAIBehavior()
     {
         // Check Veto to not execute 
         if (veto)
